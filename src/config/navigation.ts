@@ -14,9 +14,10 @@ export const navItems: NavItem[] = [
     label: "About Us",
     href: "/about",
     children: [
-      { label: "Company Profile", href: "/about/profile" },
-      { label: "CTA", href: "/about/cta" },
-      { label: "Trust Line", href: "/about/trust-line" },
+      { label: "Company Profile", href: "/about#profile" },
+      { label: "CTA", href: "/about#cta" },
+      { label: "Core Value Proposition", href: "/about#core-value" },
+      { label: "Trust Line", href: "/about#trust-line" },
     ],
   },
   {
