@@ -1,0 +1,36 @@
+.root {
+  background: #fff;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.container {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.navLink,
+.navButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 18px;
+  color: #333;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.navLink:hover,
+.navButton:hover {
+  color: #111;
+  background: #f8f8f8;
+}
+
+.navLink[data-active],
+.navButton[data-active] {
+  color: var(--mantine-color-green-7);
+}
+
+.navButton {
+  cursor: pointer;
+}

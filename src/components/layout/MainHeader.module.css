@@ -1,0 +1,39 @@
+.root {
+  background: #fff;
+  border-bottom: 1px solid #ececec;
+}
+
+.container {
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.left {
+  min-width: 0;
+}
+
+.right {
+  flex-shrink: 0;
+}
+
+.searchForm {
+  flex: 1;
+  max-width: 280px;
+}
+
+.searchInput {
+  background: #f3f3f3;
+  border-color: #e0e0e0;
+}
+
+.cta {
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+@media (max-width: 48em) {
+  .cta {
+    padding-inline: 12px;
+    font-size: 0.8rem;
+  }
+}

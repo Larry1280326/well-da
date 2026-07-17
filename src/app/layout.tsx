@@ -1,14 +1,18 @@
 // src/app/layout.tsx
-import "@mantine/core/styles.css"; // MUST be imported first
+import "@mantine/core/styles.css";
 import {
   ColorSchemeScript,
   MantineProvider,
   mantineHtmlProps,
 } from "@mantine/core";
+import { SiteHeader } from "@/components/layout/SiteHeader";
+import { theme } from "@/theme/mantine-theme";
+import "./globals.css";
 
 export const metadata = {
-  title: "My Mantine Next.js App",
-  description: "Mantine integration with Next.js App Router",
+  title: "Well Da Metal Factory | 滙達五金廠",
+  description:
+    "Well Da Metal Factory — precision metal manufacturing, CNC machining, and custom fabrication in Hong Kong.",
 };
 
 export default function RootLayout({
@@ -18,12 +22,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" {...mantineHtmlProps}>
-      <head>
-        {/* Crucial for preventing theme flash on load */}
-        <ColorSchemeScript />
-      </head>
+      <head />
       <body>
-        <MantineProvider>{children}</MantineProvider>
+        <ColorSchemeScript defaultColorScheme="light" />
+        <MantineProvider theme={theme} defaultColorScheme="light">
+          <SiteHeader />
+          <main>{children}</main>
+        </MantineProvider>
       </body>
     </html>
   );
