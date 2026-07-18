@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   Anchor,
@@ -16,6 +15,7 @@ import {
 import { IconChevronDown } from "@tabler/icons-react";
 import { getNavItems } from "@/config/navigation";
 import { useLocale } from "@/i18n/locale-context";
+import { HashLink } from "@/components/ui/HashLink";
 import classes from "./NavigationBar.module.css";
 
 export function NavigationBar() {
@@ -42,7 +42,7 @@ export function NavigationBar() {
               return (
                 <Anchor
                   key={item.label}
-                  component={Link}
+                  component={HashLink}
                   href={localizedHref}
                   className={classes.navLink}
                   data-active={isActive || undefined}
@@ -78,7 +78,7 @@ export function NavigationBar() {
                   {item.children.map((child) => (
                     <MenuItem
                       key={child.href}
-                      component={Link}
+                      component={HashLink}
                       href={localizeHref(child.href)}
                     >
                       {child.label}

@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   Accordion,
@@ -14,6 +13,7 @@ import {
 } from "@mantine/core";
 import { getNavItems } from "@/config/navigation";
 import { useLocale } from "@/i18n/locale-context";
+import { HashLink } from "@/components/ui/HashLink";
 
 interface MobileNavProps {
   opened: boolean;
@@ -47,7 +47,7 @@ export function MobileNav({ opened, onClose }: MobileNavProps) {
           return (
             <Anchor
               key={item.label}
-              component={Link}
+              component={HashLink}
               href={localizedHref}
               onClick={onClose}
               fw={pathname === localizedHref ? 600 : 500}
@@ -67,7 +67,7 @@ export function MobileNav({ opened, onClose }: MobileNavProps) {
               <AccordionPanel>
                 <Stack gap="xs">
                   <Anchor
-                    component={Link}
+                    component={HashLink}
                     href={localizeHref(item.href)}
                     onClick={onClose}
                     size="sm"
@@ -78,7 +78,7 @@ export function MobileNav({ opened, onClose }: MobileNavProps) {
                   {item.children!.map((child) => (
                     <Anchor
                       key={child.href}
-                      component={Link}
+                      component={HashLink}
                       href={localizeHref(child.href)}
                       onClick={onClose}
                       size="sm"
