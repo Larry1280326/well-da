@@ -34,13 +34,33 @@ const en: LocaleNavData = {
       ],
     },
     {
-      label: "Applications",
+      label: "Products & Applications",
       href: "/applications",
       children: [
-        { label: "Electronics", href: "/applications/electronics" },
-        { label: "Automotive", href: "/applications/automotive" },
-        { label: "Medical Devices", href: "/applications/medical" },
-        { label: "Industrial Equipment", href: "/applications/industrial" },
+        {
+          label: "Custom Metal Enclosures",
+          href: "/applications#custom-metal-enclosures",
+        },
+        {
+          label: "Electrical and Control Boxes",
+          href: "/applications#electrical-and-control-boxes",
+        },
+        {
+          label: "Cabinets and Lockers",
+          href: "/applications#cabinets-and-lockers",
+        },
+        {
+          label: "Communication Equipment Housings",
+          href: "/applications#communication-equipment-housings",
+        },
+        {
+          label: "Security System Hardware",
+          href: "/applications#security-system-hardware",
+        },
+        {
+          label: "Non-Standard Metal Products",
+          href: "/applications#non-standard-metal-products",
+        },
       ],
     },
     {
@@ -113,13 +133,33 @@ const zh: LocaleNavData = {
       ],
     },
     {
-      label: "應用領域",
+      label: "產品與應用",
       href: "/applications",
       children: [
-        { label: "電子產品", href: "/applications/electronics" },
-        { label: "汽車", href: "/applications/automotive" },
-        { label: "醫療設備", href: "/applications/medical" },
-        { label: "工業設備", href: "/applications/industrial" },
+        {
+          label: "Custom Metal Enclosures",
+          href: "/applications#custom-metal-enclosures",
+        },
+        {
+          label: "Electrical and Control Boxes",
+          href: "/applications#electrical-and-control-boxes",
+        },
+        {
+          label: "Cabinets and Lockers",
+          href: "/applications#cabinets-and-lockers",
+        },
+        {
+          label: "Communication Equipment Housings",
+          href: "/applications#communication-equipment-housings",
+        },
+        {
+          label: "Security System Hardware",
+          href: "/applications#security-system-hardware",
+        },
+        {
+          label: "Non-Standard Metal Products",
+          href: "/applications#non-standard-metal-products",
+        },
       ],
     },
     {

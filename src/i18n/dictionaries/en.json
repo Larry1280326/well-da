@@ -14,6 +14,35 @@
     "menu": "Menu",
     "overview": "Overview"
   },
+  "applications": {
+    "pageTitle": "Products & Applications",
+    "sections": [
+      {
+        "title": "Custom Metal Enclosures",
+        "description": "Custom-fabricated metal housings for electronic equipment, control systems, industrial devices and specialised applications."
+      },
+      {
+        "title": "Electrical and Control Boxes",
+        "description": "Sheet metal electrical boxes and control enclosures manufactured according to customer drawings, installation requirements and operating environments."
+      },
+      {
+        "title": "Cabinets and Lockers",
+        "description": "Custom metal cabinets, equipment cabinets and storage lockers designed for industrial, commercial and security applications."
+      },
+      {
+        "title": "Communication Equipment Housings",
+        "description": "Metal cabinets and enclosures for communication equipment, network hardware and related infrastructure."
+      },
+      {
+        "title": "Security System Hardware",
+        "description": "Custom metal housings, brackets and supporting components for security, access-control and anti-theft systems."
+      },
+      {
+        "title": "Non-Standard Metal Products",
+        "description": "Made-to-order sheet metal products for projects that cannot be fulfilled with standard off-the-shelf components."
+      }
+    ]
+  },
   "about": {
     "profileTitle": "Trusted Sheet Metal Manufacturing Since 1992",
     "profileDesc1": "Custom metal enclosures and sheet metal products made with specified materials, proven workmanship and careful quality control.",
