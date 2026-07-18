@@ -28,8 +28,8 @@ const en: LocaleNavData = {
       href: "/about",
       children: [
         { label: "Company Profile", href: "/about#profile" },
-        { label: "Work With Us", href: "/about#cta" },
         { label: "Core Value Proposition", href: "/about#core-value" },
+        { label: "Work With Us", href: "/about#cta" },
         { label: "Trust Line", href: "/about#trust-line" },
       ],
     },
@@ -128,27 +128,27 @@ const zh: LocaleNavData = {
       href: "/applications",
       children: [
         {
-          label: "Custom Metal Enclosures",
+          label: "訂製金屬外殼",
           href: "/applications#custom-metal-enclosures",
         },
         {
-          label: "Electrical and Control Boxes",
+          label: "電氣與控制箱",
           href: "/applications#electrical-and-control-boxes",
         },
         {
-          label: "Cabinets and Lockers",
+          label: "機櫃與儲物櫃",
           href: "/applications#cabinets-and-lockers",
         },
         {
-          label: "Communication Equipment Housings",
+          label: "通訊設備外殼",
           href: "/applications#communication-equipment-housings",
         },
         {
-          label: "Security System Hardware",
+          label: "安防系統硬體",
           href: "/applications#security-system-hardware",
         },
         {
-          label: "Non-Standard Metal Products",
+          label: "非標準金屬產品",
           href: "/applications#non-standard-metal-products",
         },
       ],
