@@ -1,7 +1,7 @@
 import { Anchor, Container, Group, Text } from "@mantine/core";
 import { IconMail, IconPhone } from "@tabler/icons-react";
 import { getContactInfo } from "@/config/navigation";
-import { LanguageSwitcher } from "./LanguageSwitcher";
+import { LanguageSwitcher } from "../LanguageSwitcher/LanguageSwitcher";
 import type { Locale } from "@/i18n/locale-context";
 import classes from "./TopBar.module.css";
 

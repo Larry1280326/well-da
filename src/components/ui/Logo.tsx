@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Box, Stack, Text } from "@mantine/core";
+import { Stack, Text } from "@mantine/core";
 import classes from "./Logo.module.css";
 
 export function Logo({ locale }: { locale?: string }) {

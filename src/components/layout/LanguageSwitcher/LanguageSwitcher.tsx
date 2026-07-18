@@ -3,7 +3,7 @@
 import { useRouter, usePathname } from "next/navigation";
 import { IconWorld } from "@tabler/icons-react";
 import { useLocale } from "@/i18n/locale-context";
-import classes from "./TopBar.module.css";
+import classes from "../TopBar/TopBar.module.css";
 
 export function LanguageSwitcher() {
   const router = useRouter();

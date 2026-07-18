@@ -14,7 +14,7 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import { IconArrowRight, IconSearch } from "@tabler/icons-react";
 import { Logo } from "@/components/ui/Logo";
-import { MobileNav } from "./MobileNav";
+import { MobileNav } from "../MobileNav/MobileNav";
 import { useLocale } from "@/i18n/locale-context";
 import classes from "./MainHeader.module.css";
 

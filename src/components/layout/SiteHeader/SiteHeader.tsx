@@ -1,6 +1,6 @@
-import { TopBar } from "./TopBar";
-import { MainHeader } from "./MainHeader";
-import { NavigationBar } from "./NavigationBar";
+import { TopBar } from "../TopBar/TopBar";
+import { MainHeader } from "../MainHeader/MainHeader";
+import { NavigationBar } from "../NavigationBar/NavigationBar";
 import type { Locale } from "@/i18n/locale-context";
 import classes from "./SiteHeader.module.css";
 

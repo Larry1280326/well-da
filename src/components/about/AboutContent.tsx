@@ -13,7 +13,6 @@ import {
   IconCalendar,
   IconRulerMeasure,
   IconSettings,
-  IconUpload,
 } from "@tabler/icons-react";
 
 interface AboutDict {
@@ -23,9 +22,6 @@ interface AboutDict {
   workWithUs: string;
   sendDrawing: string;
   sendDrawingDesc: string;
-  uploadDrawing: string;
-  requestQuote: string;
-  requestQuoteDesc: string;
   getQuote: string;
   coreTitle: string;
   coreDesc1: string;
@@ -76,50 +72,6 @@ export function AboutContent({
         </Container>
       </section>
 
-      {/* CTA Section */}
-      <section id="cta" style={{ scrollMarginTop: 80 }}>
-        <Container size="xl" py={60}>
-          <Title order={2} mb="lg">
-            {dict.workWithUs}
-          </Title>
-          <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
-            <Paper p="xl" radius="md" withBorder>
-              <Title order={3} size="h4" mb="sm">
-                {dict.sendDrawing}
-              </Title>
-              <Text c="dimmed" mb="lg">
-                {dict.sendDrawingDesc}
-              </Text>
-              <Link href={`/${locale}/quotation`}>
-                <Button
-                  color="green"
-                  variant="outline"
-                  rightSection={<IconUpload size={18} stroke={2} />}
-                >
-                  {dict.uploadDrawing}
-                </Button>
-              </Link>
-            </Paper>
-            <Paper p="xl" radius="md" withBorder>
-              <Title order={3} size="h4" mb="sm">
-                {dict.requestQuote}
-              </Title>
-              <Text c="dimmed" mb="lg">
-                {dict.requestQuoteDesc}
-              </Text>
-              <Link href={`/${locale}/quotation`}>
-                <Button
-                  color="green"
-                  rightSection={<IconArrowRight size={18} stroke={2} />}
-                >
-                  {dict.getQuote}
-                </Button>
-              </Link>
-            </Paper>
-          </SimpleGrid>
-        </Container>
-      </section>
-
       {/* Core Value Proposition Section */}
       <section
         id="core-value"
@@ -139,6 +91,33 @@ export function AboutContent({
           <Text c="dimmed" maw={640}>
             {dict.coreDesc2}
           </Text>
+        </Container>
+      </section>
+
+      {/* CTA Section */}
+      <section id="cta" style={{ scrollMarginTop: 80 }}>
+        <Container size="xl" py={60}>
+          <Title order={2} mb="lg">
+            {dict.workWithUs}
+          </Title>
+          <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
+            <Paper p="xl" radius="md" withBorder>
+              <Title order={3} size="h4" mb="sm">
+                {dict.sendDrawing}
+              </Title>
+              <Text c="dimmed" mb="lg">
+                {dict.sendDrawingDesc}
+              </Text>
+              <Link href={`/${locale}/quotation`}>
+                <Button
+                  color="green"
+                  rightSection={<IconArrowRight size={18} stroke={2} />}
+                >
+                  {dict.getQuote}
+                </Button>
+              </Link>
+            </Paper>
+          </SimpleGrid>
         </Container>
       </section>
 

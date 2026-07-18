@@ -28,7 +28,7 @@ const en: LocaleNavData = {
       href: "/about",
       children: [
         { label: "Company Profile", href: "/about#profile" },
-        { label: "CTA", href: "/about#cta" },
+        { label: "Work With Us", href: "/about#cta" },
         { label: "Core Value Proposition", href: "/about#core-value" },
         { label: "Trust Line", href: "/about#trust-line" },
       ],
@@ -107,7 +107,7 @@ const zh: LocaleNavData = {
       href: "/about",
       children: [
         { label: "公司簡介", href: "/about#profile" },
-        { label: "行動呼籲", href: "/about#cta" },
+        { label: "與我們合作", href: "/about#cta" },
         { label: "核心價值", href: "/about#core-value" },
         { label: "信任指標", href: "/about#trust-line" },
       ],

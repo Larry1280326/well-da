@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import "@mantine/core/styles.css";
 import { MantineProvider, mantineHtmlProps } from "@mantine/core";
-import { SiteHeader } from "@/components/layout/SiteHeader";
+import { SiteHeader } from "@/components/layout/SiteHeader/SiteHeader";
 import { theme } from "@/theme/mantine-theme";
 import { hasLocale, getDictionary } from "@/i18n/dictionaries";
 import {
