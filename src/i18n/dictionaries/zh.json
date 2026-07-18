@@ -18,29 +18,88 @@
     "pageTitle": "產品與應用",
     "sections": [
       {
+        "slug": "custom-metal-enclosures",
         "title": "客製化金屬外殼",
         "description": "為電子設備、控制系統、工業裝置及特殊用途提供客製化金屬外殼。"
       },
       {
+        "slug": "electrical-and-control-boxes",
         "title": "電氣及控制箱",
         "description": "根據圖紙、安裝要求及使用環境製造電箱與控制箱。"
       },
       {
+        "slug": "cabinets-and-lockers",
         "title": "機櫃及儲物櫃",
         "description": "為工業、商業及安防用途製造客製化金屬櫃、設備櫃及儲物櫃。"
       },
       {
+        "slug": "communication-equipment-housings",
         "title": "通訊設備外殼",
         "description": "為通訊設備、網絡硬件及相關基礎設施提供金屬機櫃與外殼。"
       },
       {
+        "slug": "security-system-hardware",
         "title": "安防系統硬件",
         "description": "為安防、門禁及防盜系統製造客製化金屬外殼、支架及配套零件。"
       },
       {
+        "slug": "non-standard-metal-products",
         "title": "非標準金屬產品",
         "description": "為無法使用標準現成零件的項目提供按需製造的非標準鈑金產品。"
       }
+    ]
+  },
+  "manufacturing": {
+    "pageTitle": "製造能力",
+    "sectionTitle": "鈑金加工能力",
+    "intro": "我們的加工能力涵蓋客製金屬產品所需的工序。從材料準備、成形加工，到表面處理及最終組裝，我們都能自主生產。",
+    "capabilities": [
+      "剪板及板材切割",
+      "沖孔及激光切割",
+      "折彎及成形",
+      "激光焊、TIG 焊、點焊及電弧焊",
+      "打磨及拋光",
+      "噴粉處理",
+      "不鏽鋼拉絲及鏡面處理",
+      "絲印",
+      "產品組裝及包裝"
+    ],
+    "materials": "我們可根據項目要求加工鐵材、不鏽鋼、電解板及鋁材。"
+  },
+  "quality": {
+    "pageTitle": "品質與公差",
+    "sectionTitle": "一條龍品質控制",
+    "paragraphs": [
+      "每個項目均由圖紙、材料、尺寸、表面處理及實際用途評估開始。",
+      "視乎產品設計、材料、厚度及加工方式，合適的鈑金零件加工精度可達 **±0.2 mm**。",
+      "檢查範圍可包括尺寸、焊接品質、表面處理、組裝情況及成品外觀。"
+    ]
+  },
+  "caseStudies": {
+    "pageTitle": "案例研究",
+    "sections": [
+      {
+        "slug": "flat-sheet-to-electrical-enclosure",
+        "title": "從金屬板材到完整電箱成品",
+        "description": "在這個客製電箱項目中，生產流程包括板材切割、沖孔或激光開孔、折彎、焊接、打磨、噴粉、絲印及最終組裝。\n\n我們以已確認的生產圖紙為基礎，協調各個加工工序，使成品符合所需尺寸、外觀及功能要求。"
+      },
+      {
+        "slug": "另一個項目",
+        "title": "虛擬項目",
+        "description": "設計並製造了一個42U伺服器機櫃，整合了線纜管理和通風功能。\n\n所有面板均根據客戶的機架安裝規格進行雷射切割、彎曲、焊接和粉末塗層處理。"
+      }
+    ]
+  },
+  "quotation": {
+    "pageTitle": "索取報價",
+    "heading": "有圖紙或定制金屬項目？",
+    "intro": "請將您的圖紙、CAD、DXF 或 STEP 檔案，連同所需材料、厚度、數量、表面處理要求及交貨時間一併發送給我們。我們的團隊將審查製造要求，並根據您的項目規格準備報價。",
+    "contactIntro": "選擇以下聯絡方式與我們聯繫：",
+    "contacts": [
+      { "label": "電話", "value": "(+852) 2790 5008", "href": "tel:+85227905008" },
+      { "label": "WhatsApp", "value": "(+852) 2790 5008", "href": "https://wa.me/85227905008" },
+      { "label": "微信", "value": "xxxx", "href": null },
+      { "label": "電郵", "value": "eng@wellda.com", "href": "mailto:eng@wellda.com" }
     ]
   },
   "about": {

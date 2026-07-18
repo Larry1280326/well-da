@@ -15,6 +15,7 @@ import {
 } from "@tabler/icons-react";
 
 interface ApplicationsSection {
+  slug: string;
   title: string;
   description: string;
 }
@@ -59,14 +60,11 @@ export function ApplicationsContent({
           <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing="lg">
             {dict.sections.map((section, index) => {
               const Icon = ICONS[index] || IconBox;
-              const sectionId = section.title
-                .toLowerCase()
-                .replace(/\s+/g, "-");
 
               return (
                 <Paper
-                  key={section.title}
-                  id={sectionId}
+                  key={section.slug}
+                  id={section.slug}
                   p="xl"
                   radius="md"
                   withBorder

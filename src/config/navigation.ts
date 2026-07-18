@@ -67,25 +67,20 @@ const en: LocaleNavData = {
       label: "Manufacturing Capabilities",
       href: "/manufacturing",
       children: [
-        { label: "CNC Machining", href: "/manufacturing/cnc-machining" },
         {
-          label: "Sheet Metal Fabrication",
-          href: "/manufacturing/sheet-metal",
-        },
-        { label: "Die Casting", href: "/manufacturing/die-casting" },
-        {
-          label: "Surface Finishing",
-          href: "/manufacturing/surface-finishing",
+          label: "Integrated Sheet Metal Manufacturing",
+          href: "/manufacturing#integrated_sheet_metal",
         },
       ],
     },
     {
-      label: "Quality & Capabilities",
+      label: "Quality & Tolerance",
       href: "/quality",
       children: [
-        { label: "Quality Control", href: "/quality/control" },
-        { label: "Testing & Inspection", href: "/quality/testing" },
-        { label: "Materials", href: "/quality/materials" },
+        {
+          label: "Quality Control",
+          href: "/quality#control",
+        },
       ],
     },
     {
@@ -93,12 +88,8 @@ const en: LocaleNavData = {
       href: "/case-studies",
       children: [
         {
-          label: "Precision Components",
-          href: "/case-studies/precision-components",
-        },
-        {
-          label: "Custom Assemblies",
-          href: "/case-studies/custom-assemblies",
+          label: "Overview",
+          href: "/case-studies#overview",
         },
       ],
     },
@@ -166,27 +157,30 @@ const zh: LocaleNavData = {
       label: "製造能力",
       href: "/manufacturing",
       children: [
-        { label: "CNC加工", href: "/manufacturing/cnc-machining" },
-        { label: "鈑金製造", href: "/manufacturing/sheet-metal" },
-        { label: "壓鑄", href: "/manufacturing/die-casting" },
-        { label: "表面處理", href: "/manufacturing/surface-finishing" },
+        {
+          label: "鈑金加工能力",
+          href: "/manufacturing#integrated_sheet_metal",
+        },
       ],
     },
     {
-      label: "品質與能力",
+      label: "品質與公差",
       href: "/quality",
       children: [
-        { label: "品質控制", href: "/quality/control" },
-        { label: "測試與檢驗", href: "/quality/testing" },
-        { label: "材料", href: "/quality/materials" },
+        {
+          label: "品質控制",
+          href: "/quality#control",
+        },
       ],
     },
     {
       label: "案例研究",
       href: "/case-studies",
       children: [
-        { label: "精密零件", href: "/case-studies/precision-components" },
-        { label: "定制組件", href: "/case-studies/custom-assemblies" },
+        {
+          label: "概覽",
+          href: "/case-studies#overview",
+        },
       ],
     },
     {

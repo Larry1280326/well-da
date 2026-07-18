@@ -88,6 +88,58 @@ Supported locales: `en` (English) and `zh` (Traditional Chinese).
 - **Translations for server components** use `getDictionary(locale)` from `@/i18n/dictionaries`.
 - **Translations for client components** use the `useLocale()` hook, which exposes the `ClientDictionary` subset passed through `LocaleProvider`.
 
+## Adding Content
+
+### Case Study Cards
+
+Case studies live in `src/i18n/dictionaries/en.json` and `zh.json` under the `caseStudies.sections` array. To add a new card, append a new entry to both files.
+
+**1. English** — `src/i18n/dictionaries/en.json`:
+
+```json
+{
+  "slug": "your-slug-here",
+  "title": "Your Case Study Title",
+  "description": "First paragraph.\n\nUse \\n\\n to separate paragraphs — each pair renders as a distinct <p> block."
+}
+```
+
+**2. Chinese** — `src/i18n/dictionaries/zh.json`:
+
+```json
+{
+  "slug": "your-slug-here",
+  "title": "你的案例標題",
+  "description": "第一段。\n\n第二段。"
+}
+```
+
+The `slug` must be **identical** in both files (it becomes the element `id`). The title and description should be translated into the target language.
+
+**Example** — adding a server cabinet case study:
+
+`en.json`:
+
+```json
+{
+  "slug": "server-cabinet-project",
+  "title": "Custom Server Cabinet for Data Centre",
+  "description": "Designed and manufactured a 42U server cabinet with integrated cable management and ventilation.\n\nAll panels were laser-cut, bent, welded, and powder-coated according to the client's rack-mount specifications."
+}
+```
+
+`zh.json`:
+
+```json
+{
+  "slug": "server-cabinet-project",
+  "title": "數據中心定制伺服器機櫃",
+  "description": "設計並製造了42U伺服器機櫃，配備整合式線纜管理和通風系統。\n\n所有面板均按客戶機架安裝規格進行激光切割、折彎、焊接及噴粉處理。"
+}
+```
+
+The component picks up new entries automatically — no code changes required.
+
 ## Brand
 
 - **Primary color:** Green (`#45a145`)

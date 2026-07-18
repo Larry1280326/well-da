@@ -18,28 +18,99 @@
     "pageTitle": "Products & Applications",
     "sections": [
       {
+        "slug": "custom-metal-enclosures",
         "title": "Custom Metal Enclosures",
         "description": "Custom-fabricated metal housings for electronic equipment, control systems, industrial devices and specialised applications."
       },
       {
+        "slug": "electrical-and-control-boxes",
         "title": "Electrical and Control Boxes",
         "description": "Sheet metal electrical boxes and control enclosures manufactured according to customer drawings, installation requirements and operating environments."
       },
       {
+        "slug": "cabinets-and-lockers",
         "title": "Cabinets and Lockers",
         "description": "Custom metal cabinets, equipment cabinets and storage lockers designed for industrial, commercial and security applications."
       },
       {
+        "slug": "communication-equipment-housings",
         "title": "Communication Equipment Housings",
         "description": "Metal cabinets and enclosures for communication equipment, network hardware and related infrastructure."
       },
       {
+        "slug": "security-system-hardware",
         "title": "Security System Hardware",
         "description": "Custom metal housings, brackets and supporting components for security, access-control and anti-theft systems."
       },
       {
+        "slug": "non-standard-metal-products",
         "title": "Non-Standard Metal Products",
         "description": "Made-to-order sheet metal products for projects that cannot be fulfilled with standard off-the-shelf components."
+      }
+    ]
+  },
+  "manufacturing": {
+    "pageTitle": "Manufacturing Capabilities",
+    "sectionTitle": "Integrated Sheet Metal Manufacturing Capabilities",
+    "intro": "Our manufacturing capabilities cover the key stages required to produce custom metal products, from material preparation and forming to finishing and final assembly.",
+    "capabilities": [
+      "Shearing and sheet cutting",
+      "Punching and laser cutting",
+      "Bending and forming",
+      "Laser, TIG, spot and arc welding",
+      "Grinding and polishing",
+      "Powder coating",
+      "Stainless-steel brushing and mirror finishing",
+      "Silk-screen printing",
+      "Product assembly and packing"
+    ],
+    "materials": "We work with steel, stainless steel, electrolytic steel sheet and aluminium according to project requirements."
+  },
+  "quality": {
+    "pageTitle": "Quality & Tolerance",
+    "sectionTitle": "Controlled Quality from Drawing Review to Final Inspection",
+    "paragraphs": [
+      "Every project begins with a review of the drawing, material, dimensions, surface finish and application requirements.",
+      "For suitable sheet metal components, manufacturing precision of up to **±0.2 mm** may be achieved, depending on product design, material, thickness and production process.",
+      "Inspection requirements can include dimensional checks, welding quality, surface finishing, assembly and final appearance."
+    ]
+  },
+  "caseStudies": {
+    "pageTitle": "Case Studies",
+    "sections": [
+      {
+        "slug": "flat-sheet-to-electrical-enclosure",
+        "title": "From Flat Sheet to Finished Electrical Enclosure",
+        "description": "For this custom electrical box project, the production process included sheet cutting, punching or laser opening, bending, welding, grinding, powder coating, silk-screen printing and final assembly.\n\nBy coordinating each manufacturing stage around the confirmed drawing, the enclosure was produced according to the required dimensions, appearance and functional requirements."
+      },
+      {
+        "slug": "another-project",
+        "title": "Dummy Project",
+        "description": "Designed and manufactured a 42U server cabinet with integrated cable management and ventilation.\n\nAll panels were laser-cut, bent, welded, and powder-coated according to the client's rack-mount specifications."
+      }
+    ]
+  },
+  "quotation": {
+    "pageTitle": "Request for Quotation",
+    "heading": "Have a Drawing or Custom Metal Project?",
+    "intro": "Send us your drawing, CAD, DXF or STEP file together with the required material, thickness, quantity, surface finish and delivery schedule. Our team will review the manufacturing requirements and prepare a quotation based on your project specifications.",
+    "contactIntro": "Contact us to get started — choose the method that works best for you:",
+    "contacts": [
+      {
+        "label": "Phone",
+        "value": "(+852) 2790 5008",
+        "href": "tel:+85227905008"
+      },
+      {
+        "label": "WhatsApp",
+        "value": "(+852) 2790 5008",
+        "href": "https://wa.me/85227905008"
+      },
+      { "label": "WeChat", "value": "xxxx", "href": null },
+      {
+        "label": "Email",
+        "value": "eng@wellda.com",
+        "href": "mailto:eng@wellda.com"
       }
     ]
   },
