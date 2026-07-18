@@ -1,43 +1,41 @@
 import { Anchor, Container, Group, Text } from "@mantine/core";
-import { IconMail, IconPhone, IconWorld } from "@tabler/icons-react";
-import { contactInfo } from "@/config/navigation";
+import { IconMail, IconPhone } from "@tabler/icons-react";
+import { getContactInfo } from "@/config/navigation";
+import { LanguageSwitcher } from "./LanguageSwitcher";
+import type { Locale } from "@/i18n/locale-context";
 import classes from "./TopBar.module.css";
 
-export function TopBar() {
+export function TopBar({ locale }: { locale: Locale }) {
+  const contact = getContactInfo(locale);
+
   return (
     <div className={classes.root}>
       <Container size="xl" className={classes.container}>
         <Group justify="space-between" wrap="nowrap">
           <Group gap="lg" wrap="wrap">
             <Anchor
-              href={contactInfo.phoneHref}
+              href={contact.phoneHref}
               className={classes.link}
               underline="never"
             >
               <IconPhone size={14} stroke={1.75} />
               <Text component="span" size="sm">
-                {contactInfo.phone}
+                {contact.phone}
               </Text>
             </Anchor>
             <Anchor
-              href={contactInfo.emailHref}
+              href={contact.emailHref}
               className={classes.link}
               underline="never"
             >
               <IconMail size={14} stroke={1.75} />
               <Text component="span" size="sm">
-                {contactInfo.email}
+                {contact.email}
               </Text>
             </Anchor>
           </Group>
 
-          <button
-            type="button"
-            className={classes.langButton}
-            aria-label="Select language"
-          >
-            <IconWorld size={16} stroke={1.75} />
-          </button>
+          <LanguageSwitcher />
         </Group>
       </Container>
     </div>

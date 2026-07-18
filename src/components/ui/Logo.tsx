@@ -3,9 +3,10 @@ import Link from "next/link";
 import { Box, Stack, Text } from "@mantine/core";
 import classes from "./Logo.module.css";
 
-export function Logo() {
+export function Logo({ locale }: { locale?: string }) {
+  const homeHref = locale ? `/${locale}` : "/";
   return (
-    <Link href="/" className={classes.root}>
+    <Link href={homeHref} className={classes.root}>
       <Image
         src="/logo.jpg"
         alt="Well Da Metal Factory logo"

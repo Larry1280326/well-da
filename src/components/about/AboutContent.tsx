@@ -16,14 +16,42 @@ import {
   IconUpload,
 } from "@tabler/icons-react";
 
-const trustItems = [
-  { icon: IconCalendar, label: "Established in 1992" },
-  { icon: IconAward, label: "ISO 9001" },
-  { icon: IconSettings, label: "Custom Manufacturing" },
-  { icon: IconRulerMeasure, label: "Precision up to ±0.2 mm" },
-];
+interface AboutDict {
+  profileTitle: string;
+  profileDesc1: string;
+  profileDesc2: string;
+  workWithUs: string;
+  sendDrawing: string;
+  sendDrawingDesc: string;
+  uploadDrawing: string;
+  requestQuote: string;
+  requestQuoteDesc: string;
+  getQuote: string;
+  coreTitle: string;
+  coreDesc1: string;
+  coreDesc2: string;
+  trustTitle: string;
+  trustDesc: string;
+  trustEstablished: string;
+  trustISO: string;
+  trustCustom: string;
+  trustPrecision: string;
+}
 
-export function AboutContent() {
+export function AboutContent({
+  dict,
+  locale,
+}: {
+  dict: AboutDict;
+  locale: string;
+}) {
+  const trustItems = [
+    { icon: IconCalendar, label: dict.trustEstablished },
+    { icon: IconAward, label: dict.trustISO },
+    { icon: IconSettings, label: dict.trustCustom },
+    { icon: IconRulerMeasure, label: dict.trustPrecision },
+  ];
+
   return (
     <>
       {/* Profile Section */}
@@ -37,16 +65,13 @@ export function AboutContent() {
       >
         <Container size="xl" py={60}>
           <Title order={2} mb="md">
-            Trusted Sheet Metal Manufacturing Since 1992
+            {dict.profileTitle}
           </Title>
           <Text c="dimmed" maw={640} mb="md">
-            Custom metal enclosures and sheet metal products made with specified
-            materials, proven workmanship and careful quality control.
+            {dict.profileDesc1}
           </Text>
           <Text c="dimmed" maw={640}>
-            From electrical boxes and equipment cabinets to non-standard metal
-            components, we manufacture according to your confirmed drawings and
-            project requirements.
+            {dict.profileDesc2}
           </Text>
         </Container>
       </section>
@@ -55,42 +80,39 @@ export function AboutContent() {
       <section id="cta" style={{ scrollMarginTop: 80 }}>
         <Container size="xl" py={60}>
           <Title order={2} mb="lg">
-            Work With Us
+            {dict.workWithUs}
           </Title>
           <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
             <Paper p="xl" radius="md" withBorder>
               <Title order={3} size="h4" mb="sm">
-                Send Us Your Drawing
+                {dict.sendDrawing}
               </Title>
               <Text c="dimmed" mb="lg">
-                Share your CAD files, blueprints, or sketches — our engineering
-                team will review your specifications and provide feedback.
+                {dict.sendDrawingDesc}
               </Text>
-              <Link href="/quotation">
+              <Link href={`/${locale}/quotation`}>
                 <Button
                   color="green"
                   variant="outline"
                   rightSection={<IconUpload size={18} stroke={2} />}
                 >
-                  Upload Drawing
+                  {dict.uploadDrawing}
                 </Button>
               </Link>
             </Paper>
             <Paper p="xl" radius="md" withBorder>
               <Title order={3} size="h4" mb="sm">
-                Request a Quotation
+                {dict.requestQuote}
               </Title>
               <Text c="dimmed" mb="lg">
-                Get a competitive quote for your manufacturing project. Provide
-                your requirements and we&apos;ll respond with pricing and lead
-                times.
+                {dict.requestQuoteDesc}
               </Text>
-              <Link href="/quotation">
+              <Link href={`/${locale}/quotation`}>
                 <Button
                   color="green"
                   rightSection={<IconArrowRight size={18} stroke={2} />}
                 >
-                  Get a Quote
+                  {dict.getQuote}
                 </Button>
               </Link>
             </Paper>
@@ -109,17 +131,13 @@ export function AboutContent() {
       >
         <Container size="xl" py={60}>
           <Title order={2} mb="md">
-            Flexible Manufacturing for Custom and Non-Standard Projects
+            {dict.coreTitle}
           </Title>
           <Text c="dimmed" maw={640} mb="md">
-            We support prototype, low-volume and production orders with flexible
-            manufacturing, practical engineering communication and a complete
-            range of sheet metal processes.
+            {dict.coreDesc1}
           </Text>
           <Text c="dimmed" maw={640}>
-            Whether you have a finished drawing, a sample or an initial product
-            concept, our team can help evaluate the manufacturing requirements
-            and recommend a suitable production approach.
+            {dict.coreDesc2}
           </Text>
         </Container>
       </section>
@@ -135,11 +153,10 @@ export function AboutContent() {
       >
         <Container size="xl" py={60}>
           <Title order={2} mb="md">
-            Trust Line
+            {dict.trustTitle}
           </Title>
           <Text c="dimmed" maw={640} mb="xl">
-            Our credentials and capabilities reflect decades of dedication to
-            quality and precision in metal manufacturing.
+            {dict.trustDesc}
           </Text>
           <SimpleGrid cols={{ base: 2, sm: 4 }} spacing="lg">
             {trustItems.map((item) => (

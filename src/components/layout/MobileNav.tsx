@@ -12,7 +12,8 @@ import {
   Stack,
   Text,
 } from "@mantine/core";
-import { navItems } from "@/config/navigation";
+import { getNavItems } from "@/config/navigation";
+import { useLocale } from "@/i18n/locale-context";
 
 interface MobileNavProps {
   opened: boolean;
@@ -21,6 +22,13 @@ interface MobileNavProps {
 
 export function MobileNav({ opened, onClose }: MobileNavProps) {
   const pathname = usePathname();
+  const { locale, dict } = useLocale();
+  const navItems = getNavItems(locale);
+
+  function localizeHref(href: string) {
+    return `/${locale}${href}`;
+  }
+
   const itemsWithChildren = navItems.filter((item) => item.children?.length);
   const itemsWithoutChildren = navItems.filter((item) => !item.children?.length);
 
@@ -28,24 +36,27 @@ export function MobileNav({ opened, onClose }: MobileNavProps) {
     <Drawer
       opened={opened}
       onClose={onClose}
-      title="Menu"
+      title={dict.mobileNav.menu}
       position="left"
       size="xs"
       hiddenFrom="sm"
     >
       <Stack gap="md">
-        {itemsWithoutChildren.map((item) => (
-          <Anchor
-            key={item.label}
-            component={Link}
-            href={item.href}
-            onClick={onClose}
-            fw={pathname === item.href ? 600 : 500}
-            underline="never"
-          >
-            {item.label}
-          </Anchor>
-        ))}
+        {itemsWithoutChildren.map((item) => {
+          const localizedHref = localizeHref(item.href);
+          return (
+            <Anchor
+              key={item.label}
+              component={Link}
+              href={localizedHref}
+              onClick={onClose}
+              fw={pathname === localizedHref ? 600 : 500}
+              underline="never"
+            >
+              {item.label}
+            </Anchor>
+          );
+        })}
 
         <Accordion chevronPosition="right" variant="separated">
           {itemsWithChildren.map((item) => (
@@ -57,18 +68,18 @@ export function MobileNav({ opened, onClose }: MobileNavProps) {
                 <Stack gap="xs">
                   <Anchor
                     component={Link}
-                    href={item.href}
+                    href={localizeHref(item.href)}
                     onClick={onClose}
                     size="sm"
                     underline="never"
                   >
-                    Overview
+                    {dict.mobileNav.overview}
                   </Anchor>
                   {item.children!.map((child) => (
                     <Anchor
                       key={child.href}
                       component={Link}
-                      href={child.href}
+                      href={localizeHref(child.href)}
                       onClick={onClose}
                       size="sm"
                       underline="never"

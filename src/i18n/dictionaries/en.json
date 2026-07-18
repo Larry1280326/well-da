@@ -1,0 +1,38 @@
+{
+  "metadata": {
+    "title": "Well Da Metal Factory | 滙達五金廠",
+    "description": "Well Da Metal Factory — precision metal manufacturing, CNC machining, and custom fabrication in Hong Kong."
+  },
+  "topBar": {
+    "switchTo": "中文"
+  },
+  "mainHeader": {
+    "searchPlaceholder": "Search...",
+    "cta": "Request for Quotation"
+  },
+  "mobileNav": {
+    "menu": "Menu",
+    "overview": "Overview"
+  },
+  "about": {
+    "profileTitle": "Trusted Sheet Metal Manufacturing Since 1992",
+    "profileDesc1": "Custom metal enclosures and sheet metal products made with specified materials, proven workmanship and careful quality control.",
+    "profileDesc2": "From electrical boxes and equipment cabinets to non-standard metal components, we manufacture according to your confirmed drawings and project requirements.",
+    "workWithUs": "Work With Us",
+    "sendDrawing": "Send Us Your Drawing",
+    "sendDrawingDesc": "Share your CAD files, blueprints, or sketches — our engineering team will review your specifications and provide feedback.",
+    "uploadDrawing": "Upload Drawing",
+    "requestQuote": "Request a Quotation",
+    "requestQuoteDesc": "Get a competitive quote for your manufacturing project. Provide your requirements and we'll respond with pricing and lead times.",
+    "getQuote": "Get a Quote",
+    "coreTitle": "Flexible Manufacturing for Custom and Non-Standard Projects",
+    "coreDesc1": "We support prototype, low-volume and production orders with flexible manufacturing, practical engineering communication and a complete range of sheet metal processes.",
+    "coreDesc2": "Whether you have a finished drawing, a sample or an initial product concept, our team can help evaluate the manufacturing requirements and recommend a suitable production approach.",
+    "trustTitle": "Trust Line",
+    "trustDesc": "Our credentials and capabilities reflect decades of dedication to quality and precision in metal manufacturing.",
+    "trustEstablished": "Established in 1992",
+    "trustISO": "ISO 9001",
+    "trustCustom": "Custom Manufacturing",
+    "trustPrecision": "Precision up to ±0.2 mm"
+  }
+}

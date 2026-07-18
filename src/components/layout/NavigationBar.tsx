@@ -14,26 +14,36 @@ import {
   UnstyledButton,
 } from "@mantine/core";
 import { IconChevronDown } from "@tabler/icons-react";
-import { navItems } from "@/config/navigation";
+import { getNavItems } from "@/config/navigation";
+import { useLocale } from "@/i18n/locale-context";
 import classes from "./NavigationBar.module.css";
 
 export function NavigationBar() {
   const pathname = usePathname();
+  const { locale } = useLocale();
+  const navItems = getNavItems(locale);
+
+  function localizeHref(href: string) {
+    return `/${locale}${href}`;
+  }
 
   return (
     <nav className={classes.root} aria-label="Main navigation">
       <Container size="xl" className={classes.container}>
         <Group gap={0} wrap="nowrap" visibleFrom="sm">
           {navItems.map((item) => {
+            const localizedHref = localizeHref(item.href);
             const isActive =
-              pathname === item.href || pathname.startsWith(`${item.href}/`);
+              pathname === localizedHref ||
+              pathname.startsWith(`${localizedHref}/`) ||
+              pathname === `/${locale}${item.href}`;
 
             if (!item.children?.length) {
               return (
                 <Anchor
                   key={item.label}
                   component={Link}
-                  href={item.href}
+                  href={localizedHref}
                   className={classes.navLink}
                   data-active={isActive || undefined}
                   underline="never"
@@ -69,7 +79,7 @@ export function NavigationBar() {
                     <MenuItem
                       key={child.href}
                       component={Link}
-                      href={child.href}
+                      href={localizeHref(child.href)}
                     >
                       {child.label}
                     </MenuItem>

@@ -1,0 +1,38 @@
+{
+  "metadata": {
+    "title": "滙達五金廠 | Well Da Metal Factory",
+    "description": "滙達五金廠 — 香港精密金屬製造、CNC加工及定制鈑金製造。"
+  },
+  "topBar": {
+    "switchTo": "English"
+  },
+  "mainHeader": {
+    "searchPlaceholder": "搜尋...",
+    "cta": "索取報價"
+  },
+  "mobileNav": {
+    "menu": "選單",
+    "overview": "概覽"
+  },
+  "about": {
+    "profileTitle": "始於 1992 年，值得信賴的鈑金製造經驗",
+    "profileDesc1": "採用客戶指定材料，配合成熟工藝與嚴謹品質控制，製造客製化金屬外殼及鈑金產品。",
+    "profileDesc2": "從電箱、設備機櫃到非標準金屬零件，我們按照已確認的圖紙及項目要求生產。",
+    "workWithUs": "與我們合作",
+    "sendDrawing": "提交圖紙",
+    "sendDrawingDesc": "分享您的CAD文件、藍圖或草圖 — 我們的工程團隊將審查您的規格並提供反饋。",
+    "uploadDrawing": "上傳圖紙",
+    "requestQuote": "索取報價",
+    "requestQuoteDesc": "為您的製造項目獲取具有競爭力的報價。提供您的要求，我們將回覆價格和交貨時間。",
+    "getQuote": "獲取報價",
+    "coreTitle": "客製化及非標準金屬項目",
+    "coreDesc1": "我們支援樣板、小批量及批量生產，並提供靈活的製造安排、實際的工程溝通及完整的鈑金加工流程。",
+    "coreDesc2": "無論您已有完整圖紙、實物樣板，還是初步產品構想，我們都可協助評估製造要求，並提出合適的生產方案。",
+    "trustTitle": "信任標籤",
+    "trustDesc": "我們的資質和能力體現了數十年來對金屬製造品質和精度的專注。",
+    "trustEstablished": "成立於1992年",
+    "trustISO": "ISO 9001",
+    "trustCustom": "客製化生產",
+    "trustPrecision": "精度最高可達 ±0.2 mm"
+  }
+}
