@@ -54,15 +54,101 @@
     "sectionTitle": "Integrated Sheet Metal Manufacturing Capabilities",
     "intro": "Our manufacturing capabilities cover the key stages required to produce custom metal products, from material preparation and forming to finishing and final assembly.",
     "capabilities": [
-      "Shearing and sheet cutting",
-      "Punching and laser cutting",
-      "Bending and forming",
-      "Laser, TIG, spot and arc welding",
-      "Grinding and polishing",
-      "Powder coating",
-      "Stainless-steel brushing and mirror finishing",
-      "Silk-screen printing",
-      "Product assembly and packing"
+      {
+        "label": "Shearing and sheet cutting",
+        "media": [
+          {
+            "type": "image",
+            "src": "/images/shearing.jpg",
+            "alt": "Hydraulic shearing machine cutting sheet metal",
+            "caption": "Hydraulic shearing for precise sheet cutting"
+          },
+          {
+            "type": "video",
+            "src": "oYNNZsUGEws",
+            "alt": "Operator performing precise shearing and sheet cutting on metal stock",
+            "caption": "Operator performing precise shearing and sheet cutting on metal stock"
+          }
+        ]
+      },
+      {
+        "label": "Punching and laser cutting",
+        "media": [
+          {
+            "type": "image",
+            "src": "/images/laser-cutting.jpg",
+            "alt": "CNC laser cutting machine",
+            "caption": "CNC laser cutting for precision metal fabrication"
+          },
+          {
+            "type": "image",
+            "src": "/images/laser-cutting-operation.jpg",
+            "alt": "CNC laser cutting machine in operation",
+            "caption": "CNC laser cutting machine in operation"
+          },
+          {
+            "type": "video",
+            "src": "bMVDdIIbx3w",
+            "alt": "High-precision profile cutting of metal components using Wire Electrical Discharge Machining (EDM)",
+            "caption": "High-precision profile cutting of metal components using Wire Electrical Discharge Machining (EDM)"
+          },
+          {
+            "type": "video",
+            "src": "AbG7YdfhFeY",
+            "alt": "Automated CNC laser cutting machine rapidly and precisely profiling a large metal sheet",
+            "caption": "Automated CNC laser cutting machine rapidly and precisely profiling a large metal sheet"
+          }
+        ]
+      },
+      { "label": "Bending and forming" },
+      {
+        "label": "Laser, TIG, spot and arc welding",
+        "media": [
+          {
+            "type": "image",
+            "src": "/images/welding.jpg",
+            "alt": "Welding station for sheet metal fabrication",
+            "caption": "TIG and spot welding for sheet metal assembly"
+          },
+          {
+            "type": "video",
+            "src": "PLuCSZ3DI_c",
+            "alt": "Precision TIG welding of a sheet metal sub-assembly",
+            "caption": "Precision TIG welding of a sheet metal sub-assembly"
+          }
+        ]
+      },
+      {
+        "label": "Grinding and polishing",
+        "media": [
+          {
+            "type": "video",
+            "src": "Xo5nqRMbjfo",
+            "alt": "Grinding and polishing station for sheet metal finishing",
+            "caption": "Grinding and polishing for smooth surface finish"
+          }
+        ]
+      },
+      { "label": "Powder coating" },
+      { "label": "Stainless-steel brushing and mirror finishing" },
+      { "label": "Silk-screen printing" },
+      { 
+        "label": "Product assembly and packing",
+        "media": [
+          {
+            "type": "video",
+            "src": "qUlobDEK9VU",
+            "alt": "Precision manual hardware insertion and pressing during the product sub-assembly phase",
+            "caption": "Precision manual hardware insertion and pressing during the product sub-assembly phase"
+          },
+          {
+            "type": "video",
+            "src": "xSvSKbSwaEc",
+            "alt": "Automated vibratory hardware feeding and pneumatic pressing for rapid, efficient product assembly",
+            "caption": "Automated vibratory hardware feeding and pneumatic pressing for rapid, efficient product assembly"
+          }
+        ]
+      }
     ],
     "materials": "We work with steel, stainless steel, electrolytic steel sheet and aluminium according to project requirements."
   },

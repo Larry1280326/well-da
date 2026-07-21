@@ -54,15 +54,101 @@
     "sectionTitle": "鈑金加工能力",
     "intro": "我們的加工能力涵蓋客製金屬產品所需的工序。從材料準備、成形加工，到表面處理及最終組裝，我們都能自主生產。",
     "capabilities": [
-      "剪板及板材切割",
-      "沖孔及激光切割",
-      "折彎及成形",
-      "激光焊、TIG 焊、點焊及電弧焊",
-      "打磨及拋光",
-      "噴粉處理",
-      "不鏽鋼拉絲及鏡面處理",
-      "絲印",
-      "產品組裝及包裝"
+      {
+        "label": "剪板及板材切割",
+        "media": [
+          {
+            "type": "image",
+            "src": "/images/shearing.jpg",
+            "alt": "剪板機切割金屬板材",
+            "caption": "精確板材切割"
+          },
+          {
+            "type": "video",
+            "src": "oYNNZsUGEws",
+            "alt": "操作員正在對金屬板材進行精確剪切和切割",
+            "caption": "操作員正在對金屬板材進行精確剪切和切割"
+          }
+        ]
+      },
+      {
+        "label": "沖孔及激光切割",
+        "media": [
+          {
+            "type": "image",
+            "src": "/images/laser-cutting.jpg",
+            "alt": "CNC 激光切割機操作中",
+            "caption": "CNC 激光切割精密金屬加工"
+          },
+          {
+            "type": "image",
+            "src": "/images/laser-cutting-operation.jpg",
+            "alt": "CNC 激光切割機操作中",
+            "caption": "CNC 激光切割用於鈑金加工"
+          },
+          {
+            "type": "video",
+            "src": "bMVDdIIbx3w",
+            "alt": "使用線切割放電加工（Wire EDM）對金屬零件進行高精度輪廓切割",
+            "caption": "使用線切割放電加工（Wire EDM）對金屬零件進行高精度輪廓切割"
+          },
+          {
+            "type": "video",
+            "src": "AbG7YdfhFeY",
+            "alt": "自動化CNC激光切割機快速而精確地對大型金屬板材進行輪廓切割",
+            "caption": "自動化CNC激光切割機快速而精確地對大型金屬板材進行輪廓切割"
+          }
+        ]
+      },
+      { "label": "折彎及成形" },
+      {
+        "label": "激光焊、TIG 焊、點焊及電弧焊",
+        "media": [
+          {
+            "type": "image",
+            "src": "/images/welding.jpg",
+            "alt": "鈑金焊接工位",
+            "caption": "TIG 焊及點焊用於鈑金組裝"
+          },
+          {
+            "type": "video",
+            "src": "PLuCSZ3DI_c",
+            "alt": "精密鈑金半成品的氬弧焊 (TIG) 作業",
+            "caption": "精密鈑金半成品的氬弧焊 (TIG) 作業"
+          }
+        ]
+      },
+      {
+        "label": "打磨及拋光",
+        "media": [
+          {
+            "type": "video",
+            "src": "Xo5nqRMbjfo",
+            "alt": "鈑金打磨及拋光工位",
+            "caption": "打磨及拋光用於光滑表面處理"
+          }
+        ]
+      },
+      { "label": "噴粉處理" },
+      { "label": "不鏽鋼拉絲及鏡面處理" },
+      { "label": "絲印" },
+      {
+        "label": "產品組裝及包裝",
+        "media": [
+          {
+            "type": "video",
+            "src": "qUlobDEK9VU",
+            "alt": "產品半成品組裝階段的精密手動五金件壓鉚與組裝",
+            "caption": "產品半成品組裝階段的精密手動五金件壓鉚與組裝"
+          },
+          {
+            "type": "video",
+            "src": "xSvSKbSwaEc",
+            "alt": "採用自動化振動盤送料與氣動壓鉚，實現快速高效的產品組裝",
+            "caption": "Automated vibratory hardware feeding and pneumatic pressing for rapid, efficient product assembly"
+          }
+        ]
+      }
     ],
     "materials": "我們可根據項目要求加工鐵材、不鏽鋼、電解板及鋁材。"
   },
@@ -96,10 +182,22 @@
     "intro": "請將您的圖紙、CAD、DXF 或 STEP 檔案，連同所需材料、厚度、數量、表面處理要求及交貨時間一併發送給我們。我們的團隊將審查製造要求，並根據您的項目規格準備報價。",
     "contactIntro": "選擇以下聯絡方式與我們聯繫：",
     "contacts": [
-      { "label": "電話", "value": "(+852) 2790 5008", "href": "tel:+85227905008" },
-      { "label": "WhatsApp", "value": "(+852) 2790 5008", "href": "https://wa.me/85227905008" },
+      {
+        "label": "電話",
+        "value": "(+852) 2790 5008",
+        "href": "tel:+85227905008"
+      },
+      {
+        "label": "WhatsApp",
+        "value": "(+852) 2790 5008",
+        "href": "https://wa.me/85227905008"
+      },
       { "label": "微信", "value": "xxxx", "href": null },
-      { "label": "電郵", "value": "eng@wellda.com", "href": "mailto:eng@wellda.com" }
+      {
+        "label": "電郵",
+        "value": "eng@wellda.com",
+        "href": "mailto:eng@wellda.com"
+      }
     ]
   },
   "about": {

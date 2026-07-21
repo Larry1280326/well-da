@@ -1,10 +1,11 @@
 import { Container, Text, Title } from "@mantine/core";
+import { CapabilityItem, type Capability } from "./CapabilityItem";
 
 interface ManufacturingDict {
   pageTitle: string;
   sectionTitle: string;
   intro: string;
-  capabilities: string[];
+  capabilities: Capability[];
   materials: string;
 }
 
@@ -48,18 +49,11 @@ export function ManufacturingContent({
               gap: "var(--mantine-spacing-sm)",
             }}
           >
-            {dict.capabilities.map((item) => (
-              <li key={item}>
-                <span
-                  style={{
-                    color: "var(--mantine-color-green-6)",
-                    marginRight: "0.5rem",
-                  }}
-                >
-                  &#10003;
-                </span>
-                <Text component="span">{item}</Text>
-              </li>
+            {dict.capabilities.map((capability) => (
+              <CapabilityItem
+                key={capability.label}
+                capability={capability}
+              />
             ))}
           </ul>
 
