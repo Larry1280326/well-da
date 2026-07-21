@@ -263,5 +263,196 @@
     "trustISO": "ISO 9001",
     "trustCustom": "Custom Manufacturing",
     "trustPrecision": "Precision up to ±0.2 mm"
+  },
+  "faq": {
+    "pageTitle": "Frequently Asked Questions",
+    "sections": [
+      {
+        "slug": "products-orders",
+        "title": "Products & Orders",
+        "questions": [
+          {
+            "question": "What types of products do you manufacture?",
+            "answer": [
+              "We manufacture custom sheet metal parts, enclosures, housings, cabinets, panels and non-standard metal products based on customer drawings or design requirements.",
+              "Typical applications include intercom systems, ordering kiosks, electrical equipment, communication systems, security equipment, lockers and precision equipment housings."
+            ]
+          },
+          {
+            "question": "Do you have a minimum order quantity?",
+            "answer": [
+              "There is no fixed minimum order quantity.",
+              "We can support single-piece prototypes, small-batch orders and production quantities. Pricing will depend on the material, manufacturing process, setup requirements and order quantity."
+            ]
+          },
+          {
+            "question": "What drawing formats do you accept?",
+            "answer": [
+              "We can review common engineering drawing and 3D file formats, including:",
+              "- PDF",
+              "- CAD drawings",
+              "- DXF",
+              "- STEP",
+              "Please include dimensions, material, thickness, tolerance, surface finish and quantity whenever possible."
+            ]
+          }
+        ]
+      },
+      {
+        "slug": "manufacturing-capabilities",
+        "title": "Manufacturing & Capabilities",
+        "questions": [
+          {
+            "question": "Can you manufacture from a sample?",
+            "answer": [
+              "Sample-based evaluation may be possible, depending on the product.",
+              "However, drawings or dimensional information are strongly recommended to improve quotation accuracy and reduce the risk of misunderstanding."
+            ]
+          },
+          {
+            "question": "What materials can you work with?",
+            "answer": [
+              "Our commonly used materials include:",
+              "- Mild steel",
+              "- Stainless steel",
+              "- Aluminium",
+              "- Electrolytic steel sheet",
+              "Material grade and thickness should be specified in the drawing or enquiry. Alternative materials may be reviewed case by case."
+            ]
+          },
+          {
+            "question": "What manufacturing processes are available?",
+            "answer": [
+              "Our capabilities include:",
+              "- Shearing and cutting",
+              "- Laser cutting",
+              "- Punching",
+              "- Bending",
+              "- Welding",
+              "- Grinding and polishing",
+              "- Powder coating",
+              "- Silk-screen printing",
+              "- Assembly",
+              "The final manufacturing route will be selected according to the product design, material, tolerance and order quantity."
+            ]
+          },
+          {
+            "question": "What tolerance can you achieve?",
+            "answer": [
+              "Depending on the material, part geometry and manufacturing process, dimensional tolerance may reach approximately **±0.2 mm**.",
+              "Not every dimension can be controlled to the same tolerance. Critical dimensions and inspection requirements should be clearly identified on the drawing for engineering review."
+            ]
+          },
+          {
+            "question": "Can you produce prototypes?",
+            "answer": [
+              "Yes. We can support prototypes and trial production before mass production.",
+              "Prototype lead time is commonly around one week, depending on material availability, product complexity, finishing requirements and engineering confirmation."
+            ]
+          }
+        ]
+      },
+      {
+        "slug": "lead-time-finishing",
+        "title": "Lead Time & Finishing",
+        "questions": [
+          {
+            "question": "What is the typical production lead time?",
+            "answer": [
+              "Lead time depends on product complexity, quantity, material availability and surface treatment.",
+              "Simple orders may be completed in approximately 10 working days, while larger production orders commonly require around one month, including sample approval where applicable.",
+              "The confirmed lead time will be stated in the quotation."
+            ]
+          },
+          {
+            "question": "What surface finishes are available?",
+            "answer": [
+              "Available surface treatments include:",
+              "- Powder coating in different colours",
+              "- Stainless steel brushing",
+              "- Mirror finishing",
+              "- Polishing",
+              "- Silk-screen printing",
+              "Colour references, surface standards and appearance requirements should be provided before production."
+            ]
+          }
+        ]
+      },
+      {
+        "slug": "quality-compliance",
+        "title": "Quality & Compliance",
+        "questions": [
+          {
+            "question": "Can you manufacture outdoor or weather-resistant products?",
+            "answer": [
+              "We can manufacture products with outdoor anti-rust and water-resistance requirements through material selection, structural design, welding, sealing and surface treatment.",
+              "However, an IP rating or other certified protection level should only be claimed after appropriate testing.",
+              "Third-party testing may be arranged on a project basis, subject to the customer's requirements, budget and testing standard."
+            ]
+          },
+          {
+            "question": "Are you ISO certified?",
+            "answer": [
+              "Our manufacturing operation follows an ISO 9001 quality management system.",
+              "Relevant certification information may be provided during supplier qualification or project discussion."
+            ]
+          },
+          {
+            "question": "How do you control product quality?",
+            "answer": [
+              "Quality control may include incoming material checking, dimensional inspection, in-process inspection, appearance checking and final inspection before shipment.",
+              "Inspection requirements, critical dimensions and acceptance criteria should be confirmed before production."
+            ]
+          },
+          {
+            "question": "Can you help improve my design for manufacturing?",
+            "answer": [
+              "Yes. Our engineering team can review drawings for manufacturability and may suggest adjustments relating to bending, hole positions, welding access, material use, tolerances, assembly and production efficiency.",
+              "Any design changes will be discussed with the customer before production."
+            ]
+          }
+        ]
+      },
+      {
+        "slug": "shipping-quotation",
+        "title": "Shipping & Quotation",
+        "questions": [
+          {
+            "question": "Can you arrange international shipping?",
+            "answer": [
+              "Yes. Depending on the shipment size and destination, delivery may be arranged by courier, air freight or sea freight.",
+              "Customers may also nominate their own freight forwarder or arrange factory collection.",
+              "Freight, customs duties, taxes and import clearance responsibilities will be confirmed separately."
+            ]
+          },
+          {
+            "question": "What information is required for a quotation?",
+            "answer": [
+              "For a more accurate quotation, please provide:",
+              "- 2D drawing or 3D model",
+              "- Material and material grade",
+              "- Material thickness",
+              "- Order quantity",
+              "- Required tolerances",
+              "- Surface finish",
+              "- Colour requirements",
+              "- Assembly requirements",
+              "- Inspection or testing requirements",
+              "- Delivery destination",
+              "- Required delivery date",
+              "Incomplete information may result in a preliminary quotation that is subject to engineering confirmation."
+            ]
+          },
+          {
+            "question": "How quickly can I receive a quotation?",
+            "answer": [
+              "Quotation time depends on the complexity and completeness of the enquiry.",
+              "Straightforward parts may be reviewed quickly, while assemblies, tight-tolerance products or projects requiring material and process evaluation may require additional engineering review.",
+              "Providing complete drawings and requirements will help shorten the quotation process."
+            ]
+          }
+        ]
+      }
+    ]
   }
 }

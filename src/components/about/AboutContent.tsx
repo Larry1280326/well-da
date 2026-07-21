@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   Button,
   Container,
@@ -48,15 +49,42 @@ export function AboutContent({
         }}
       >
         <Container size="xl" py={60}>
-          <Title order={2} mb="md">
-            {dict.profileTitle}
-          </Title>
-          <Text c="dimmed" maw={640} mb="md">
-            {dict.profileDesc1}
-          </Text>
-          <Text c="dimmed" maw={640}>
-            {dict.profileDesc2}
-          </Text>
+          <div
+            style={{
+              display: "flex",
+              gap: "2.5rem",
+              flexWrap: "wrap",
+            }}
+          >
+            {/* Left: Text content */}
+            <div style={{ flex: "1 1 360px", minWidth: 0 }}>
+              <Title order={2} mb="md">
+                {dict.profileTitle}
+              </Title>
+              <Text c="dimmed" maw={640} mb="md">
+                {dict.profileDesc1}
+              </Text>
+              <Text c="dimmed" maw={640}>
+                {dict.profileDesc2}
+              </Text>
+            </div>
+
+            {/* Right: Image */}
+            <div style={{ flex: "1 1 360px", minWidth: 0 }}>
+              <Image
+                src="/images/cool-photo.jpg"
+                alt="Sheet metal manufacturing workshop and production facility"
+                width={640}
+                height={480}
+                sizes="(max-width: 768px) 100vw, 480px"
+                style={{
+                  maxWidth: "100%",
+                  height: "auto",
+                  borderRadius: "var(--mantine-radius-md)",
+                }}
+              />
+            </div>
+          </div>
         </Container>
       </section>
 
@@ -70,15 +98,42 @@ export function AboutContent({
         }}
       >
         <Container size="xl" py={60}>
-          <Title order={2} mb="md">
-            {dict.coreTitle}
-          </Title>
-          <Text c="dimmed" maw={640} mb="md">
-            {dict.coreDesc1}
-          </Text>
-          <Text c="dimmed" maw={640}>
-            {dict.coreDesc2}
-          </Text>
+          <div
+            style={{
+              display: "flex",
+              gap: "2.5rem",
+              flexWrap: "wrap",
+            }}
+          >
+            {/* Left: Text content */}
+            <div style={{ flex: "1 1 360px", minWidth: 0 }}>
+              <Title order={2} mb="md">
+                {dict.coreTitle}
+              </Title>
+              <Text c="dimmed" maw={640} mb="md">
+                {dict.coreDesc1}
+              </Text>
+              <Text c="dimmed" maw={640}>
+                {dict.coreDesc2}
+              </Text>
+            </div>
+
+            {/* Right: Image */}
+            <div style={{ flex: "1 1 360px", minWidth: 0 }}>
+              <Image
+                src="/images/cool-photo2.jpg"
+                alt="Custom sheet metal enclosures and fabricated metal components"
+                width={640}
+                height={480}
+                sizes="(max-width: 768px) 100vw, 480px"
+                style={{
+                  maxWidth: "100%",
+                  height: "auto",
+                  borderRadius: "var(--mantine-radius-md)",
+                }}
+              />
+            </div>
+          </div>
         </Container>
       </section>
 
@@ -105,6 +160,18 @@ export function AboutContent({
                 </Button>
               </Link>
             </Paper>
+            <Image
+              src="/images/cool-photo3.jpg"
+              alt="Completed metal fabrication project and finished sheet metal products"
+              width={640}
+              height={480}
+              sizes="(max-width: 768px) 100vw, 480px"
+              style={{
+                maxWidth: "100%",
+                height: "auto",
+                borderRadius: "var(--mantine-radius-md)",
+              }}
+            />
           </SimpleGrid>
         </Container>
       </section>

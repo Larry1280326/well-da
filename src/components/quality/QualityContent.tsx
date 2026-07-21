@@ -1,4 +1,5 @@
 import { Container, Text, Title } from "@mantine/core";
+import Image from "next/image";
 
 interface QualityDict {
   pageTitle: string;
@@ -38,15 +39,41 @@ export function QualityContent({ dict }: { dict: QualityDict }) {
       {/* Quality Section */}
       <section id="control" style={{ scrollMarginTop: 80 }}>
         <Container size="xl" py={60}>
-          <Title order={2} mb="xl">
-            {dict.sectionTitle}
-          </Title>
+          <div
+            style={{
+              display: "flex",
+              gap: "2.5rem",
+              flexWrap: "wrap",
+            }}
+          >
+            {/* Left: Text content */}
+            <div style={{ flex: "1 1 360px", minWidth: 0 }}>
+              <Title order={2} mb="xl">
+                {dict.sectionTitle}
+              </Title>
+              {dict.paragraphs.map((text, i) => (
+                <Text key={i} mb="md" maw={720}>
+                  {renderParagraph(text)}
+                </Text>
+              ))}
+            </div>
 
-          {dict.paragraphs.map((text, i) => (
-            <Text key={i} mb="md" maw={720}>
-              {renderParagraph(text)}
-            </Text>
-          ))}
+            {/* Right: Image */}
+            <div style={{ flex: "1 1 360px", minWidth: 0 }}>
+              <Image
+                src="/images/cool-photo3.jpg"
+                alt="Sheet metal quality inspection and tolerance control processes"
+                width={640}
+                height={480}
+                sizes="(max-width: 768px) 100vw, 480px"
+                style={{
+                  maxWidth: "100%",
+                  height: "auto",
+                  borderRadius: "var(--mantine-radius-md)",
+                }}
+              />
+            </div>
+          </div>
         </Container>
       </section>
     </>

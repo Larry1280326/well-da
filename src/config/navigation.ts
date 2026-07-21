@@ -97,16 +97,17 @@ const en: LocaleNavData = {
         },
       ],
     },
-    // TODO: Uncomment when FAQ pages are ready
-    // {
-    //   label: "FAQ",
-    //   href: "/faq",
-    //   children: [
-    //     { label: "Ordering & Lead Time", href: "/faq/ordering" },
-    //     { label: "Shipping & Logistics", href: "/faq/shipping" },
-    //     { label: "Technical Support", href: "/faq/support" },
-    //   ],
-    // },
+    {
+      label: "FAQ",
+      href: "/faq",
+      children: [
+        { label: "Products & Orders", href: "/faq#products-orders" },
+        { label: "Manufacturing & Capabilities", href: "/faq#manufacturing-capabilities" },
+        { label: "Lead Time & Finishing", href: "/faq#lead-time-finishing" },
+        { label: "Quality & Compliance", href: "/faq#quality-compliance" },
+        { label: "Shipping & Quotation", href: "/faq#shipping-quotation" },
+      ],
+    },
   ],
   contactInfo: {
     phone: "(+852) 2790 5008",
@@ -192,16 +193,17 @@ const zh: LocaleNavData = {
         },
       ],
     },
-    // TODO: Uncomment when FAQ pages are ready
-    // {
-    //   label: "常見問題",
-    //   href: "/faq",
-    //   children: [
-    //     { label: "訂購與交貨時間", href: "/faq/ordering" },
-    //     { label: "運送與物流", href: "/faq/shipping" },
-    //     { label: "技術支援", href: "/faq/support" },
-    //   ],
-    // },
+    {
+      label: "常見問題",
+      href: "/faq",
+      children: [
+        { label: "產品與訂單", href: "/faq#products-orders" },
+        { label: "製造與能力", href: "/faq#manufacturing-capabilities" },
+        { label: "交期與表面處理", href: "/faq#lead-time-finishing" },
+        { label: "品質與合規", href: "/faq#quality-compliance" },
+        { label: "運輸與報價", href: "/faq#shipping-quotation" },
+      ],
+    },
   ],
   contactInfo: {
     phone: "(+852) 2790 5008",
