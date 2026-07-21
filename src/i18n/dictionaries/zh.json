@@ -100,7 +100,17 @@
           }
         ]
       },
-      { "label": "折彎及成形" },
+      {
+        "label": "折彎及成形",
+        "media": [
+          {
+            "type": "image",
+            "src": "/images/bending.jpg",
+            "alt": "CNC 折彎機操作中",
+            "caption": "CNC 折彎機用於鈑金加工"
+          }
+        ]
+      },
       {
         "label": "激光焊、TIG 焊、點焊及電弧焊",
         "media": [
@@ -129,7 +139,23 @@
           }
         ]
       },
-      { "label": "噴粉處理" },
+      {
+        "label": "噴粉處理",
+        "media": [
+          {
+            "type": "image",
+            "src": "/images/powder-coating.jpg",
+            "alt": "噴粉處理工位",
+            "caption": "噴粉處理用於耐用表面處理"
+          },
+          {
+            "type": "image",
+            "src": "/images/powder-coating-2.jpg",
+            "alt": "金屬零件粉末塗裝工藝",
+            "caption": "金屬零件粉末塗裝工藝"
+          }
+        ]
+      },
       { "label": "不鏽鋼拉絲及鏡面處理" },
       { "label": "絲印" },
       {
@@ -145,10 +171,10 @@
             "type": "video",
             "src": "xSvSKbSwaEc",
             "alt": "採用自動化振動盤送料與氣動壓鉚，實現快速高效的產品組裝",
-            "caption": "Automated vibratory hardware feeding and pneumatic pressing for rapid, efficient product assembly"
+            "caption": "採用自動化振動盤送料與氣動壓鉚，實現快速高效的產品組裝"
           }
         ]
-      }
+      } 
     ],
     "materials": "我們可根據項目要求加工鐵材、不鏽鋼、電解板及鋁材。"
   },

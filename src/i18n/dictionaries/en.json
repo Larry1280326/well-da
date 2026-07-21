@@ -100,7 +100,17 @@
           }
         ]
       },
-      { "label": "Bending and forming" },
+      { 
+        "label": "Bending and forming",
+        "media": [
+          {
+            "type": "image",
+            "src": "/images/bending.jpg",
+            "alt": "CNC press brake bending sheet metal",
+            "caption": "CNC press brake for precise sheet bending"
+          }
+        ]
+      },
       {
         "label": "Laser, TIG, spot and arc welding",
         "media": [
@@ -129,10 +139,25 @@
           }
         ]
       },
-      { "label": "Powder coating" },
+      { "label": "Powder coating" ,
+        "media": [
+          {
+            "type": "image",
+            "src": "/images/powder-coating.jpg",
+            "alt": "Powder coating for metal finishing",
+            "caption": "Powder coating for durable surface finish"
+          },
+          {
+            "type": "image",
+            "src": "/images/powder-coating-2.jpg",
+            "alt": "Powder coating process for metal parts",
+            "caption": "Additional powder coating options for various applications"
+          }
+        ]
+      },
       { "label": "Stainless-steel brushing and mirror finishing" },
       { "label": "Silk-screen printing" },
-      { 
+      {
         "label": "Product assembly and packing",
         "media": [
           {
