@@ -93,15 +93,16 @@ const en: LocaleNavData = {
         },
       ],
     },
-    {
-      label: "FAQ",
-      href: "/faq",
-      children: [
-        { label: "Ordering & Lead Time", href: "/faq/ordering" },
-        { label: "Shipping & Logistics", href: "/faq/shipping" },
-        { label: "Technical Support", href: "/faq/support" },
-      ],
-    },
+    // TODO: Uncomment when FAQ pages are ready
+    // {
+    //   label: "FAQ",
+    //   href: "/faq",
+    //   children: [
+    //     { label: "Ordering & Lead Time", href: "/faq/ordering" },
+    //     { label: "Shipping & Logistics", href: "/faq/shipping" },
+    //     { label: "Technical Support", href: "/faq/support" },
+    //   ],
+    // },
   ],
   contactInfo: {
     phone: "(+852) 2790 5008",
@@ -183,15 +184,16 @@ const zh: LocaleNavData = {
         },
       ],
     },
-    {
-      label: "常見問題",
-      href: "/faq",
-      children: [
-        { label: "訂購與交貨時間", href: "/faq/ordering" },
-        { label: "運送與物流", href: "/faq/shipping" },
-        { label: "技術支援", href: "/faq/support" },
-      ],
-    },
+    // TODO: Uncomment when FAQ pages are ready
+    // {
+    //   label: "常見問題",
+    //   href: "/faq",
+    //   children: [
+    //     { label: "訂購與交貨時間", href: "/faq/ordering" },
+    //     { label: "運送與物流", href: "/faq/shipping" },
+    //     { label: "技術支援", href: "/faq/support" },
+    //   ],
+    // },
   ],
   contactInfo: {
     phone: "(+852) 2790 5008",
