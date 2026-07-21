@@ -9,7 +9,7 @@ export function Logo({ locale }: { locale?: string }) {
     <Link href={homeHref} className={classes.root}>
       <Image
         src="/logo.jpg"
-        alt="Well Da Metal Factory logo"
+        alt="Well Da Factory Limited logo"
         width={52}
         height={52}
         priority
@@ -19,7 +19,7 @@ export function Logo({ locale }: { locale?: string }) {
           滙達五金廠
         </Text>
         <Text className={classes.english} component="span">
-          WELL DA METAL FACTORY
+          Well Da Factory Limited
         </Text>
       </Stack>
     </Link>
