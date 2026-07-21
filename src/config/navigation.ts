@@ -88,8 +88,12 @@ const en: LocaleNavData = {
       href: "/case-studies",
       children: [
         {
-          label: "Overview",
-          href: "/case-studies#overview",
+          label: "Electrical Enclosure",
+          href: "/case-studies#flat-sheet-to-electrical-enclosure",
+        },
+        {
+          label: "Kiosk Enclosure",
+          href: "/case-studies#ordering-kiosk-enclosures",
         },
       ],
     },
@@ -179,8 +183,12 @@ const zh: LocaleNavData = {
       href: "/case-studies",
       children: [
         {
-          label: "概覽",
-          href: "/case-studies#overview",
+          label: "電氣外殼",
+          href: "/case-studies#flat-sheet-to-electrical-enclosure",
+        },
+        {
+          label: "售貨機外殼",
+          href: "/case-studies#ordering-kiosk-enclosures",
         },
       ],
     },

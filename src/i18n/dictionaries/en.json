@@ -192,12 +192,32 @@
       {
         "slug": "flat-sheet-to-electrical-enclosure",
         "title": "From Flat Sheet to Finished Electrical Enclosure",
-        "description": "For this custom electrical box project, the production process included sheet cutting, punching or laser opening, bending, welding, grinding, powder coating, silk-screen printing and final assembly.\n\nBy coordinating each manufacturing stage around the confirmed drawing, the enclosure was produced according to the required dimensions, appearance and functional requirements."
+        "description": "For this custom electrical box project, the production process included sheet cutting, punching or laser opening, bending, welding, grinding, powder coating, silk-screen printing and final assembly.\n\nBy coordinating each manufacturing stage around the confirmed drawing, the enclosure was produced according to the required dimensions, appearance and functional requirements.",
+        "images": [
+          {
+            "src": "/images/case-study-electrical-panel.jpg",
+            "alt": "Custom electrical enclosure manufactured from flat sheet metal, showing the final assembled product"
+          },
+          {
+            "src": "/images/case-study-electrical-panel-2.jpg",
+            "alt": "Finished electrical enclosure with powder-coated finish and silk-screen printing"
+          }
+        ]
       },
       {
-        "slug": "another-project",
-        "title": "Dummy Project",
-        "description": "Designed and manufactured a 42U server cabinet with integrated cable management and ventilation.\n\nAll panels were laser-cut, bent, welded, and powder-coated according to the client's rack-mount specifications."
+        "slug": "ordering-kiosk-enclosures",
+        "title": "Ordering Kiosk Enclosure",
+        "description": "A rugged, purpose-built enclosure designed for self-service ordering kiosks. The cabinet features integrated cable management routing and efficient ventilation to support internal hardware components. Manufactured to the client's exact 42U rack-mount specifications, all panels are produced through precision laser cutting, CNC bending, structural welding, and a durable powder-coated finish—ensuring long-lasting durability and a clean, professional appearance suitable for public-facing environments.",
+        "images": [
+          {
+            "src": "/images/case-study-ordering-kiosk.jpeg",
+            "alt": "Custom ordering kiosk enclosure with integrated cable management routing and ventilation"
+          },
+          {
+            "src": "/images/case-study-ordering-kiosk-2.jpeg",
+            "alt": "Ordering kiosk enclosure showing rack-mount design and powder-coated finish"
+          }
+        ]
       }
     ]
   },
