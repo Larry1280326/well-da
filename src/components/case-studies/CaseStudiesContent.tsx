@@ -1,4 +1,4 @@
-import { Container, Text, Title } from "@mantine/core";
+import { Container, SimpleGrid, Text, Title } from "@mantine/core";
 import Image from "next/image";
 
 interface CaseStudyImage {
@@ -67,14 +67,10 @@ export function CaseStudiesContent({ dict }: { dict: CaseStudiesDict }) {
 
               {/* Right: Images */}
               {section.images && section.images.length > 0 && (
-                <div
-                  style={{
-                    flex: "1 1 360px",
-                    minWidth: 0,
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "1rem",
-                  }}
+                <SimpleGrid
+                  cols={{ base: 1, sm: Math.min(section.images.length, 2) }}
+                  spacing="md"
+                  style={{ flex: "1 1 360px", minWidth: 0 }}
                 >
                   {section.images.map((img, i) => (
                     <Image
@@ -83,7 +79,7 @@ export function CaseStudiesContent({ dict }: { dict: CaseStudiesDict }) {
                       alt={img.alt}
                       width={640}
                       height={480}
-                      sizes="(max-width: 768px) 100vw, 640px"
+                      sizes="(max-width: 768px) 100vw, 320px"
                       style={{
                         maxWidth: "100%",
                         height: "auto",
@@ -91,7 +87,7 @@ export function CaseStudiesContent({ dict }: { dict: CaseStudiesDict }) {
                       }}
                     />
                   ))}
-                </div>
+                </SimpleGrid>
               )}
             </div>
           </Container>
