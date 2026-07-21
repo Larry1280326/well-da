@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { hasLocale, getDictionary } from "@/i18n/dictionaries";
-import { ManufacturingContent } from "@/components/manufacturing/ManufacturingContent";
+import { ManufacturingContent, type ManufacturingDict } from "@/components/manufacturing/ManufacturingContent";
 
 export default async function ManufacturingPage({
   params,
@@ -10,5 +10,5 @@ export default async function ManufacturingPage({
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
   const dict = await getDictionary(lang);
-  return <ManufacturingContent dict={dict.manufacturing} />;
+  return <ManufacturingContent dict={dict.manufacturing as ManufacturingDict} />;
 }

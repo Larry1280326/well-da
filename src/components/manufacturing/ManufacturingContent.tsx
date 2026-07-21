@@ -1,7 +1,7 @@
 import { Container, Text, Title } from "@mantine/core";
 import { CapabilityItem, type Capability } from "./CapabilityItem";
 
-interface ManufacturingDict {
+export interface ManufacturingDict {
   pageTitle: string;
   sectionTitle: string;
   intro: string;
