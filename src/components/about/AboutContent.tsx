@@ -7,13 +7,8 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import {
-  IconArrowRight,
-  IconAward,
-  IconCalendar,
-  IconRulerMeasure,
-  IconSettings,
-} from "@tabler/icons-react";
+import { IconArrowRight } from "@tabler/icons-react";
+import { TrustLineSection } from "@/components/about/TrustLineSection";
 
 interface AboutDict {
   profileTitle: string;
@@ -41,13 +36,6 @@ export function AboutContent({
   dict: AboutDict;
   locale: string;
 }) {
-  const trustItems = [
-    { icon: IconCalendar, label: dict.trustEstablished },
-    { icon: IconAward, label: dict.trustISO },
-    { icon: IconSettings, label: dict.trustCustom },
-    { icon: IconRulerMeasure, label: dict.trustPrecision },
-  ];
-
   return (
     <>
       {/* Profile Section */}
@@ -121,38 +109,8 @@ export function AboutContent({
         </Container>
       </section>
 
-      {/* Trust Line Section */}
-      <section
-        id="trust-line"
-        style={{
-          background: "#f7f7f7",
-          borderTop: "1px solid #ececec",
-          scrollMarginTop: 80,
-        }}
-      >
-        <Container size="xl" py={60}>
-          <Title order={2} mb="md">
-            {dict.trustTitle}
-          </Title>
-          <Text c="dimmed" maw={640} mb="xl">
-            {dict.trustDesc}
-          </Text>
-          <SimpleGrid cols={{ base: 2, sm: 4 }} spacing="lg">
-            {trustItems.map((item) => (
-              <Paper key={item.label} p="lg" radius="md" withBorder h="100%">
-                <item.icon
-                  size={32}
-                  stroke={1.5}
-                  color="var(--mantine-color-green-6)"
-                />
-                <Text fw={600} mt="sm">
-                  {item.label}
-                </Text>
-              </Paper>
-            ))}
-          </SimpleGrid>
-        </Container>
-      </section>
+      {/* Trust Line Section + ISO Modal (client component) */}
+      <TrustLineSection dict={dict} />
     </>
   );
 }
