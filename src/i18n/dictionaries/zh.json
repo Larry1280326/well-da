@@ -14,6 +14,21 @@
     "menu": "選單",
     "overview": "概覽"
   },
+  "search": {
+    "pageTitle": "搜尋",
+    "placeholder": "搜尋產品、能力、常見問題...",
+    "noQuery": "輸入關鍵字以搜尋產品、製造能力、常見問題等內容。",
+    "noResults": "沒有找到相關結果：",
+    "viewAll": "查看所有結果",
+    "categories": {
+      "all": "全部",
+      "page": "頁面",
+      "product": "產品",
+      "capability": "製造能力",
+      "caseStudy": "案例研究",
+      "faq": "常見問題"
+    }
+  },
   "applications": {
     "pageTitle": "產品與應用",
     "sections": [

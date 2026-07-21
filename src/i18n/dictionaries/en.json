@@ -14,6 +14,21 @@
     "menu": "Menu",
     "overview": "Overview"
   },
+  "search": {
+    "pageTitle": "Search",
+    "placeholder": "Search products, capabilities, FAQ...",
+    "noQuery": "Enter a search term to find products, capabilities, FAQ answers, and more.",
+    "noResults": "No results found for",
+    "viewAll": "View all results",
+    "categories": {
+      "all": "All",
+      "page": "Pages",
+      "product": "Products",
+      "capability": "Capabilities",
+      "caseStudy": "Case Studies",
+      "faq": "FAQ"
+    }
+  },
   "applications": {
     "pageTitle": "Products & Applications",
     "sections": [
