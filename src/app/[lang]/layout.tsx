@@ -20,6 +20,9 @@ export async function generateMetadata(props: {
   return {
     title: dict.metadata.title,
     description: dict.metadata.description,
+    verification: {
+      google: "xUXJ1A5EKDBurAe0XZt3G4ADIZew0xkWaMfaeQvdEN4",
+    },
   };
 }
 
