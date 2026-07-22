@@ -246,15 +246,15 @@
     "contacts": [
       {
         "label": "電話",
-        "value": "(+852) 2790 5008",
-        "href": "tel:+85227905008"
+        "value": "(+852) 6151 5732",
+        "href": "tel:+85261515732"
       },
       {
         "label": "WhatsApp",
-        "value": "(+852) 2790 5008",
-        "href": "https://wa.me/85227905008"
+        "value": "(+852) 6151 5732",
+        "href": "https://wa.me/85261515732"
       },
-      { "label": "微信", "value": "xxxx", "href": null },
+
       {
         "label": "電郵",
         "value": "eng@wellda.com",
