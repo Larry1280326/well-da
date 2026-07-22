@@ -28,14 +28,18 @@ interface AboutDict {
   trustISO: string;
   trustCustom: string;
   trustPrecision: string;
+  homepageTitle?: string;
+  homepageCaption?: string;
 }
 
 export function AboutContent({
   dict,
   locale,
+  isHomepage = false,
 }: {
   dict: AboutDict;
   locale: string;
+  isHomepage?: boolean;
 }) {
   return (
     <>
@@ -58,7 +62,17 @@ export function AboutContent({
           >
             {/* Left: Text content */}
             <div style={{ flex: "1 1 360px", minWidth: 0 }}>
-              <Title order={2} mb="md">
+              {isHomepage && dict.homepageTitle && (
+                <>
+                  <Title order={1} mb="md">
+                    {dict.homepageTitle}
+                  </Title>
+                  <Text c="dimmed" maw={640} mb="xl">
+                    {dict.homepageCaption}
+                  </Text>
+                </>
+              )}
+              <Title order={isHomepage && !dict.homepageTitle ? 1 : 2} mb="md">
                 {dict.profileTitle}
               </Title>
               <Text c="dimmed" maw={640} mb="md">

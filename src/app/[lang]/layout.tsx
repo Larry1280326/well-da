@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import "@mantine/core/styles.css";
 import { MantineProvider, mantineHtmlProps } from "@mantine/core";
 import { SiteHeader } from "@/components/layout/SiteHeader/SiteHeader";
@@ -10,14 +11,16 @@ import {
   type ClientDictionary,
 } from "@/i18n/locale-context";
 import "../globals.css";
+import { SITE_URL } from "@/config/site";
 
 export async function generateMetadata(props: {
   params: Promise<{ lang: string }>;
-}) {
+}): Promise<Metadata> {
   const { lang } = await props.params;
   if (!hasLocale(lang)) return {};
   const dict = await getDictionary(lang);
   return {
+    metadataBase: new URL(SITE_URL),
     title: dict.metadata.title,
     description: dict.metadata.description,
     verification: {
