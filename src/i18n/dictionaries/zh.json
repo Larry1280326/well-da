@@ -4,11 +4,12 @@
     "description": "滙達五金廠 — 香港精密金屬製造、CNC加工及定制鈑金製造。"
   },
   "topBar": {
-    "switchTo": "English"
+    "switchTo": "Eng"
   },
   "mainHeader": {
     "searchPlaceholder": "搜尋...",
-    "cta": "索取報價"
+    "cta": "索取報價",
+    "ctaShort": "報價"
   },
   "mobileNav": {
     "menu": "選單",

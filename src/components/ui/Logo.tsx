@@ -13,6 +13,7 @@ export function Logo({ locale }: { locale?: string }) {
         width={52}
         height={52}
         priority
+        className={classes.image}
       />
       <Stack gap={0} className={classes.text}>
         <Text className={classes.chinese} component="span">

@@ -8,7 +8,16 @@
   padding-bottom: 14px;
 }
 
+.row {
+  --group-gap: var(--mantine-spacing-md);
+}
+
 .left {
+  min-width: 0;
+  flex-shrink: 1;
+}
+
+.left > a {
   min-width: 0;
 }
 
@@ -39,7 +48,36 @@
   font-weight: 600;
 }
 
+.ctaFull {
+  display: none;
+}
+
+.ctaShort {
+  display: inline;
+}
+
+@media (min-width: 48em) {
+  .ctaFull {
+    display: inline;
+  }
+
+  .ctaShort {
+    display: none;
+  }
+}
+
 @media (max-width: 48em) {
+  .container {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .row,
+  .left,
+  .right {
+    --group-gap: var(--mantine-spacing-xs);
+  }
+
   .cta {
     padding-inline: 12px;
     font-size: 0.8rem;

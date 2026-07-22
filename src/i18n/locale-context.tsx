@@ -11,6 +11,7 @@ export interface ClientDictionary {
   mainHeader: {
     searchPlaceholder: string;
     cta: string;
+    ctaShort: string;
   };
   mobileNav: {
     menu: string;

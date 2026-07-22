@@ -4,10 +4,14 @@
   gap: 12px;
   text-decoration: none;
   color: inherit;
+  min-width: 0;
 }
 
 .text {
   line-height: 1.15;
+  min-width: 0;
+  flex-shrink: 1;
+  overflow: hidden;
 }
 
 .chinese {
@@ -15,6 +19,9 @@
   font-weight: 700;
   letter-spacing: 0.12em;
   color: #333;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .english {
@@ -22,4 +29,42 @@
   font-weight: 700;
   letter-spacing: 0.06em;
   color: #444;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.image {
+  flex-shrink: 0;
+  width: 52px;
+  height: auto;
+}
+
+@media (max-width: 48em) {
+  .root {
+    gap: 8px;
+  }
+
+  .chinese {
+    font-size: 1rem;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+
+  .english {
+    font-size: 0.62rem;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+
+  .image {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media (max-width: 22em) {
+  .english {
+    display: none;
+  }
 }

@@ -8,7 +8,8 @@
   },
   "mainHeader": {
     "searchPlaceholder": "Search...",
-    "cta": "Request for Quotation"
+    "cta": "Request for Quotation",
+    "ctaShort": "Quote"
   },
   "mobileNav": {
     "menu": "Menu",

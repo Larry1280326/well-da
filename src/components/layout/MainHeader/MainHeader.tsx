@@ -79,7 +79,7 @@ export function MainHeader() {
     <>
       <div className={classes.root}>
         <Container size="xl" className={classes.container}>
-          <Group justify="space-between" align="center" wrap="nowrap">
+          <Group justify="space-between" align="center" wrap="nowrap" className={classes.row}>
             <Group gap="md" wrap="nowrap" className={classes.left}>
               <Box hiddenFrom="sm">
                 <Burger
@@ -144,7 +144,10 @@ export function MainHeader() {
                   rightSection={<IconArrowRight size={16} stroke={2} />}
                   className={classes.cta}
                 >
-                  {dict.mainHeader.cta}
+                  <span className={classes.ctaFull}>{dict.mainHeader.cta}</span>
+                  <span className={classes.ctaShort}>
+                    {dict.mainHeader.ctaShort}
+                  </span>
                 </Button>
               </Link>
             </Group>
