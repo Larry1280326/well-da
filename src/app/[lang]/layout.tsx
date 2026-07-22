@@ -44,6 +44,7 @@ export default async function RootLayout({
     topBar: dict.topBar,
     mainHeader: dict.mainHeader,
     mobileNav: dict.mobileNav,
+    search: dict.search,
   };
 
   return (

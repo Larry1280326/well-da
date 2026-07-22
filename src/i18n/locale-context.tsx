@@ -16,6 +16,21 @@ export interface ClientDictionary {
     menu: string;
     overview: string;
   };
+  search: {
+    pageTitle: string;
+    placeholder: string;
+    noQuery: string;
+    noResults: string;
+    viewAll: string;
+    categories: {
+      all: string;
+      page: string;
+      product: string;
+      capability: string;
+      caseStudy: string;
+      faq: string;
+    };
+  };
 }
 
 interface LocaleContextValue {

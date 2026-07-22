@@ -14,6 +14,21 @@
     "menu": "Menu",
     "overview": "Overview"
   },
+  "search": {
+    "pageTitle": "Search",
+    "placeholder": "Search products, capabilities, FAQ...",
+    "noQuery": "Enter a search term to find products, capabilities, FAQ answers, and more.",
+    "noResults": "No results found for",
+    "viewAll": "View all results",
+    "categories": {
+      "all": "All",
+      "page": "Pages",
+      "product": "Products",
+      "capability": "Capabilities",
+      "caseStudy": "Case Studies",
+      "faq": "FAQ"
+    }
+  },
   "applications": {
     "pageTitle": "Products & Applications",
     "sections": [
@@ -230,15 +245,15 @@
     "contacts": [
       {
         "label": "Phone",
-        "value": "(+852) 2790 5008",
-        "href": "tel:+85227905008"
+        "value": "(+852) 6151 5732",
+        "href": "tel:+85261515732"
       },
       {
         "label": "WhatsApp",
-        "value": "(+852) 2790 5008",
-        "href": "https://wa.me/85227905008"
+        "value": "(+852) 6151 5732",
+        "href": "https://wa.me/85261515732"
       },
-      { "label": "WeChat", "value": "xxxx", "href": null },
+
       {
         "label": "Email",
         "value": "eng@wellda.com",

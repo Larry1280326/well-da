@@ -110,8 +110,8 @@ const en: LocaleNavData = {
     },
   ],
   contactInfo: {
-    phone: "(+852) 2790 5008",
-    phoneHref: "tel:+85227905008",
+    phone: "(+852) 6151 5732",
+    phoneHref: "tel:+85261515732",
     email: "eng@wellda.com",
     emailHref: "mailto:eng@wellda.com",
   },
@@ -206,8 +206,8 @@ const zh: LocaleNavData = {
     },
   ],
   contactInfo: {
-    phone: "(+852) 2790 5008",
-    phoneHref: "tel:+85227905008",
+    phone: "(+852) 6151 5732",
+    phoneHref: "tel:+85261515732",
     email: "eng@wellda.com",
     emailHref: "mailto:eng@wellda.com",
   },

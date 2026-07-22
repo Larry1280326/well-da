@@ -16,6 +16,10 @@
   flex-shrink: 0;
 }
 
+.searchWrapper {
+  position: relative;
+}
+
 .searchForm {
   flex: 1;
   max-width: 280px;
@@ -24,6 +28,10 @@
 .searchInput {
   background: #f3f3f3;
   border-color: #e0e0e0;
+}
+
+.mobileSearchButton {
+  flex-shrink: 0;
 }
 
 .cta {

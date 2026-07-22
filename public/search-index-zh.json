@@ -1,0 +1,526 @@
+[
+  {
+    "id": "entry-1",
+    "type": "page",
+    "title": "關於我們",
+    "text": "關於我們",
+    "href": "/about"
+  },
+  {
+    "id": "entry-2",
+    "type": "page",
+    "title": "公司簡介",
+    "text": "公司簡介",
+    "href": "/about#profile"
+  },
+  {
+    "id": "entry-3",
+    "type": "page",
+    "title": "與我們合作",
+    "text": "與我們合作",
+    "href": "/about#cta"
+  },
+  {
+    "id": "entry-4",
+    "type": "page",
+    "title": "核心價值",
+    "text": "核心價值",
+    "href": "/about#core-value"
+  },
+  {
+    "id": "entry-5",
+    "type": "page",
+    "title": "信任指標",
+    "text": "信任指標",
+    "href": "/about#trust-line"
+  },
+  {
+    "id": "entry-6",
+    "type": "page",
+    "title": "產品與應用",
+    "text": "產品與應用",
+    "href": "/applications"
+  },
+  {
+    "id": "entry-7",
+    "type": "page",
+    "title": "訂製金屬外殼",
+    "text": "訂製金屬外殼",
+    "href": "/applications#custom-metal-enclosures"
+  },
+  {
+    "id": "entry-8",
+    "type": "page",
+    "title": "電氣與控制箱",
+    "text": "電氣與控制箱",
+    "href": "/applications#electrical-and-control-boxes"
+  },
+  {
+    "id": "entry-9",
+    "type": "page",
+    "title": "機櫃與儲物櫃",
+    "text": "機櫃與儲物櫃",
+    "href": "/applications#cabinets-and-lockers"
+  },
+  {
+    "id": "entry-10",
+    "type": "page",
+    "title": "通訊設備外殼",
+    "text": "通訊設備外殼",
+    "href": "/applications#communication-equipment-housings"
+  },
+  {
+    "id": "entry-11",
+    "type": "page",
+    "title": "安防系統硬體",
+    "text": "安防系統硬體",
+    "href": "/applications#security-system-hardware"
+  },
+  {
+    "id": "entry-12",
+    "type": "page",
+    "title": "非標準金屬產品",
+    "text": "非標準金屬產品",
+    "href": "/applications#non-standard-metal-products"
+  },
+  {
+    "id": "entry-13",
+    "type": "page",
+    "title": "製造能力",
+    "text": "製造能力",
+    "href": "/manufacturing"
+  },
+  {
+    "id": "entry-14",
+    "type": "page",
+    "title": "鈑金加工能力",
+    "text": "鈑金加工能力",
+    "href": "/manufacturing#integrated_sheet_metal"
+  },
+  {
+    "id": "entry-15",
+    "type": "page",
+    "title": "品質與公差",
+    "text": "品質與公差",
+    "href": "/quality"
+  },
+  {
+    "id": "entry-16",
+    "type": "page",
+    "title": "品質控制",
+    "text": "品質控制",
+    "href": "/quality#control"
+  },
+  {
+    "id": "entry-17",
+    "type": "page",
+    "title": "案例研究",
+    "text": "案例研究",
+    "href": "/case-studies"
+  },
+  {
+    "id": "entry-18",
+    "type": "page",
+    "title": "電氣外殼",
+    "text": "電氣外殼",
+    "href": "/case-studies#flat-sheet-to-electrical-enclosure"
+  },
+  {
+    "id": "entry-19",
+    "type": "page",
+    "title": "售貨機外殼",
+    "text": "售貨機外殼",
+    "href": "/case-studies#ordering-kiosk-enclosures"
+  },
+  {
+    "id": "entry-20",
+    "type": "page",
+    "title": "常見問題",
+    "text": "常見問題",
+    "href": "/faq"
+  },
+  {
+    "id": "entry-21",
+    "type": "page",
+    "title": "產品與訂單",
+    "text": "產品與訂單",
+    "href": "/faq#products-orders"
+  },
+  {
+    "id": "entry-22",
+    "type": "page",
+    "title": "製造與能力",
+    "text": "製造與能力",
+    "href": "/faq#manufacturing-capabilities"
+  },
+  {
+    "id": "entry-23",
+    "type": "page",
+    "title": "交期與表面處理",
+    "text": "交期與表面處理",
+    "href": "/faq#lead-time-finishing"
+  },
+  {
+    "id": "entry-24",
+    "type": "page",
+    "title": "品質與合規",
+    "text": "品質與合規",
+    "href": "/faq#quality-compliance"
+  },
+  {
+    "id": "entry-25",
+    "type": "page",
+    "title": "運輸與報價",
+    "text": "運輸與報價",
+    "href": "/faq#shipping-quotation"
+  },
+  {
+    "id": "entry-26",
+    "type": "page",
+    "title": "始於 1992 年，值得信賴的鈑金製造經驗",
+    "text": "採用客戶指定材料，配合成熟工藝與嚴謹品質控制，製造客製化金屬外殼及鈑金產品。 從電箱、設備機櫃到非標準金屬零件，我們按照已確認的圖紙及項目要求生產。",
+    "href": "/about"
+  },
+  {
+    "id": "entry-27",
+    "type": "page",
+    "title": "客製化及非標準金屬項目",
+    "text": "我們支援樣板、小批量及批量生產，並提供靈活的製造安排、實際的工程溝通及完整的鈑金加工流程。 無論您已有完整圖紙、實物樣板，還是初步產品構想，我們都可協助評估製造要求，並提出合適的生產方案。",
+    "href": "/about#core-value"
+  },
+  {
+    "id": "entry-28",
+    "type": "page",
+    "title": "信任標籤",
+    "text": "我們的資質和能力體現了數十年來對金屬製造品質和精度的專注。",
+    "href": "/about#trust-line"
+  },
+  {
+    "id": "entry-29",
+    "type": "product",
+    "title": "客製化金屬外殼",
+    "text": "為電子設備、控制系統、工業裝置及特殊用途提供客製化金屬外殼。",
+    "href": "/applications#custom-metal-enclosures",
+    "section": "產品與應用"
+  },
+  {
+    "id": "entry-30",
+    "type": "product",
+    "title": "電氣及控制箱",
+    "text": "根據圖紙、安裝要求及使用環境製造電箱與控制箱。",
+    "href": "/applications#electrical-and-control-boxes",
+    "section": "產品與應用"
+  },
+  {
+    "id": "entry-31",
+    "type": "product",
+    "title": "機櫃及儲物櫃",
+    "text": "為工業、商業及安防用途製造客製化金屬櫃、設備櫃及儲物櫃。",
+    "href": "/applications#cabinets-and-lockers",
+    "section": "產品與應用"
+  },
+  {
+    "id": "entry-32",
+    "type": "product",
+    "title": "通訊設備外殼",
+    "text": "為通訊設備、網絡硬件及相關基礎設施提供金屬機櫃與外殼。",
+    "href": "/applications#communication-equipment-housings",
+    "section": "產品與應用"
+  },
+  {
+    "id": "entry-33",
+    "type": "product",
+    "title": "安防系統硬件",
+    "text": "為安防、門禁及防盜系統製造客製化金屬外殼、支架及配套零件。",
+    "href": "/applications#security-system-hardware",
+    "section": "產品與應用"
+  },
+  {
+    "id": "entry-34",
+    "type": "product",
+    "title": "非標準金屬產品",
+    "text": "為無法使用標準現成零件的項目提供按需製造的非標準鈑金產品。",
+    "href": "/applications#non-standard-metal-products",
+    "section": "產品與應用"
+  },
+  {
+    "id": "entry-35",
+    "type": "capability",
+    "title": "剪板及板材切割",
+    "text": "剪板及板材切割",
+    "href": "/manufacturing",
+    "section": "製造能力"
+  },
+  {
+    "id": "entry-36",
+    "type": "capability",
+    "title": "沖孔及激光切割",
+    "text": "沖孔及激光切割",
+    "href": "/manufacturing",
+    "section": "製造能力"
+  },
+  {
+    "id": "entry-37",
+    "type": "capability",
+    "title": "折彎及成形",
+    "text": "折彎及成形",
+    "href": "/manufacturing",
+    "section": "製造能力"
+  },
+  {
+    "id": "entry-38",
+    "type": "capability",
+    "title": "激光焊、TIG 焊、點焊及電弧焊",
+    "text": "激光焊、TIG 焊、點焊及電弧焊",
+    "href": "/manufacturing",
+    "section": "製造能力"
+  },
+  {
+    "id": "entry-39",
+    "type": "capability",
+    "title": "打磨及拋光",
+    "text": "打磨及拋光",
+    "href": "/manufacturing",
+    "section": "製造能力"
+  },
+  {
+    "id": "entry-40",
+    "type": "capability",
+    "title": "噴粉處理",
+    "text": "噴粉處理",
+    "href": "/manufacturing",
+    "section": "製造能力"
+  },
+  {
+    "id": "entry-41",
+    "type": "capability",
+    "title": "不鏽鋼拉絲及鏡面處理",
+    "text": "不鏽鋼拉絲及鏡面處理",
+    "href": "/manufacturing",
+    "section": "製造能力"
+  },
+  {
+    "id": "entry-42",
+    "type": "capability",
+    "title": "絲印",
+    "text": "絲印",
+    "href": "/manufacturing",
+    "section": "製造能力"
+  },
+  {
+    "id": "entry-43",
+    "type": "capability",
+    "title": "產品組裝及包裝",
+    "text": "產品組裝及包裝",
+    "href": "/manufacturing",
+    "section": "製造能力"
+  },
+  {
+    "id": "entry-44",
+    "type": "page",
+    "title": "鈑金加工能力",
+    "text": "我們的加工能力涵蓋客製金屬產品所需的工序。從材料準備、成形加工，到表面處理及最終組裝，我們都能自主生產。 我們可根據項目要求加工鐵材、不鏽鋼、電解板及鋁材。",
+    "href": "/manufacturing"
+  },
+  {
+    "id": "entry-45",
+    "type": "page",
+    "title": "一條龍品質控制",
+    "text": "每個項目均由圖紙、材料、尺寸、表面處理及實際用途評估開始。 視乎產品設計、材料、厚度及加工方式，合適的鈑金零件加工精度可達 ±0.2 mm。 檢查範圍可包括尺寸、焊接品質、表面處理、組裝情況及成品外觀。",
+    "href": "/quality"
+  },
+  {
+    "id": "entry-46",
+    "type": "case-study",
+    "title": "從金屬板材到完整電箱成品",
+    "text": "在這個客製電箱項目中，生產流程包括板材切割、沖孔或激光開孔、折彎、焊接、打磨、噴粉、絲印及最終組裝。\n\n我們以已確認的生產圖紙為基礎，協調各個加工工序，使成品符合所需尺寸、外觀及功能要求。",
+    "href": "/case-studies#flat-sheet-to-electrical-enclosure",
+    "section": "案例研究"
+  },
+  {
+    "id": "entry-47",
+    "type": "case-study",
+    "title": "訂購售貨機外殼",
+    "text": "專為自助訂購售貨機打造的一款堅固型外殼機櫃。內部整合了系統化線纜管理與高效通風散熱設計，以確保內部設備穩定運作。所有鈑金面板皆嚴格依據客戶的42U機架安裝規格，採用精密雷射切割、折彎成型、結構焊接，並施以耐久粉末塗層處理，兼具優異的結構強度與適合公共場所擺設的精緻外觀質感。",
+    "href": "/case-studies#ordering-kiosk-enclosures",
+    "section": "案例研究"
+  },
+  {
+    "id": "entry-48",
+    "type": "faq",
+    "title": "你們主要生產甚麼產品？",
+    "text": "我們按照客戶圖紙及產品要求，生產訂製鈑金件、金屬外殼、機箱、機櫃、面板及各類非標準金屬製品。 常見應用包括對講系統、自助點餐機、電氣設備、通訊設備、保安系統、儲物櫃及精密設備外殼。",
+    "href": "/faq#products-orders",
+    "section": "產品與訂單"
+  },
+  {
+    "id": "entry-49",
+    "type": "faq",
+    "title": "有最低訂購量嗎？",
+    "text": "我們沒有固定最低訂購量。 可承接單件樣辦、小批量訂單及正式生產訂單。實際價格會根據材料、工序、開機及設定成本，以及訂單數量計算。",
+    "href": "/faq#products-orders",
+    "section": "產品與訂單"
+  },
+  {
+    "id": "entry-50",
+    "type": "faq",
+    "title": "可以接受甚麼圖紙格式？",
+    "text": "我們可處理常見工程圖紙及三維檔案，包括： - PDF - CAD 圖紙 - DXF - STEP 為提高報價準確度，請盡量提供尺寸、材料、厚度、公差、表面處理及數量。",
+    "href": "/faq#products-orders",
+    "section": "產品與訂單"
+  },
+  {
+    "id": "entry-51",
+    "type": "page",
+    "title": "產品與訂單",
+    "text": "產品與訂單",
+    "href": "/faq#products-orders"
+  },
+  {
+    "id": "entry-52",
+    "type": "faq",
+    "title": "可以按照實物樣辦生產嗎？",
+    "text": "部分產品可以按照實物樣辦進行評估。 但為提高尺寸準確度及減少理解差異，我們仍建議客戶提供正式圖紙或完整尺寸資料。",
+    "href": "/faq#manufacturing-capabilities",
+    "section": "製造與能力"
+  },
+  {
+    "id": "entry-53",
+    "type": "faq",
+    "title": "可以加工哪些材料？",
+    "text": "常用材料包括： - 普通鋼板 - 不鏽鋼 - 鋁 - 電解板 請在圖紙或詢價資料中註明材料牌號及厚度。其他材料可按項目需要另行評估。",
+    "href": "/faq#manufacturing-capabilities",
+    "section": "製造與能力"
+  },
+  {
+    "id": "entry-54",
+    "type": "faq",
+    "title": "有哪些加工能力？",
+    "text": "主要加工工序包括： - 剪切及下料 - 激光切割 - 沖孔 - 折彎 - 焊接 - 打磨及拋光 - 粉末噴塗 - 絲印 - 組裝 實際生產工序會按照產品設計、材料、公差及訂單數量制定。",
+    "href": "/faq#manufacturing-capabilities",
+    "section": "製造與能力"
+  },
+  {
+    "id": "entry-55",
+    "type": "faq",
+    "title": "可以做到甚麼公差？",
+    "text": "根據材料、零件結構及加工工序，部分尺寸公差可達約 ±0.2 mm。 並非所有尺寸均適合使用相同公差。重要尺寸及檢測要求應在圖紙上清楚標示，並由工程人員確認。",
+    "href": "/faq#manufacturing-capabilities",
+    "section": "製造與能力"
+  },
+  {
+    "id": "entry-56",
+    "type": "faq",
+    "title": "可以製作樣辦嗎？",
+    "text": "可以。我們可在正式生產前安排樣辦或試產。 一般樣辦時間約為一星期，實際時間視乎材料供應、產品複雜程度、表面處理及工程確認情況。",
+    "href": "/faq#manufacturing-capabilities",
+    "section": "製造與能力"
+  },
+  {
+    "id": "entry-57",
+    "type": "page",
+    "title": "製造與能力",
+    "text": "製造與能力",
+    "href": "/faq#manufacturing-capabilities"
+  },
+  {
+    "id": "entry-58",
+    "type": "faq",
+    "title": "一般生產時間需要多久？",
+    "text": "交期取決於產品複雜程度、數量、材料供應及表面處理要求。 簡單訂單可能約需 10 個工作天；較大型的生產訂單一般約需一個月，包括適用情況下的樣辦確認。 最終交期會在正式報價單中列明。",
+    "href": "/faq#lead-time-finishing",
+    "section": "交期與表面處理"
+  },
+  {
+    "id": "entry-59",
+    "type": "faq",
+    "title": "可以提供哪些表面處理？",
+    "text": "可提供的表面處理包括： - 不同顏色的粉末噴塗 - 不鏽鋼拉絲 - 鏡面處理 - 拋光 - 絲印 如客戶對顏色、紋理、光澤度或外觀有特定要求，請在生產前提供參考標準。",
+    "href": "/faq#lead-time-finishing",
+    "section": "交期與表面處理"
+  },
+  {
+    "id": "entry-60",
+    "type": "page",
+    "title": "交期與表面處理",
+    "text": "交期與表面處理",
+    "href": "/faq#lead-time-finishing"
+  },
+  {
+    "id": "entry-61",
+    "type": "faq",
+    "title": "可以製作戶外或防水產品嗎？",
+    "text": "我們可透過材料選擇、結構設計、焊接、密封及表面處理，配合戶外防鏽及防水要求。 但任何 IP 等級或其他認證保護級別，都應在完成適當測試後才作正式聲明。 如項目有需要，可根據客戶要求、測試標準及預算，另行安排第三方測試。",
+    "href": "/faq#quality-compliance",
+    "section": "品質與合規"
+  },
+  {
+    "id": "entry-62",
+    "type": "faq",
+    "title": "你們有 ISO 認證嗎？",
+    "text": "我們的生產運作按照 ISO 9001 品質管理體系執行。 在供應商審核或項目洽談階段，可按需要提供相關認證資料。",
+    "href": "/faq#quality-compliance",
+    "section": "品質與合規"
+  },
+  {
+    "id": "entry-63",
+    "type": "faq",
+    "title": "如何控制產品品質？",
+    "text": "品質控制可包括來料檢查、尺寸檢測、工序檢查、外觀檢查及出貨前最終檢查。 重要尺寸、驗收標準及檢測要求應在生產前確認。",
+    "href": "/faq#quality-compliance",
+    "section": "品質與合規"
+  },
+  {
+    "id": "entry-64",
+    "type": "faq",
+    "title": "可以協助改善產品設計嗎？",
+    "text": "可以。我們的工程團隊可從可製造性角度審核圖紙，並就折彎、孔位、焊接位置、材料運用、公差、組裝及生產效率提出建議。 任何設計修改都會在生產前與客戶確認。",
+    "href": "/faq#quality-compliance",
+    "section": "品質與合規"
+  },
+  {
+    "id": "entry-65",
+    "type": "page",
+    "title": "品質與合規",
+    "text": "品質與合規",
+    "href": "/faq#quality-compliance"
+  },
+  {
+    "id": "entry-66",
+    "type": "faq",
+    "title": "可以安排國際運輸嗎？",
+    "text": "可以。我們可根據貨物尺寸、重量及目的地，協助安排快遞、空運或海運。 客戶亦可指定自己的貨運代理，或自行安排到廠提貨。 運費、清關責任、關稅及目的地稅項會另行確認。",
+    "href": "/faq#shipping-quotation",
+    "section": "運輸與報價"
+  },
+  {
+    "id": "entry-67",
+    "type": "faq",
+    "title": "詢價時需要提供甚麼資料？",
+    "text": "為提高報價準確度，請盡量提供： - 二維圖紙或三維模型 - 材料及材料牌號 - 材料厚度 - 訂購數量 - 公差要求 - 表面處理 - 顏色要求 - 組裝要求 - 檢測或測試要求 - 送貨地點 - 要求交貨日期 如資料未完整，初步報價可能需要在工程確認後作出調整。",
+    "href": "/faq#shipping-quotation",
+    "section": "運輸與報價"
+  },
+  {
+    "id": "entry-68",
+    "type": "faq",
+    "title": "多久可以收到報價？",
+    "text": "報價時間取決於產品複雜程度及詢價資料是否完整。 結構簡單的零件一般可較快評估；涉及組裝、嚴格公差、特殊材料或多種加工工序的項目，則可能需要較詳細的工程審核。 提供完整圖紙及技術要求，有助縮短報價時間。",
+    "href": "/faq#shipping-quotation",
+    "section": "運輸與報價"
+  },
+  {
+    "id": "entry-69",
+    "type": "page",
+    "title": "運輸與報價",
+    "text": "運輸與報價",
+    "href": "/faq#shipping-quotation"
+  },
+  {
+    "id": "entry-70",
+    "type": "page",
+    "title": "有圖紙或定制金屬項目？",
+    "text": "請將您的圖紙、CAD、DXF 或 STEP 檔案，連同所需材料、厚度、數量、表面處理要求及交貨時間一併發送給我們。我們的團隊將審查製造要求，並根據您的項目規格準備報價。",
+    "href": "/quotation"
+  }
+]
