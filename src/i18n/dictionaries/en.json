@@ -115,7 +115,7 @@
           }
         ]
       },
-      { 
+      {
         "label": "Bending and forming",
         "media": [
           {
@@ -144,17 +144,10 @@
         ]
       },
       {
-        "label": "Grinding and polishing",
-        "media": [
-          {
-            "type": "video",
-            "src": "Xo5nqRMbjfo",
-            "alt": "Grinding and polishing station for sheet metal finishing",
-            "caption": "Grinding and polishing for smooth surface finish"
-          }
-        ]
+        "label": "Grinding and polishing"
       },
-      { "label": "Powder coating" ,
+      {
+        "label": "Powder coating",
         "media": [
           {
             "type": "image",
@@ -180,6 +173,12 @@
             "src": "qUlobDEK9VU",
             "alt": "Precision manual hardware insertion and pressing during the product sub-assembly phase",
             "caption": "Precision manual hardware insertion and pressing during the product sub-assembly phase"
+          },
+          {
+            "type": "video",
+            "src": "Xo5nqRMbjfo",
+            "alt": "Grinding and polishing station for sheet metal finishing",
+            "caption": "Grinding and polishing for smooth surface finish"
           },
           {
             "type": "video",

@@ -144,15 +144,7 @@
         ]
       },
       {
-        "label": "打磨及拋光",
-        "media": [
-          {
-            "type": "video",
-            "src": "Xo5nqRMbjfo",
-            "alt": "鈑金打磨及拋光工位",
-            "caption": "打磨及拋光用於光滑表面處理"
-          }
-        ]
+        "label": "打磨及拋光"
       },
       {
         "label": "噴粉處理",
@@ -181,6 +173,12 @@
             "src": "qUlobDEK9VU",
             "alt": "產品半成品組裝階段的精密手動五金件壓鉚與組裝",
             "caption": "產品半成品組裝階段的精密手動五金件壓鉚與組裝"
+          },
+          {
+            "type": "video",
+            "src": "Xo5nqRMbjfo",
+            "alt": "鈑金打磨及拋光工位",
+            "caption": "打磨及拋光用於光滑表面處理"
           },
           {
             "type": "video",
