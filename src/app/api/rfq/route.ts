@@ -2,13 +2,41 @@ import { type NextRequest, NextResponse } from "next/server";
 import { getClient } from "@/lib/db";
 import { uploadFile, deleteFile } from "@/lib/s3";
 import { validateRfqInput } from "@/lib/validation";
+import { checkRateLimit } from "@/lib/rate-limit";
+
+function getClientIp(request: NextRequest): string {
+  return (
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    request.headers.get("x-real-ip") ||
+    "unknown"
+  );
+}
 
 export async function POST(request: NextRequest) {
   let client;
   let s3Key: string | null = null;
 
   try {
+    const clientIp = getClientIp(request);
+
+    // Rate limit: max 3 submissions per hour per IP
+    if (!checkRateLimit(clientIp)) {
+      return NextResponse.json(
+        { success: false, error: "Too many requests. Please try again later." },
+        { status: 429 },
+      );
+    }
+
     const formData = await request.formData();
+
+    // HoneyPot check — hidden field that bots fill in
+    if (formData.get("website")?.toString().trim()) {
+      // Silently appear to succeed so bots don't know they were caught
+      return NextResponse.json(
+        { success: true, rfqId: 0 },
+        { status: 201 },
+      );
+    }
 
     // Extract all text fields
     const fields: Record<string, string> = {};

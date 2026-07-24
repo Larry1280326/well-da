@@ -288,6 +288,7 @@ export function RfqForm({ dict }: { dict: RfqFormDict }) {
               required
               disabled={isSubmitting}
               error={errors.company_name}
+              suppressHydrationWarning
             />
             <TextInput
               name="contact_name"
@@ -296,6 +297,7 @@ export function RfqForm({ dict }: { dict: RfqFormDict }) {
               required
               disabled={isSubmitting}
               error={errors.contact_name}
+              suppressHydrationWarning
             />
             <TextInput
               name="email"
@@ -305,6 +307,7 @@ export function RfqForm({ dict }: { dict: RfqFormDict }) {
               required
               disabled={isSubmitting}
               error={errors.email}
+              suppressHydrationWarning
             />
             <TextInput
               name="phone"
@@ -314,6 +317,7 @@ export function RfqForm({ dict }: { dict: RfqFormDict }) {
               required
               disabled={isSubmitting}
               error={errors.phone}
+              suppressHydrationWarning
             />
           </SimpleGrid>
         </Paper>
@@ -331,6 +335,7 @@ export function RfqForm({ dict }: { dict: RfqFormDict }) {
               required
               disabled={isSubmitting}
               error={errors.project_name}
+              suppressHydrationWarning
             />
             <TextInput
               name="material"
@@ -339,6 +344,7 @@ export function RfqForm({ dict }: { dict: RfqFormDict }) {
               required
               disabled={isSubmitting}
               error={errors.material}
+              suppressHydrationWarning
             />
             <NumberInput
               name="quantity"
@@ -348,6 +354,7 @@ export function RfqForm({ dict }: { dict: RfqFormDict }) {
               required
               disabled={isSubmitting}
               error={errors.quantity}
+              suppressHydrationWarning
             />
             <TextInput
               name="tolerance"
@@ -355,6 +362,7 @@ export function RfqForm({ dict }: { dict: RfqFormDict }) {
               placeholder={dict.tolerancePlaceholder}
               disabled={isSubmitting}
               error={errors.tolerance}
+              suppressHydrationWarning
             />
             <TextInput
               name="surface_finish"
@@ -362,6 +370,7 @@ export function RfqForm({ dict }: { dict: RfqFormDict }) {
               placeholder={dict.surfaceFinishPlaceholder}
               disabled={isSubmitting}
               error={errors.surfaceFinish}
+              suppressHydrationWarning
             />
             <Input.Wrapper label={dict.targetDeliveryDate} error={errors.target_delivery_date}>
               <Input
@@ -369,6 +378,7 @@ export function RfqForm({ dict }: { dict: RfqFormDict }) {
                 type="date"
                 name="target_delivery_date"
                 disabled={isSubmitting}
+                suppressHydrationWarning
               />
             </Input.Wrapper>
           </SimpleGrid>
@@ -382,6 +392,7 @@ export function RfqForm({ dict }: { dict: RfqFormDict }) {
             maxLength={MAX_NOTES_LENGTH}
             disabled={isSubmitting}
             error={errors.notes}
+            suppressHydrationWarning
           />
         </Paper>
 
@@ -404,8 +415,26 @@ export function RfqForm({ dict }: { dict: RfqFormDict }) {
             disabled={isSubmitting}
             error={fileError}
             clearable
+            suppressHydrationWarning
           />
         </Paper>
+
+        {/* HoneyPot — hidden field; bots fill it, humans don't */}
+        <input
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          style={{
+            position: "absolute",
+            opacity: 0,
+            height: 0,
+            width: 0,
+            pointerEvents: "none",
+          }}
+          aria-hidden="true"
+          suppressHydrationWarning
+        />
 
         {/* Submit Button */}
         <div>
