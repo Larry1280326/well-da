@@ -8,7 +8,7 @@ import {
   Input,
   NumberInput,
   Paper,
-  Select,
+
   SimpleGrid,
   Stack,
   Text,
@@ -41,7 +41,6 @@ export interface RfqFormDict {
   projectNamePlaceholder: string;
   material: string;
   materialPlaceholder: string;
-  materialOptions: string[];
   quantity: string;
   tolerance: string;
   tolerancePlaceholder: string;
@@ -333,18 +332,13 @@ export function RfqForm({ dict }: { dict: RfqFormDict }) {
               disabled={isSubmitting}
               error={errors.project_name}
             />
-            <Select
+            <TextInput
               name="material"
               label={dict.material}
               placeholder={dict.materialPlaceholder}
-              data={dict.materialOptions.map((opt) => ({
-                value: opt,
-                label: opt,
-              }))}
               required
               disabled={isSubmitting}
               error={errors.material}
-              searchable
             />
             <NumberInput
               name="quantity"

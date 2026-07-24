@@ -58,6 +58,15 @@ export function QuotationContent({ dict }: { dict: QuotationDict }) {
         </Container>
       </section>
 
+      {/* RFQ Form Section */}
+      {dict.rfqForm && (
+        <section style={{ scrollMarginTop: 80, background: "#f9fbf9" }}>
+          <Container size="xl" py={60}>
+            <RfqForm dict={dict.rfqForm} />
+          </Container>
+        </section>
+      )}
+
       {/* Main Content */}
       <section style={{ scrollMarginTop: 80 }}>
         <Container size="xl" py={60}>
@@ -129,15 +138,6 @@ export function QuotationContent({ dict }: { dict: QuotationDict }) {
           </div>
         </Container>
       </section>
-
-      {/* RFQ Form Section */}
-      {dict.rfqForm && (
-        <section style={{ scrollMarginTop: 80, background: "#f9fbf9" }}>
-          <Container size="xl" py={60}>
-            <RfqForm dict={dict.rfqForm} />
-          </Container>
-        </section>
-      )}
     </>
   );
 }

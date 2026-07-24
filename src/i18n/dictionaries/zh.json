@@ -277,14 +277,7 @@
       "projectName": "項目名稱",
       "projectNamePlaceholder": "例如：電氣外殼項目A",
       "material": "材料",
-      "materialPlaceholder": "選擇材料",
-      "materialOptions": [
-        "低碳鋼",
-        "不鏽鋼",
-        "鋁",
-        "電解鋼板",
-        "其他"
-      ],
+      "materialPlaceholder": "例如：低碳鋼、鋁",
       "quantity": "數量 (件)",
       "tolerance": "公差",
       "tolerancePlaceholder": "例如：±0.2 mm",

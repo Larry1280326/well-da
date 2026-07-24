@@ -277,14 +277,7 @@
       "projectName": "Project Name",
       "projectNamePlaceholder": "e.g. Electrical Enclosure Project A",
       "material": "Material",
-      "materialPlaceholder": "Select material",
-      "materialOptions": [
-        "Mild Steel",
-        "Stainless Steel",
-        "Aluminium",
-        "Electrolytic Steel Sheet",
-        "Other"
-      ],
+      "materialPlaceholder": "e.g. Mild Steel, Aluminium",
       "quantity": "Quantity (pcs)",
       "tolerance": "Tolerance",
       "tolerancePlaceholder": "e.g. ±0.2 mm",
