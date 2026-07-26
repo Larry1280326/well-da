@@ -14,7 +14,7 @@ import {
 import type { TablerIcon } from "@tabler/icons-react";
 import { YouTubeEmbed } from "@/components/ui/YouTubeEmbed";
 import { RfqForm } from "@/components/quotation/RfqForm";
-import type { RfqFormDict } from "@/components/quotation/RfqForm";
+import type { RfqFormDict } from "@/lib/types/rfq";
 
 interface QuotationContact {
   label: string;
