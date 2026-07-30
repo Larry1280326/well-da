@@ -13,10 +13,11 @@ Built with **Next.js 16**, **React 19**, and **Mantine UI v9**.
 - **Static generation** — pre-rendered locale pages for fast delivery
 - **Structured navigation** — multi-level nav with dropdowns for About, Products & Applications, Manufacturing Capabilities, Quality & Tolerance, Case Studies, and FAQ sections
 - **Quotation page** — dedicated "Request for Quotation" page with contact info, video, and a full-stack RFQ submission form
-- **RFQ form** — file upload with CAD format support (PDF, DWG, DXF, STEP, STP, IGS, IGES, STL), client + server validation, PostgreSQL storage, AWS S3 file storage with presigned URLs
+- **RFQ form** — multi-section form (30+ fields across 8 sections) with CAD file uploads (PDF, DWG, DXF, STEP/STP, IGS/IGES, XLSX, ZIP), client + server validation, rate limiting, PostgreSQL storage, AWS S3 file storage with presigned URLs
 - **FAQ page** — accordion-style frequently asked questions organized by topic
 - **YouTube embedding** — reusable component for embedded video content
 - **In-website search** — static search index covering all pages, case studies, FAQ, products, and manufacturing capabilities; pre-built at compile time with client-side search overlay
+- **SEO** — dynamic sitemap with hreflang alternates, robots.txt, canonical host enforcement
 
 ## Tech Stack
 
@@ -28,9 +29,11 @@ Built with **Next.js 16**, **React 19**, and **Mantine UI v9**.
 | Language       | TypeScript 5                        |
 | Styling        | PostCSS + Mantine PostCSS preset    |
 | Database       | PostgreSQL (via `pg`)               |
-| Storage        | AWS S3 (via `@aws-sdk/client-s3`)   |
+| Storage        | AWS S3 (via `@aws-sdk/client-s3`, `@aws-sdk/lib-storage`, `@aws-sdk/s3-request-presigner`) |
 | Search         | Static JSON index (pre-built)       |
 | Linting        | ESLint 9 + `eslint-config-next`     |
+
+Server-side modules (`src/lib/db.ts`, `s3.ts`, `rate-limit.ts`, `rfq-reference.ts`) are guarded with `import "server-only"` to prevent accidental client-side bundling.
 
 ## Project Structure
 
@@ -51,14 +54,28 @@ src/
 │   │   ├── quotation/                # Request for Quotation page
 │   │   ├── faq/                      # FAQ page
 │   │   └── search/                   # Search page
-│   └── globals.css                   # Global styles
+│   ├── globals.css                   # Global styles
+│   ├── sitemap.ts                     # Dynamic sitemap with hreflang alternates
+│   └── robots.ts                      # robots.txt generation
 ├── components/
 │   ├── about/                        # About page sections (AboutContent, TrustLineSection)
 │   ├── applications/                 # Applications page content
 │   ├── manufacturing/                # Manufacturing page (ManufacturingContent, CapabilityItem)
 │   ├── quality/                      # Quality page content
 │   ├── case-studies/                 # Case Studies page content
-│   ├── quotation/                    # Quotation page content + RfqForm
+│   ├── quotation/                    # Quotation page content + RfqForm directory
+│   │   └── RfqForm/
+│   │       ├── index.tsx             # Form orchestrator (validation + submit)
+│   │       ├── ContactSection.tsx
+│   │       ├── PartProjectSection.tsx
+│   │       ├── MaterialSection.tsx
+│   │       ├── QuantitySection.tsx
+│   │       ├── DeliverySection.tsx
+│   │       ├── TechnicalSection.tsx
+│   │       ├── FileUploadSection.tsx
+│   │       ├── PrivacySection.tsx
+│   │       ├── SubmitSection.tsx
+│   │       └── SuccessPanel.tsx
 │   ├── faq/                          # FAQ page content (FaqContent)
 │   ├── search/                       # Search overlay + search results page
 │   ├── layout/                       # Layout components
@@ -73,7 +90,7 @@ src/
 │   ├── navigation.ts                 # Nav structure + contact info (per locale)
 │   └── site.ts                       # Site URL constant
 ├── hooks/
-│   └── useDebounce.ts                 # Generic debounce hook
+│   └── useDebounce.ts                # Generic debounce hook
 ├── i18n/
 │   ├── dictionaries.ts               # Dictionary loader (server-only)
 │   ├── locale-context.tsx            # LocaleProvider + useLocale hook (client)
@@ -81,7 +98,12 @@ src/
 ├── lib/
 │   ├── db.ts                         # PostgreSQL connection pool
 │   ├── s3.ts                         # AWS S3 upload/delete/presigned URLs
-│   └── validation.ts                 # Server-side RFQ validation
+│   ├── validation.ts                 # Server-side RFQ validation
+│   ├── rate-limit.ts                 # Per-IP rate limiting for RFQ submissions
+│   ├── countries.ts                  # Bilingual country/region dropdown lists
+│   ├── rfq-reference.ts             # Reference number generation (RFQ-YYYY-NNNNNN)
+│   └── types/
+│       └── rfq.ts                   # Shared RFQ types, enums & constants
 ├── theme/
 │   └── mantine-theme.ts              # Custom Mantine theme (green palette)
 └── proxy.ts                          # Middleware: locale detection + redirect
@@ -91,6 +113,7 @@ scripts/
 public/
 ├── search-index-en.json              # English search index (generated)
 └── search-index-zh.json              # Chinese search index (generated)
+next.config.ts                        # Next.js config (standalone output, serverExternalPackages)
 ```
 
 ## Getting Started
@@ -110,12 +133,13 @@ Open [http://localhost:3000](http://localhost:3000) — you'll be redirected to 
 
 ### Scripts
 
-| Command         | Description                                |
-| --------------- | ------------------------------------------ |
-| `npm run dev`   | Start the development server               |
-| `npm run build` | Production build + copy standalone assets  |
-| `npm run start` | Start the production server                |
-| `npm run lint`  | Run ESLint across the codebase             |
+| Command                    | Description                                |
+| -------------------------- | ------------------------------------------ |
+| `npm run dev`              | Start the development server               |
+| `npm run build`            | Production build (search index + Next.js + standalone assets) |
+| `npm run build-search-index`| Generate static search indexes only        |
+| `npm run start`            | Start the production server                |
+| `npm run lint`             | Run ESLint across the codebase             |
 
 ### Environment Variables
 
@@ -242,23 +266,46 @@ Answers are an array of strings. Lines starting with `"- "` render as bulleted l
 
 ## RFQ Form
 
-The **Request for Quotation** form on the `/quotation` page accepts customer project details and a CAD/drawing file attachment.
+The **Request for Quotation** form on the `/quotation` page accepts customer project details and CAD/drawing file attachments. It spans **8 sections** with over 30 fields.
 
-**Form fields:**
-- **Contact Information** — company name, contact name, email, phone
-- **Project Specifications** — project name, material, quantity, tolerance, surface finish, target delivery date, notes
-- **File Upload** — technical drawings or specifications (max 25 MB)
+**Form sections & fields:**
+- **Contact** — company name, contact name, email, phone, country/region, preferred contact method
+- **Part & Project** — project name, part number, drawing number/revision, product type, drawing availability
+- **Material** — material, grade, thickness (with unit), surface finish, colour, critical tolerances, assembly required, hardware inserts, printing/marking
+- **Quantity** — prototype quantity, production quantity, estimated annual volume
+- **Delivery** — required date (with date type), delivery region, postal code, shipping quote required
+- **Technical** — approximate dimensions, operating environment, protection requirements, inspection requirements, certifications/reports, special requirements
+- **File Upload** — technical drawings or specifications (max 50 MB per file, 100 MB total, up to 10 files)
+- **Privacy** — consent checkbox before submission
 
-**Accepted file types:** PDF, DWG, DXF, STEP/STP, IGS/IGES, STL, JPG/JPEG, PNG, ZIP, RAR
+**Accepted file types:** PDF, DWG, DXF, STEP/STP, IGS/IGES, JPG/JPEG, PNG, XLSX, ZIP
 
-**Backend flow:** Submissions hit `POST /api/rfq` → server-side validation → file uploaded to AWS S3 → records inserted into PostgreSQL (`rfq_files`, `customers`, `rfqs` tables) in a single transaction. On failure the transaction rolls back and the S3 file is cleaned up.
+**Rate limiting:** Submissions are rate-limited to **3 per hour per IP** to prevent abuse.
+
+**Reference numbers:** Each successful submission is assigned a unique reference in the format `RFQ-YYYY-NNNNNN` (e.g. `RFQ-2026-000042`), generated by a PostgreSQL sequence for transactional safety.
+
+**Backend flow:** Submissions hit `POST /api/rfq` → rate-limit check → server-side validation → files uploaded to AWS S3 → records inserted into PostgreSQL (`rfq_files`, `customers`, `rfqs` tables) in a single transaction. On failure the transaction rolls back and any uploaded S3 files are cleaned up.
 
 **Files:**
-- `src/components/quotation/RfqForm.tsx` — client-side form with Mantine components
-- `src/app/api/rfq/route.ts` — API endpoint
-- `src/lib/validation.ts` — shared validation rules
+- `src/components/quotation/RfqForm/index.tsx` — form orchestrator with client-side validation + submit
+- `src/components/quotation/RfqForm/ContactSection.tsx` — contact info with country & preferred method
+- `src/components/quotation/RfqForm/PartProjectSection.tsx` — project & part details
+- `src/components/quotation/RfqForm/MaterialSection.tsx` — material, finish & tolerance
+- `src/components/quotation/RfqForm/QuantitySection.tsx` — quantities & volumes
+- `src/components/quotation/RfqForm/DeliverySection.tsx` — delivery timeline & location
+- `src/components/quotation/RfqForm/TechnicalSection.tsx` — environmental & quality requirements
+- `src/components/quotation/RfqForm/FileUploadSection.tsx` — file upload with drag-and-drop
+- `src/components/quotation/RfqForm/PrivacySection.tsx` — consent checkbox
+- `src/components/quotation/RfqForm/SubmitSection.tsx` — submit button
+- `src/components/quotation/RfqForm/SuccessPanel.tsx` — post-submission confirmation
+- `src/app/api/rfq/route.ts` — API endpoint with transaction handling
+- `src/lib/types/rfq.ts` — shared types, enums & constants (form limits, accepted extensions)
+- `src/lib/validation.ts` — server-side validation rules
+- `src/lib/rate-limit.ts` — per-IP submission rate limiting
+- `src/lib/countries.ts` — bilingual country/region lists for dropdowns
+- `src/lib/rfq-reference.ts` — reference number generation
 - `src/lib/s3.ts` — S3 upload with presigned URLs (7-day expiry)
-- `src/lib/db.ts` — PostgreSQL connection pool
+- `src/lib/db.ts` — PostgreSQL connection pool (with `server-only` guard)
 
 ## Search
 
@@ -268,6 +315,14 @@ In-website search is powered by a **pre-built static index**. At build time, `sc
 - **SearchContent** — full results page at `/search?q=...`, displaying all matches grouped by category
 
 Search covers: navigation pages, about content, product categories, manufacturing capabilities, case studies, FAQ questions, and the quotation page.
+
+## SEO
+
+The site includes built-in SEO support:
+
+- **Dynamic sitemap** (`src/app/sitemap.ts`) — automatically generates per-locale sitemap entries with `hreflang` language alternates (`en`, `zh-Hant`, `x-default`) and `changeFrequency`/`priority` metadata. Served at `/sitemap.xml`.
+- **robots.txt** (`src/app/robots.ts`) — allows all crawlers and points to the sitemap.
+- **Canonical host redirect** — the `wellda.com` domain redirects (308) to the canonical `www.wellda.com` host via middleware to prevent duplicate indexing.
 
 ## Deployment
 

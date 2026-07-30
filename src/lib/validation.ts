@@ -197,14 +197,25 @@ export function validateRfqInput(
   }
 
   // ---------- Quantity ----------
-  const prototype_quantity = (rawFields.prototype_quantity ?? "").trim();
-  if (prototype_quantity && prototype_quantity.length > 255)
-    errors.prototype_quantity = "prototypeQuantity";
+  const rawProtoQty = (rawFields.prototype_quantity ?? "").trim();
+  let prototype_quantity: number | null = null;
+  if (rawProtoQty) {
+    const n = parseInt(rawProtoQty, 10);
+    if (isNaN(n) || n <= 0 || n > 2147483647) {
+      errors.prototype_quantity = "prototypeQuantity";
+    } else {
+      prototype_quantity = n;
+    }
+  }
 
-  const production_quantity = (rawFields.production_quantity ?? "").trim();
-  if (!production_quantity) errors.production_quantity = "productionQuantity";
-  else if (production_quantity.length > 255)
+  const rawProdQty = (rawFields.production_quantity ?? "").trim();
+  if (!rawProdQty) {
     errors.production_quantity = "productionQuantity";
+  }
+  const production_quantity = parseInt(rawProdQty, 10);
+  if (rawProdQty && (isNaN(production_quantity) || production_quantity <= 0 || production_quantity > 2147483647)) {
+    errors.production_quantity = "productionQuantity";
+  }
 
   const est_annual_vol = (rawFields.est_annual_vol ?? "").trim();
   if (est_annual_vol && est_annual_vol.length > 255)

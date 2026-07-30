@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  NumberInput,
   Paper,
   SimpleGrid,
   TextInput,
@@ -23,21 +24,27 @@ export function QuantitySection({ dict, disabled, errors }: Props) {
         {dict.sections.quantity.title}
       </Title>
       <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="md">
-        <TextInput
+        <NumberInput
           name="prototype_quantity"
           label={f.prototypeQuantity.label}
           placeholder={f.prototypeQuantity.placeholder}
           disabled={disabled}
           error={errors.prototype_quantity}
+          min={0}
+          allowDecimal={false}
+          thousandSeparator=","
           suppressHydrationWarning
         />
-        <TextInput
+        <NumberInput
           name="production_quantity"
           label={f.productionQuantity.label}
           placeholder={f.productionQuantity.placeholder}
           required
           disabled={disabled}
           error={errors.production_quantity}
+          min={1}
+          allowDecimal={false}
+          thousandSeparator=","
           suppressHydrationWarning
         />
         <TextInput

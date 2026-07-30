@@ -42,7 +42,7 @@ const CONTACT_ICONS: Record<string, TablerIcon> = {
   電郵: IconMail,
 };
 
-export function QuotationContent({ dict }: { dict: QuotationDict }) {
+export function QuotationContent({ dict, lang }: { dict: QuotationDict; lang: string }) {
   return (
     <>
       {/* Page Title Section */}
@@ -62,7 +62,7 @@ export function QuotationContent({ dict }: { dict: QuotationDict }) {
       {dict.rfqForm && (
         <section style={{ scrollMarginTop: 80, background: "#f9fbf9" }}>
           <Container size="xl" py={60}>
-            <RfqForm dict={dict.rfqForm} />
+            <RfqForm dict={dict.rfqForm} lang={lang} />
           </Container>
         </section>
       )}

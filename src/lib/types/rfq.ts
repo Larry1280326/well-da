@@ -283,8 +283,8 @@ export interface RfqFields {
   hardware_inserts: string;
   printing_marking: string[];
   // Quantity
-  prototype_quantity: string;
-  production_quantity: string;
+  prototype_quantity: number | null;
+  production_quantity: number;
   est_annual_vol: string;
   // Delivery
   required_date: string;

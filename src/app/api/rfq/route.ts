@@ -3,6 +3,7 @@ import { getClient } from "@/lib/db";
 import { uploadFile, deleteFile } from "@/lib/s3";
 import { validateRfqInput } from "@/lib/validation";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { sendConfirmationEmail } from "@/lib/email";
 import type { FileInfo } from "@/lib/types/rfq";
 
 function getClientIp(request: NextRequest): string {
@@ -28,6 +29,18 @@ function parseOptionalFloat(raw: string | null): number | null {
   if (!raw) return null;
   const n = parseFloat(raw);
   return isNaN(n) ? null : n;
+}
+
+function parseOptionalInt(raw: string | null): number | null {
+  if (!raw) return null;
+  const n = parseInt(raw, 10);
+  return isNaN(n) || n <= 0 || n > 2147483647 ? null : n;
+}
+
+function parseRequiredInt(raw: string | null): number | null {
+  if (!raw) return null;
+  const n = parseInt(raw, 10);
+  return isNaN(n) || n <= 0 || n > 2147483647 ? null : n;
 }
 
 export async function POST(request: NextRequest) {
@@ -146,10 +159,15 @@ export async function POST(request: NextRequest) {
     await client.query("BEGIN");
 
     try {
-      // 1. Insert customers
+      // 1. Upsert customer — insert if new, update phone/preferred_method if existing.
+      //    Deduplication key: (company_name, contact_name, LOWER(email), region)
       const customerResult = await client.query(
         `INSERT INTO customers (company_name, contact_name, email, phone, region, preferred_method)
-         VALUES ($1, $2, $3, $4, $5, $6::contact_method)
+         VALUES ($1, $2, LOWER($3), $4, $5, $6::contact_method)
+         ON CONFLICT (company_name, contact_name, (LOWER(email)), region)
+         DO UPDATE SET
+           phone        = COALESCE(EXCLUDED.phone, customers.phone),
+           preferred_method = COALESCE(EXCLUDED.preferred_method, customers.preferred_method)
          RETURNING id`,
         [
           validFields.company_name,
@@ -209,8 +227,8 @@ export async function POST(request: NextRequest) {
          VALUES ($1, $2, $3)
          RETURNING id`,
         [
-          validFields.prototype_quantity || null,
-          validFields.production_quantity,
+          parseOptionalInt(rawFields.prototype_quantity),
+          parseRequiredInt(rawFields.production_quantity),
           validFields.est_annual_vol || null,
         ],
       );
@@ -309,8 +327,28 @@ export async function POST(request: NextRequest) {
       // Commit
       await client.query("COMMIT");
 
-      // Build success response data
+      // Build submitted date (used by both email and response)
       const submittedAt = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+
+      // ---- Send confirmation email (fire-and-forget) ----
+      const emailLang = (formData.get("lang") as string) || "en";
+      sendConfirmationEmail({
+        to: validFields.email,
+        rfqId,
+        reference: referenceNumber,
+        projectName: validFields.project_name,
+        contactName: validFields.contact_name,
+        companyName: validFields.company_name,
+        submittedAt,
+        lang: emailLang,
+      }).catch((emailErr) => {
+        console.error(
+          `Confirmation email failed for RFQ ${referenceNumber}:`,
+          emailErr,
+        );
+      });
+
+      // Build success response data
 
       return NextResponse.json(
         {

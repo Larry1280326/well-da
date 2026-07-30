@@ -34,7 +34,7 @@ function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-export function RfqForm({ dict }: { dict: RfqFormDict }) {
+export function RfqForm({ dict, lang }: { dict: RfqFormDict; lang: string }) {
   const formRef = useRef<HTMLFormElement>(null);
 
   // ---- State ----
@@ -99,8 +99,16 @@ export function RfqForm({ dict }: { dict: RfqFormDict }) {
     // Material (required: material)
     if (!v.material) errs.material = dict.validation.material;
 
-    // Quantity (required: production_quantity)
-    if (!get("production_quantity")) errs.production_quantity = dict.validation.productionQuantity;
+    // Quantity (required: production_quantity must be positive integer)
+    const prodQtyRaw = get("production_quantity");
+    if (!prodQtyRaw) {
+      errs.production_quantity = dict.validation.productionQuantity;
+    } else {
+      const prodNum = parseInt(prodQtyRaw, 10);
+      if (isNaN(prodNum) || prodNum <= 0 || prodNum > 2147483647) {
+        errs.production_quantity = dict.validation.productionQuantityInvalid;
+      }
+    }
 
     // Delivery (required: delivery_region)
     if (!v.delivery_region) errs.delivery_region = dict.validation.deliveryRegion;
@@ -140,10 +148,11 @@ export function RfqForm({ dict }: { dict: RfqFormDict }) {
     if (hardware.length > 2000) errs.hardware_inserts = dict.validation.hardwareInserts;
 
     const protoQty = get("prototype_quantity");
-    if (protoQty.length > 255) errs.prototype_quantity = dict.validation.prototypeQuantity;
-
-    const prodQty = get("production_quantity");
-    if (prodQty.length > 255) errs.production_quantity = dict.validation.productionQuantity;
+    if (protoQty) {
+      const protoNum = parseInt(protoQty, 10);
+      if (isNaN(protoNum) || protoNum <= 0 || protoNum > 2147483647)
+        errs.prototype_quantity = dict.validation.prototypeQuantityInvalid;
+    }
 
     const estVol = get("est_annual_vol");
     if (estVol.length > 255) errs.est_annual_vol = dict.validation.estAnnualVol;
@@ -293,6 +302,7 @@ export function RfqForm({ dict }: { dict: RfqFormDict }) {
   // ---- Form ----
   return (
     <form ref={formRef} onSubmit={handleSubmit} noValidate suppressHydrationWarning>
+      <input type="hidden" name="lang" value={lang} />
       <Stack gap="xl">
         <ContactSection
           dict={dict}
