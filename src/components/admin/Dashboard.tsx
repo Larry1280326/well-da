@@ -76,9 +76,8 @@ export function Dashboard({ role, lang }: DashboardProps) {
   const statusColor = (status: string): string => {
     const colors: Record<string, string> = {
       initiated: "blue",
-      in_progress: "yellow",
-      completed: "green",
-      cancelled: "red",
+      reviewing: "yellow",
+      quoted: "green",
     };
     return colors[status] ?? "gray";
   };

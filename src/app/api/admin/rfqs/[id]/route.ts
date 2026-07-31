@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { queryOne, query } from "@/lib/db";
 import { validateSession } from "@/lib/auth/session";
+import { RFQ_STATUSES, type RfqStatus } from "@/lib/auth/types";
 
 /**
  * Parse a PostgreSQL array string (e.g. "{val1,val2}" or "{val1}") into a JS array.
@@ -143,6 +144,56 @@ export async function GET(
     return NextResponse.json({ rfq: { ...row, files } });
   } catch (error) {
     console.error("Admin RFQ detail error:", error);
+    return NextResponse.json(
+      { error: "An unexpected error occurred." },
+      { status: 500 },
+    );
+  }
+}
+
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
+) {
+  try {
+    const user = await validateSession();
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // Only root and owner can change status
+    if (user.role === "engineer") {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
+    const { id } = await params;
+    const rfqId = parseInt(id, 10);
+    if (isNaN(rfqId)) {
+      return NextResponse.json({ error: "Invalid RFQ ID" }, { status: 400 });
+    }
+
+    const body = await request.json();
+    const newStatus = (body.status ?? "").trim();
+
+    if (!RFQ_STATUSES.includes(newStatus as RfqStatus)) {
+      return NextResponse.json(
+        { error: `Invalid status. Valid values: ${RFQ_STATUSES.join(", ")}` },
+        { status: 400 },
+      );
+    }
+
+    const updated = await queryOne<{ status: string }>(
+      `UPDATE rfqs SET status = $1::rfq_status, updated_at = NOW() WHERE id = $2 RETURNING status`,
+      [newStatus, rfqId],
+    );
+
+    if (!updated) {
+      return NextResponse.json({ error: "RFQ not found" }, { status: 404 });
+    }
+
+    return NextResponse.json({ success: true, status: updated.status });
+  } catch (error) {
+    console.error("Admin RFQ status update error:", error);
     return NextResponse.json(
       { error: "An unexpected error occurred." },
       { status: 500 },

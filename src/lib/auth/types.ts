@@ -1,4 +1,7 @@
 export const ADMIN_ROLES = ["root", "owner", "engineer"] as const;
+
+export const RFQ_STATUSES = ["initiated", "reviewing", "quoted"] as const;
+export type RfqStatus = (typeof RFQ_STATUSES)[number];
 export type AdminRole = (typeof ADMIN_ROLES)[number];
 
 export interface AdminUser {

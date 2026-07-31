@@ -14,10 +14,11 @@ import {
   Anchor,
   Grid,
   Divider,
+  Select,
 } from "@mantine/core";
 import { IconAlertCircle, IconArrowLeft, IconDownload } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
-import type { AdminRole } from "@/lib/auth/types";
+import { RFQ_STATUSES, type AdminRole } from "@/lib/auth/types";
 
 interface FileRecord {
   id: number;
@@ -113,7 +114,33 @@ export function RfqDetail({ rfqId, role, lang }: RfqDetailProps) {
   const [rfq, setRfq] = useState<RfqDetailData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [updating, setUpdating] = useState(false);
+  const [updateError, setUpdateError] = useState<string | null>(null);
   const isEngineer = role === "engineer";
+  const canEdit = role === "root" || role === "owner";
+
+  const handleStatusChange = async (value: string | null) => {
+    if (!value || !rfq) return;
+    setUpdating(true);
+    setUpdateError(null);
+    try {
+      const res = await fetch(`/api/admin/rfqs/${rfqId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: value }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setUpdateError(data.error ?? "Failed to update status.");
+      } else {
+        setRfq({ ...rfq, status: data.status });
+      }
+    } catch {
+      setUpdateError("Failed to update status.");
+    } finally {
+      setUpdating(false);
+    }
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -161,10 +188,8 @@ export function RfqDetail({ rfqId, role, lang }: RfqDetailProps) {
   }
 
   const reference = `RFQ-${new Date(rfq.created_at).getFullYear()}-${String(rfq.id).padStart(6, "0")}`;
-  const statusColor =
-    rfq.status === "initiated" ? "blue" :
-    rfq.status === "in_progress" ? "yellow" :
-    rfq.status === "completed" ? "green" : "red";
+  const statusColor = (s: string): string =>
+    s === "initiated" ? "blue" : s === "reviewing" ? "yellow" : s === "quoted" ? "green" : "gray";
 
   return (
     <Stack>
@@ -182,9 +207,25 @@ export function RfqDetail({ rfqId, role, lang }: RfqDetailProps) {
             </Group>
           </Anchor>
         </Group>
-        <Badge color={statusColor} variant="filled" size="lg">
-          {rfq.status}
-        </Badge>
+
+        {canEdit ? (
+          <Group gap="xs" align="center">
+            <Select
+              data={RFQ_STATUSES.map((s) => ({ value: s, label: s }))}
+              value={rfq.status}
+              onChange={handleStatusChange}
+              disabled={updating}
+              w={150}
+            />
+            {updateError && (
+              <Text size="xs" c="red">{updateError}</Text>
+            )}
+          </Group>
+        ) : (
+          <Badge color={statusColor(rfq.status)} variant="filled" size="lg">
+            {rfq.status}
+          </Badge>
+        )}
       </Group>
 
       <Group>
