@@ -269,49 +269,15 @@ export async function POST(request: NextRequest) {
       );
       const techId: number = techResult.rows[0].id;
 
-      // 7. Insert file records (rfq_files has no FK to rfqs; rfqs.file_id → rfq_files.id)
-      //    Insert the first file to get its ID for the rfqs.file_id column.
-      const firstFile = uploadedFiles[0];
-      const fileResult = await client.query(
-        `INSERT INTO rfq_files (file_name, file_url, file_type, file_size_bytes, additional_option)
-         VALUES ($1, $2, $3, $4, $5::additional_option_enum[])
-         RETURNING id`,
-        [
-          firstFile.fileName,
-          firstFile.url,
-          firstFile.fileType,
-          firstFile.fileSize,
-          additional_options.length > 0 ? additional_options : null,
-        ],
-      );
-      const fileId: number = fileResult.rows[0].id;
-
-      // Insert any remaining files (not directly linked to the RFQ row)
-      for (let i = 1; i < uploadedFiles.length; i++) {
-        const uf = uploadedFiles[i];
-        await client.query(
-          `INSERT INTO rfq_files (file_name, file_url, file_type, file_size_bytes, additional_option)
-           VALUES ($1, $2, $3, $4, $5::additional_option_enum[])`,
-          [
-            uf.fileName,
-            uf.url,
-            uf.fileType,
-            uf.fileSize,
-            additional_options.length > 0 ? additional_options : null,
-          ],
-        );
-      }
-
-      // 8. Insert rfqs
+      // 7. Insert rfqs first (file_id is set after file inserts)
       const rfqResult = await client.query(
         `INSERT INTO rfqs
-           (customer_id, file_id, project_info_id, material_n_manu_req_id, quantity_id,
+           (customer_id, project_info_id, material_n_manu_req_id, quantity_id,
             delivery_requirements_id, additional_technical_requirements_id, status)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, 'initiated'::rfq_status)
+         VALUES ($1, $2, $3, $4, $5, $6, 'initiated'::rfq_status)
          RETURNING id`,
         [
           customerId,
-          fileId,
           projectInfoId,
           materialId,
           quantityId,
@@ -320,6 +286,46 @@ export async function POST(request: NextRequest) {
         ],
       );
       const rfqId: number = rfqResult.rows[0].id;
+
+      // 8. Insert file records with rfq_id back-reference
+      const firstFile = uploadedFiles[0];
+      const fileResult = await client.query(
+        `INSERT INTO rfq_files (file_name, file_url, file_type, file_size_bytes, additional_option, rfq_id)
+         VALUES ($1, $2, $3, $4, $5::additional_option_enum[], $6)
+         RETURNING id`,
+        [
+          firstFile.fileName,
+          firstFile.url,
+          firstFile.fileType,
+          firstFile.fileSize,
+          additional_options.length > 0 ? additional_options : null,
+          rfqId,
+        ],
+      );
+      const fileId: number = fileResult.rows[0].id;
+
+      // Update rfqs.file_id to point to the first file
+      await client.query(
+        `UPDATE rfqs SET file_id = $1 WHERE id = $2`,
+        [fileId, rfqId],
+      );
+
+      // Insert any remaining files (linked to the RFQ via rfq_id)
+      for (let i = 1; i < uploadedFiles.length; i++) {
+        const uf = uploadedFiles[i];
+        await client.query(
+          `INSERT INTO rfq_files (file_name, file_url, file_type, file_size_bytes, additional_option, rfq_id)
+           VALUES ($1, $2, $3, $4, $5::additional_option_enum[], $6)`,
+          [
+            uf.fileName,
+            uf.url,
+            uf.fileType,
+            uf.fileSize,
+            additional_options.length > 0 ? additional_options : null,
+            rfqId,
+          ],
+        );
+      }
 
       // Build reference from the auto-increment ID: RFQ-YYYY-NNNNNN
       const referenceNumber = `RFQ-${new Date().getFullYear()}-${String(rfqId).padStart(6, "0")}`;
