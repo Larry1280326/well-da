@@ -12,18 +12,21 @@ export default async function AdministratorLayout({
   const { lang } = await params;
   const session = await validateSession();
 
-  // Convert to a plain object that can be passed to a client component
-  const initialUser: SessionUser | null = session
-    ? {
-        userId: session.userId,
-        username: session.username,
-        role: session.role,
-        displayName: session.displayName,
-      }
-    : null;
+  // Not authenticated — render children directly (the login form)
+  if (!session) {
+    return <>{children}</>;
+  }
+
+  // Authenticated — the AdminShell ALWAYS renders the full AppShell
+  const user: SessionUser = {
+    userId: session.userId,
+    username: session.username,
+    role: session.role,
+    displayName: session.displayName,
+  };
 
   return (
-    <AdminShell lang={lang} initialUser={initialUser}>
+    <AdminShell lang={lang} user={user}>
       {children}
     </AdminShell>
   );

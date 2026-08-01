@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import {
   AppShell,
@@ -23,14 +22,15 @@ import type { SessionUser } from "@/lib/auth/types";
 export function AdminShell({
   children,
   lang,
-  initialUser,
+  user,
 }: {
   children: React.ReactNode;
   lang: string;
-  initialUser: SessionUser | null;
+  /** Guaranteed to be a valid session user — the layout only renders
+   *  AdminShell when the session is valid. */
+  user: SessionUser;
 }) {
   const [opened, { toggle }] = useDisclosure();
-  const [user, setUser] = useState<SessionUser | null>(initialUser);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -39,30 +39,10 @@ export function AdminShell({
   const isRfqActive = pathname === rfqPath || pathname === `${rfqPath}/`;
   const isAccountsActive = pathname === accountsPath || pathname === `${accountsPath}/`;
 
-  // Re-fetch session when navigating between admin pages (pathname changes).
-  // Skip the initial render since we already have initialUser from the server.
-  const mounted = useRef(false);
-  useEffect(() => {
-    if (!mounted.current) {
-      mounted.current = true;
-      return;
-    }
-    fetch("/api/admin/session")
-      .then((r) => (r.ok ? r.json() : null))
-      .then((d) => setUser(d?.authenticated ? d.user : null))
-      .catch(() => setUser(null));
-  }, [pathname]);
-
-  // Not authenticated — render children (login form)
-  if (user === null) {
-    return <>{children}</>;
-  }
-
   const roleColor =
     user.role === "root" ? "red" : user.role === "owner" ? "blue" : "gray";
 
   const handleSignOut = async () => {
-    setUser(null);
     await logout();
   };
 

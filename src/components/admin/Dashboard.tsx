@@ -13,9 +13,18 @@ import {
   Badge,
   Stack,
   Text,
+  TextInput,
+  Select,
+  Pill,
 } from "@mantine/core";
-import { IconAlertCircle, IconInbox } from "@tabler/icons-react";
+import {
+  IconAlertCircle,
+  IconInbox,
+  IconArrowUp,
+  IconArrowDown,
+} from "@tabler/icons-react";
 import type { AdminRole } from "@/lib/auth/types";
+import { useDebounce } from "@/hooks/useDebounce";
 
 interface RfqSummary {
   id: number;
@@ -25,6 +34,26 @@ interface RfqSummary {
   material: string;
   companyName?: string;
 }
+
+interface ColumnFilter {
+  column: string;
+  label: string;
+  value: string;
+}
+
+const FILTER_COLUMNS = [
+  { value: "reference", label: "Reference" },
+  { value: "projectName", label: "Project Name" },
+  { value: "company", label: "Company" },
+  { value: "material", label: "Material" },
+  { value: "status", label: "Status" },
+] as const;
+
+const STATUS_OPTIONS = [
+  { value: "initiated", label: "Initiated" },
+  { value: "reviewing", label: "Reviewing" },
+  { value: "quoted", label: "Quoted" },
+] as const;
 
 interface DashboardProps {
   role: AdminRole;
@@ -40,6 +69,12 @@ export function Dashboard({ role, lang }: DashboardProps) {
   const [error, setError] = useState<string | null>(null);
   const limit = 20;
 
+  const [filters, setFilters] = useState<ColumnFilter[]>([]);
+  const [selectedColumn, setSelectedColumn] = useState<string | null>(null);
+  const [filterValue, setFilterValue] = useState("");
+  const debouncedFilters = useDebounce(filters, 300);
+  const [sortOrder, setSortOrder] = useState<"desc" | "asc">("desc");
+
   useEffect(() => {
     let cancelled = false;
     Promise.resolve()
@@ -47,7 +82,14 @@ export function Dashboard({ role, lang }: DashboardProps) {
         if (cancelled) return;
         setLoading(true);
         setError(null);
-        return fetch(`/api/admin/rfqs?page=${page}&limit=${limit}`);
+        const params = new URLSearchParams();
+        params.set("page", String(page));
+        params.set("limit", String(limit));
+        for (const filter of debouncedFilters) {
+          if (filter.value) params.set(filter.column, filter.value);
+        }
+        if (sortOrder !== "desc") params.set("sort", sortOrder);
+        return fetch(`/api/admin/rfqs?${params.toString()}`);
       })
       .then((res) => {
         if (cancelled || !res) return;
@@ -68,10 +110,53 @@ export function Dashboard({ role, lang }: DashboardProps) {
         }
       });
     return () => { cancelled = true; };
-  }, [page]);
+  }, [page, debouncedFilters, sortOrder]);
+
+  const addFilter = () => {
+    if (!selectedColumn || !filterValue.trim()) return;
+
+    const columnDef = FILTER_COLUMNS.find((c) => c.value === selectedColumn);
+    if (!columnDef) return;
+
+    const trimmedValue = filterValue.trim();
+
+    setFilters((prev) => {
+      const withoutExisting = prev.filter((f) => f.column !== selectedColumn);
+      return [
+        ...withoutExisting,
+        { column: columnDef.value, label: columnDef.label, value: trimmedValue },
+      ];
+    });
+    setSelectedColumn(null);
+    setFilterValue("");
+    setPage(1);
+  };
+
+  const removeFilter = (column: string) => {
+    setFilters((prev) => prev.filter((f) => f.column !== column));
+    setPage(1);
+  };
+
+  const handleColumnSelect = (value: string | null) => {
+    setSelectedColumn(value);
+    setFilterValue("");
+  };
+
+  const handleValueKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      addFilter();
+    }
+  };
+
+  const handleSortToggle = () => {
+    setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
+    setPage(1);
+  };
 
   const totalPages = Math.max(1, Math.ceil(total / limit));
   const isEngineer = role === "engineer";
+  const hasActiveFilters = filters.length > 0;
 
   const statusColor = (status: string): string => {
     const colors: Record<string, string> = {
@@ -81,33 +166,6 @@ export function Dashboard({ role, lang }: DashboardProps) {
     };
     return colors[status] ?? "gray";
   };
-
-  if (loading) {
-    return (
-      <Center py="xl">
-        <Loader size="lg" />
-      </Center>
-    );
-  }
-
-  if (error) {
-    return (
-      <Alert icon={<IconAlertCircle size={16} />} color="red" variant="light">
-        {error}
-      </Alert>
-    );
-  }
-
-  if (rfqs.length === 0) {
-    return (
-      <Stack align="center" py="xl" gap="md">
-        <IconInbox size={48} stroke={1.5} color="var(--mantine-color-gray-5)" />
-        <Text c="dimmed" size="lg">
-          No RFQ submissions yet.
-        </Text>
-      </Stack>
-    );
-  }
 
   const rows = rfqs.map((rfq) => (
     <Table.Tr
@@ -138,28 +196,137 @@ export function Dashboard({ role, lang }: DashboardProps) {
     <Stack>
       <Title order={3}>RFQ Submissions</Title>
 
-      <Table striped highlightOnHover withTableBorder>
-        <Table.Thead>
-          <Table.Tr>
-            <Table.Th>Reference</Table.Th>
-            <Table.Th>Project Name</Table.Th>
-            {!isEngineer && <Table.Th>Company</Table.Th>}
-            <Table.Th>Material</Table.Th>
-            <Table.Th>Status</Table.Th>
-            <Table.Th>Submitted</Table.Th>
-          </Table.Tr>
-        </Table.Thead>
-        <Table.Tbody>{rows}</Table.Tbody>
-      </Table>
-
-      {totalPages > 1 && (
-        <Group justify="center" mt="md">
-          <Pagination
-            total={totalPages}
-            value={page}
-            onChange={setPage}
-          />
+      {/* Active Filter Pills */}
+      {filters.length > 0 && (
+        <Group gap="xs" wrap="wrap">
+          {filters.map((f) => {
+            let displayValue = f.value;
+            if (f.column === "status") {
+              displayValue =
+                f.value.charAt(0).toUpperCase() + f.value.slice(1);
+            }
+            return (
+              <Pill
+                key={f.column}
+                withRemoveButton
+                onRemove={() => removeFilter(f.column)}
+                size="md"
+              >
+                {f.label}: {displayValue}
+              </Pill>
+            );
+          })}
         </Group>
+      )}
+
+      {/* Filter Builder Row */}
+      <Group align="flex-end" gap="sm">
+        <Select
+          data={FILTER_COLUMNS.filter(
+            (c) => c.value !== "company" || !isEngineer,
+          )}
+          value={selectedColumn}
+          onChange={handleColumnSelect}
+          clearable
+          placeholder="Select column..."
+          w={180}
+        />
+        {selectedColumn === "status" ? (
+          <Select
+            data={STATUS_OPTIONS}
+            value={filterValue || null}
+            onChange={(val) => {
+              if (val) {
+                setFilters((prev) => {
+                  const withoutExisting = prev.filter(
+                    (f) => f.column !== "status",
+                  );
+                  return [
+                    ...withoutExisting,
+                    { column: "status", label: "Status", value: val },
+                  ];
+                });
+                setSelectedColumn(null);
+                setFilterValue("");
+                setPage(1);
+              } else {
+                setFilterValue("");
+              }
+            }}
+            placeholder="Select status..."
+            w={180}
+          />
+        ) : (
+          <TextInput
+            placeholder={
+              selectedColumn
+                ? `Enter ${FILTER_COLUMNS.find((c) => c.value === selectedColumn)?.label}...`
+                : "Select a column first"
+            }
+            value={filterValue}
+            onChange={(e) => setFilterValue(e.currentTarget.value)}
+            onKeyDown={handleValueKeyDown}
+            disabled={!selectedColumn}
+            style={{ flex: 1 }}
+          />
+        )}
+      </Group>
+
+      {loading ? (
+        <Center py="xl">
+          <Loader size="lg" />
+        </Center>
+      ) : error ? (
+        <Alert icon={<IconAlertCircle size={16} />} color="red" variant="light">
+          {error}
+        </Alert>
+      ) : rfqs.length === 0 ? (
+        <Stack align="center" py="xl" gap="md">
+          <IconInbox size={48} stroke={1.5} color="var(--mantine-color-gray-5)" />
+          <Text c="dimmed" size="lg">
+            {hasActiveFilters
+              ? "No RFQs match your search or filter."
+              : "No RFQ submissions yet."}
+          </Text>
+        </Stack>
+      ) : (
+        <>
+          <Table striped highlightOnHover withTableBorder>
+            <Table.Thead>
+              <Table.Tr>
+                <Table.Th>Reference</Table.Th>
+                <Table.Th>Project Name</Table.Th>
+                {!isEngineer && <Table.Th>Company</Table.Th>}
+                <Table.Th>Material</Table.Th>
+                <Table.Th>Status</Table.Th>
+                <Table.Th
+                  style={{ cursor: "pointer", userSelect: "none" }}
+                  onClick={handleSortToggle}
+                >
+                  <Group gap={4} wrap="nowrap">
+                    Submitted
+                    {sortOrder === "asc" ? (
+                      <IconArrowUp size={14} />
+                    ) : (
+                      <IconArrowDown size={14} />
+                    )}
+                  </Group>
+                </Table.Th>
+              </Table.Tr>
+            </Table.Thead>
+            <Table.Tbody>{rows}</Table.Tbody>
+          </Table>
+
+          {totalPages > 1 && (
+            <Group justify="center" mt="md">
+              <Pagination
+                total={totalPages}
+                value={page}
+                onChange={setPage}
+              />
+            </Group>
+          )}
+        </>
       )}
     </Stack>
   );
