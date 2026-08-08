@@ -29,7 +29,7 @@ const pool = new Pool({
       console.log('User "owner2" not found.');
     }
   } catch (e) {
-    console.error("Error:", e.message);
+    console.error("Error:", (e as Error).message);
   }
   await pool.end();
 })();
