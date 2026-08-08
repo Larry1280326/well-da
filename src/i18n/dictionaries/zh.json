@@ -409,9 +409,12 @@
         "projectLabel": "項目名稱",
         "dateLabel": "提交日期",
         "emailLabel": "確認郵件已發送至",
-        "newSubmission": "提交另一詢價"
+        "newSubmission": "提交另一詢價",
+        "emailWarningTitle": "確認電郵未發送",
+        "emailWarningDesc": "已收到您的詢價，但無法發送確認電郵。原因：{reason}。我們將通過 {email} 與您聯繫。"
       },
-      "errorMessage": "提交詢價時出現問題。請重試或直接通過電郵或電話與我們聯繫。"
+      "errorMessage": "提交詢價時出現問題。請重試或直接通過電郵或電話與我們聯繫。",
+      "rateLimitError": "請求過於頻繁，請至少等待一小時後再試，或直接與我們聯繫。"
     }
   },
   "about": {
@@ -622,5 +625,151 @@
         ]
       }
     ]
+  },
+  "admin": {
+    "shell": {
+      "title": "滙達管理後台",
+      "signOut": "登出",
+      "rfqNav": "報價申請記錄",
+      "accountsNav": "帳戶管理"
+    },
+    "login": {
+      "title": "管理員登入",
+      "username": "用戶名",
+      "usernamePlaceholder": "請輸入用戶名",
+      "password": "密碼",
+      "passwordPlaceholder": "請輸入密碼",
+      "signIn": "登入",
+      "errors": {
+        "required": "請輸入用戶名和密碼。",
+        "tooManyAttempts": "嘗試次數過多，請稍後再試。",
+        "invalidCredentials": "用戶名或密碼錯誤。"
+      }
+    },
+    "dashboard": {
+      "title": "報價申請記錄",
+      "columns": {
+        "reference": "參考編號",
+        "projectName": "項目名稱",
+        "company": "公司",
+        "material": "材料",
+        "status": "狀態",
+        "submitted": "提交日期"
+      },
+      "status": {
+        "initiated": "已建立",
+        "reviewing": "審核中",
+        "quoted": "已報價"
+      },
+      "filter": {
+        "selectColumn": "選擇欄位...",
+        "selectStatus": "選擇狀態...",
+        "selectColumnFirst": "請先選擇欄位",
+        "enterValueHint": "輸入{label}..."
+      },
+      "empty": {
+        "noMatch": "沒有符合搜尋或篩選條件的報價申請。",
+        "noSubmissions": "尚無報價申請記錄。"
+      },
+      "error": "無法載入報價申請記錄。"
+    },
+    "accounts": {
+      "title": "帳戶管理",
+      "createTitle": "建立新帳戶",
+      "existingTitle": "現有帳戶",
+      "username": "用戶名",
+      "usernamePlaceholder": "請輸入用戶名",
+      "password": "密碼",
+      "passwordPlaceholder": "最少 8 個字元",
+      "role": "角色",
+      "displayName": "顯示名稱",
+      "displayNamePlaceholder": "選填",
+      "create": "建立",
+      "tableHeaders": {
+        "username": "用戶名",
+        "displayName": "顯示名稱",
+        "role": "角色",
+        "status": "狀態",
+        "lastLogin": "最後登入",
+        "created": "建立日期",
+        "actions": "操作"
+      },
+      "status": {
+        "active": "啟用",
+        "inactive": "停用"
+      },
+      "never": "從未",
+      "deactivate": "停用",
+      "deleteTitle": "停用帳戶",
+      "deleteConfirm": "確定要停用 {username} 的帳戶嗎？",
+      "deleteWarning": "停用後該用戶將無法登入，但其工作階段資料將被保留。",
+      "cancel": "取消",
+      "errors": {
+        "load": "無法載入帳戶列表。",
+        "create": "無法建立帳戶。",
+        "delete": "無法停用帳戶。",
+        "unexpected": "發生未預期的錯誤。"
+      }
+    },
+    "rfqDetail": {
+      "backToList": "返回列表",
+      "sections": {
+        "contactInfo": "聯絡資訊",
+        "partProjectInfo": "零件與項目資訊",
+        "materialManufacturing": "材料與製造",
+        "quantity": "數量",
+        "deliveryRequirements": "交貨要求",
+        "technicalRequirements": "其他技術要求",
+        "drawingFiles": "圖紙與規格檔案"
+      },
+      "fields": {
+        "company": "公司",
+        "contactName": "聯絡人",
+        "email": "電郵",
+        "phone": "電話",
+        "countryRegion": "國家 / 地區",
+        "preferredMethod": "首選聯絡方式",
+        "projectName": "項目名稱",
+        "partNumber": "零件編號",
+        "drawingNumber": "圖紙編號",
+        "drawingRevision": "圖紙版本",
+        "drawingAvailability": "圖紙提供情況",
+        "productType": "產品類型",
+        "material": "材料",
+        "grade": "等級",
+        "thickness": "厚度",
+        "surfaceFinish": "表面處理",
+        "finishColour": "表面顏色",
+        "criticalTolerance": "關鍵公差要求",
+        "assemblyRequired": "是否需要組裝",
+        "hardwareInserts": "五金嵌件",
+        "printingMarking": "印刷 / 標記",
+        "prototypeQuantity": "原型數量",
+        "productionQuantity": "生產數量",
+        "estAnnualVol": "預計年用量",
+        "requiredDate": "要求日期",
+        "dateType": "日期類型",
+        "shippingQuote": "運費報價",
+        "deliveryRegion": "交貨地區",
+        "postalCode": "郵遞區號",
+        "approxDimensions": "大約尺寸",
+        "operatingEnv": "使用環境",
+        "protectionReq": "防護要求",
+        "inspectionReq": "檢測要求",
+        "certReport": "認證 / 報告",
+        "specialReq": "特殊要求"
+      },
+      "noFiles": "未上傳檔案。",
+      "ndaRequired": "需要 NDA",
+      "submitted": "提交日期",
+      "confirmationEmail": "確認電郵",
+      "sent": "已發送",
+      "notSent": "未發送",
+      "errors": {
+        "notFound": "找不到該報價申請。",
+        "load": "無法載入報價申請。",
+        "updateStatus": "無法更新狀態。"
+      }
+    }
   }
 }

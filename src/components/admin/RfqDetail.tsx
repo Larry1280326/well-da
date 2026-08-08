@@ -84,6 +84,68 @@ interface RfqDetailProps {
   rfqId: string;
   role: AdminRole;
   lang: string;
+  dict: RfqDetailDict;
+}
+
+export interface RfqDetailDict {
+  backToList: string;
+  sections: {
+    contactInfo: string;
+    partProjectInfo: string;
+    materialManufacturing: string;
+    quantity: string;
+    deliveryRequirements: string;
+    technicalRequirements: string;
+    drawingFiles: string;
+  };
+  fields: {
+    company: string;
+    contactName: string;
+    email: string;
+    phone: string;
+    countryRegion: string;
+    preferredMethod: string;
+    projectName: string;
+    partNumber: string;
+    drawingNumber: string;
+    drawingRevision: string;
+    drawingAvailability: string;
+    productType: string;
+    material: string;
+    grade: string;
+    thickness: string;
+    surfaceFinish: string;
+    finishColour: string;
+    criticalTolerance: string;
+    assemblyRequired: string;
+    hardwareInserts: string;
+    printingMarking: string;
+    prototypeQuantity: string;
+    productionQuantity: string;
+    estAnnualVol: string;
+    requiredDate: string;
+    dateType: string;
+    shippingQuote: string;
+    deliveryRegion: string;
+    postalCode: string;
+    approxDimensions: string;
+    operatingEnv: string;
+    protectionReq: string;
+    inspectionReq: string;
+    certReport: string;
+    specialReq: string;
+  };
+  noFiles: string;
+  ndaRequired: string;
+  submitted: string;
+  confirmationEmail: string;
+  sent: string;
+  notSent: string;
+  errors: {
+    notFound: string;
+    load: string;
+    updateStatus: string;
+  };
 }
 
 function formatBytes(bytes: number): string {
@@ -109,8 +171,9 @@ function formatJsonField(value: string | null): string {
   }
 }
 
-export function RfqDetail({ rfqId, role, lang }: RfqDetailProps) {
+export function RfqDetail({ rfqId, role, lang, dict }: RfqDetailProps) {
   const router = useRouter();
+  const dateLocale = lang === "zh" ? "zh-HK" : "en-GB";
   const [rfq, setRfq] = useState<RfqDetailData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -131,12 +194,12 @@ export function RfqDetail({ rfqId, role, lang }: RfqDetailProps) {
       });
       const data = await res.json();
       if (!res.ok) {
-        setUpdateError(data.error ?? "Failed to update status.");
+        setUpdateError(data.error ?? dict.errors.updateStatus);
       } else {
         setRfq({ ...rfq, status: data.status });
       }
     } catch {
-      setUpdateError("Failed to update status.");
+      setUpdateError(dict.errors.updateStatus);
     } finally {
       setUpdating(false);
     }
@@ -153,7 +216,7 @@ export function RfqDetail({ rfqId, role, lang }: RfqDetailProps) {
       })
       .then((r) => {
         if (cancelled || !r) return;
-        if (!r.ok) throw new Error(r.status === 404 ? "RFQ not found." : "Failed to load RFQ.");
+        if (!r.ok) throw new Error(r.status === 404 ? dict.errors.notFound : dict.errors.load);
         return r.json();
       })
       .then((d) => {
@@ -182,7 +245,7 @@ export function RfqDetail({ rfqId, role, lang }: RfqDetailProps) {
   if (error || !rfq) {
     return (
       <Alert icon={<IconAlertCircle size={16} />} color="red" variant="light">
-        {error ?? "RFQ not found."}
+        {error ?? dict.errors.notFound}
       </Alert>
     );
   }
@@ -203,7 +266,7 @@ export function RfqDetail({ rfqId, role, lang }: RfqDetailProps) {
           >
             <Group gap={4}>
               <IconArrowLeft size={16} />
-              Back to List
+              {dict.backToList}
             </Group>
           </Anchor>
         </Group>
@@ -238,30 +301,30 @@ export function RfqDetail({ rfqId, role, lang }: RfqDetailProps) {
       {/* Contact Information — ONLY for owner/root */}
       {!isEngineer && rfq.company_name !== undefined && (
         <Card withBorder>
-          <Title order={4} mb="sm">Contact Information</Title>
+          <Title order={4} mb="sm">{dict.sections.contactInfo}</Title>
           <Grid>
             <Grid.Col span={{ base: 12, sm: 6 }}>
-              <Text size="sm" c="dimmed">Company</Text>
+              <Text size="sm" c="dimmed">{dict.fields.company}</Text>
               <Text>{rfq.company_name}</Text>
             </Grid.Col>
             <Grid.Col span={{ base: 12, sm: 6 }}>
-              <Text size="sm" c="dimmed">Contact Name</Text>
+              <Text size="sm" c="dimmed">{dict.fields.contactName}</Text>
               <Text>{rfq.contact_name}</Text>
             </Grid.Col>
             <Grid.Col span={{ base: 12, sm: 6 }}>
-              <Text size="sm" c="dimmed">Email</Text>
+              <Text size="sm" c="dimmed">{dict.fields.email}</Text>
               <Text>{rfq.email}</Text>
             </Grid.Col>
             <Grid.Col span={{ base: 12, sm: 6 }}>
-              <Text size="sm" c="dimmed">Phone</Text>
+              <Text size="sm" c="dimmed">{dict.fields.phone}</Text>
               <Text>{rfq.phone || "—"}</Text>
             </Grid.Col>
             <Grid.Col span={{ base: 12, sm: 6 }}>
-              <Text size="sm" c="dimmed">Country / Region</Text>
+              <Text size="sm" c="dimmed">{dict.fields.countryRegion}</Text>
               <Text>{rfq.country_region}</Text>
             </Grid.Col>
             <Grid.Col span={{ base: 12, sm: 6 }}>
-              <Text size="sm" c="dimmed">Preferred Method</Text>
+              <Text size="sm" c="dimmed">{dict.fields.preferredMethod}</Text>
               <Text>{rfq.preferred_method || "—"}</Text>
             </Grid.Col>
           </Grid>
@@ -270,30 +333,30 @@ export function RfqDetail({ rfqId, role, lang }: RfqDetailProps) {
 
       {/* Part & Project Information */}
       <Card withBorder>
-        <Title order={4} mb="sm">Part &amp; Project Information</Title>
+        <Title order={4} mb="sm">{dict.sections.partProjectInfo}</Title>
         <Grid>
           <Grid.Col span={{ base: 12, sm: 6 }}>
-            <Text size="sm" c="dimmed">Project Name</Text>
+            <Text size="sm" c="dimmed">{dict.fields.projectName}</Text>
             <Text>{rfq.project_name}</Text>
           </Grid.Col>
           <Grid.Col span={{ base: 12, sm: 6 }}>
-            <Text size="sm" c="dimmed">Part Number</Text>
+            <Text size="sm" c="dimmed">{dict.fields.partNumber}</Text>
             <Text>{rfq.part_number || "—"}</Text>
           </Grid.Col>
           <Grid.Col span={{ base: 12, sm: 4 }}>
-            <Text size="sm" c="dimmed">Drawing Number</Text>
+            <Text size="sm" c="dimmed">{dict.fields.drawingNumber}</Text>
             <Text>{rfq.drawing_code || "—"}</Text>
           </Grid.Col>
           <Grid.Col span={{ base: 12, sm: 4 }}>
-            <Text size="sm" c="dimmed">Drawing Revision</Text>
+            <Text size="sm" c="dimmed">{dict.fields.drawingRevision}</Text>
             <Text>{rfq.drawing_revision || "—"}</Text>
           </Grid.Col>
           <Grid.Col span={{ base: 12, sm: 4 }}>
-            <Text size="sm" c="dimmed">Drawing Availability</Text>
+            <Text size="sm" c="dimmed">{dict.fields.drawingAvailability}</Text>
             <Text>{rfq.drawing_avail}</Text>
           </Grid.Col>
           <Grid.Col span={{ base: 12, sm: 6 }}>
-            <Text size="sm" c="dimmed">Product Type</Text>
+            <Text size="sm" c="dimmed">{dict.fields.productType}</Text>
             <Text>{Array.isArray(rfq.product_type) ? rfq.product_type.join(", ") : "—"}</Text>
           </Grid.Col>
         </Grid>
@@ -301,44 +364,44 @@ export function RfqDetail({ rfqId, role, lang }: RfqDetailProps) {
 
       {/* Material & Manufacturing */}
       <Card withBorder>
-        <Title order={4} mb="sm">Material &amp; Manufacturing</Title>
+        <Title order={4} mb="sm">{dict.sections.materialManufacturing}</Title>
         <Grid>
           <Grid.Col span={{ base: 12, sm: 4 }}>
-            <Text size="sm" c="dimmed">Material</Text>
+            <Text size="sm" c="dimmed">{dict.fields.material}</Text>
             <Text>{rfq.material}</Text>
           </Grid.Col>
           <Grid.Col span={{ base: 12, sm: 4 }}>
-            <Text size="sm" c="dimmed">Grade</Text>
+            <Text size="sm" c="dimmed">{dict.fields.grade}</Text>
             <Text>{rfq.material_grade || "—"}</Text>
           </Grid.Col>
           <Grid.Col span={{ base: 12, sm: 4 }}>
-            <Text size="sm" c="dimmed">Thickness</Text>
+            <Text size="sm" c="dimmed">{dict.fields.thickness}</Text>
             <Text>
               {rfq.thickness ? `${rfq.thickness} ${rfq.thickness_unit || ""}` : "—"}
             </Text>
           </Grid.Col>
           <Grid.Col span={{ base: 12, sm: 6 }}>
-            <Text size="sm" c="dimmed">Surface Finish</Text>
+            <Text size="sm" c="dimmed">{dict.fields.surfaceFinish}</Text>
             <Text>{rfq.surface_finish || "—"}</Text>
           </Grid.Col>
           <Grid.Col span={{ base: 12, sm: 6 }}>
-            <Text size="sm" c="dimmed">Finish Colour</Text>
+            <Text size="sm" c="dimmed">{dict.fields.finishColour}</Text>
             <Text>{rfq.finish_color || "—"}</Text>
           </Grid.Col>
           <Grid.Col span={12}>
-            <Text size="sm" c="dimmed">Critical Tolerance Requirements</Text>
+            <Text size="sm" c="dimmed">{dict.fields.criticalTolerance}</Text>
             <Text>{rfq.critical_tolerance_req || "—"}</Text>
           </Grid.Col>
           <Grid.Col span={{ base: 12, sm: 4 }}>
-            <Text size="sm" c="dimmed">Assembly Required</Text>
+            <Text size="sm" c="dimmed">{dict.fields.assemblyRequired}</Text>
             <Text>{rfq.assembly_required || "—"}</Text>
           </Grid.Col>
           <Grid.Col span={{ base: 12, sm: 8 }}>
-            <Text size="sm" c="dimmed">Hardware Inserts</Text>
+            <Text size="sm" c="dimmed">{dict.fields.hardwareInserts}</Text>
             <Text>{rfq.hardware_inserts || "—"}</Text>
           </Grid.Col>
           <Grid.Col span={12}>
-            <Text size="sm" c="dimmed">Printing / Marking</Text>
+            <Text size="sm" c="dimmed">{dict.fields.printingMarking}</Text>
             <Text>
               {Array.isArray(rfq.printing_marking) ? rfq.printing_marking.join(", ") : "—"}
             </Text>
@@ -348,18 +411,18 @@ export function RfqDetail({ rfqId, role, lang }: RfqDetailProps) {
 
       {/* Quantity */}
       <Card withBorder>
-        <Title order={4} mb="sm">Quantity</Title>
+        <Title order={4} mb="sm">{dict.sections.quantity}</Title>
         <Grid>
           <Grid.Col span={{ base: 12, sm: 4 }}>
-            <Text size="sm" c="dimmed">Prototype Quantity</Text>
+            <Text size="sm" c="dimmed">{dict.fields.prototypeQuantity}</Text>
             <Text>{rfq.prototype_quantity ?? "—"}</Text>
           </Grid.Col>
           <Grid.Col span={{ base: 12, sm: 4 }}>
-            <Text size="sm" c="dimmed">Production Quantity</Text>
+            <Text size="sm" c="dimmed">{dict.fields.productionQuantity}</Text>
             <Text fw={500}>{rfq.production_quantity}</Text>
           </Grid.Col>
           <Grid.Col span={{ base: 12, sm: 4 }}>
-            <Text size="sm" c="dimmed">Est. Annual Volume</Text>
+            <Text size="sm" c="dimmed">{dict.fields.estAnnualVol}</Text>
             <Text>{rfq.est_annual_vol || "—"}</Text>
           </Grid.Col>
         </Grid>
@@ -367,26 +430,26 @@ export function RfqDetail({ rfqId, role, lang }: RfqDetailProps) {
 
       {/* Delivery Requirements */}
       <Card withBorder>
-        <Title order={4} mb="sm">Delivery Requirements</Title>
+        <Title order={4} mb="sm">{dict.sections.deliveryRequirements}</Title>
         <Grid>
           <Grid.Col span={{ base: 12, sm: 4 }}>
-            <Text size="sm" c="dimmed">Required Date</Text>
+            <Text size="sm" c="dimmed">{dict.fields.requiredDate}</Text>
             <Text>{rfq.required_date || "—"}</Text>
           </Grid.Col>
           <Grid.Col span={{ base: 12, sm: 4 }}>
-            <Text size="sm" c="dimmed">Date Type</Text>
+            <Text size="sm" c="dimmed">{dict.fields.dateType}</Text>
             <Text>{rfq.required_date_type || "—"}</Text>
           </Grid.Col>
           <Grid.Col span={{ base: 12, sm: 4 }}>
-            <Text size="sm" c="dimmed">Shipping Quote</Text>
+            <Text size="sm" c="dimmed">{dict.fields.shippingQuote}</Text>
             <Text>{rfq.shipping_quote_required || "—"}</Text>
           </Grid.Col>
           <Grid.Col span={{ base: 12, sm: 6 }}>
-            <Text size="sm" c="dimmed">Delivery Region</Text>
+            <Text size="sm" c="dimmed">{dict.fields.deliveryRegion}</Text>
             <Text>{rfq.delivery_region}</Text>
           </Grid.Col>
           <Grid.Col span={{ base: 12, sm: 6 }}>
-            <Text size="sm" c="dimmed">Postal Code</Text>
+            <Text size="sm" c="dimmed">{dict.fields.postalCode}</Text>
             <Text>{rfq.postal_code || "—"}</Text>
           </Grid.Col>
         </Grid>
@@ -394,30 +457,30 @@ export function RfqDetail({ rfqId, role, lang }: RfqDetailProps) {
 
       {/* Additional Technical Requirements */}
       <Card withBorder>
-        <Title order={4} mb="sm">Additional Technical Requirements</Title>
+        <Title order={4} mb="sm">{dict.sections.technicalRequirements}</Title>
         <Grid>
           <Grid.Col span={12}>
-            <Text size="sm" c="dimmed">Approx. Dimensions</Text>
+            <Text size="sm" c="dimmed">{dict.fields.approxDimensions}</Text>
             <Text>{rfq.approx_dimensions || "—"}</Text>
           </Grid.Col>
           <Grid.Col span={{ base: 12, sm: 4 }}>
-            <Text size="sm" c="dimmed">Operating Environment</Text>
+            <Text size="sm" c="dimmed">{dict.fields.operatingEnv}</Text>
             <Text>{formatJsonField(rfq.operating_env)}</Text>
           </Grid.Col>
           <Grid.Col span={{ base: 12, sm: 4 }}>
-            <Text size="sm" c="dimmed">Protection Requirements</Text>
+            <Text size="sm" c="dimmed">{dict.fields.protectionReq}</Text>
             <Text>{formatJsonField(rfq.protection_req)}</Text>
           </Grid.Col>
           <Grid.Col span={{ base: 12, sm: 4 }}>
-            <Text size="sm" c="dimmed">Inspection Requirements</Text>
+            <Text size="sm" c="dimmed">{dict.fields.inspectionReq}</Text>
             <Text>{formatJsonField(rfq.inspection_req)}</Text>
           </Grid.Col>
           <Grid.Col span={12}>
-            <Text size="sm" c="dimmed">Certifications / Reports</Text>
+            <Text size="sm" c="dimmed">{dict.fields.certReport}</Text>
             <Text>{formatJsonField(rfq.cert_report)}</Text>
           </Grid.Col>
           <Grid.Col span={12}>
-            <Text size="sm" c="dimmed">Special Requirements</Text>
+            <Text size="sm" c="dimmed">{dict.fields.specialReq}</Text>
             <Text style={{ whiteSpace: "pre-wrap" }}>
               {rfq.special_req_notes || "—"}
             </Text>
@@ -427,9 +490,9 @@ export function RfqDetail({ rfqId, role, lang }: RfqDetailProps) {
 
       {/* Drawing & Specification Files */}
       <Card withBorder>
-        <Title order={4} mb="sm">Drawing &amp; Specification Files</Title>
+        <Title order={4} mb="sm">{dict.sections.drawingFiles}</Title>
         {rfq.files.length === 0 ? (
-          <Text c="dimmed">No files uploaded.</Text>
+          <Text c="dimmed">{dict.noFiles}</Text>
         ) : (
           <Stack gap="xs">
             {rfq.files.map((file) => (
@@ -448,7 +511,7 @@ export function RfqDetail({ rfqId, role, lang }: RfqDetailProps) {
                 {file.additional_option && file.additional_option.length > 0 && (
                   <Badge size="xs" variant="light">
                     {file.additional_option.map((o) =>
-                      o === "REQUIRE_NDA" ? "NDA Required" : o
+                      o === "REQUIRE_NDA" ? dict.ndaRequired : o
                     ).join(", ")}
                   </Badge>
                 )}
@@ -462,10 +525,10 @@ export function RfqDetail({ rfqId, role, lang }: RfqDetailProps) {
 
       <Group justify="space-between">
         <Text size="xs" c="dimmed">
-          Submitted: {new Date(rfq.created_at).toLocaleString("en-GB")}
+          {dict.submitted}: {new Date(rfq.created_at).toLocaleString(dateLocale)}
         </Text>
         <Text size="xs" c="dimmed">
-          Confirmation Email: {rfq.confirmation_email_sent ? "Sent" : "Not sent"}
+          {dict.confirmationEmail}: {rfq.confirmation_email_sent ? dict.sent : dict.notSent}
         </Text>
       </Group>
     </Stack>

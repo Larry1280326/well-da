@@ -1,16 +1,17 @@
 "use client";
 
 import { Alert, Button, Paper, Stack, Text, Title } from "@mantine/core";
-import { IconCheck } from "@tabler/icons-react";
+import { IconAlertTriangle, IconCheck } from "@tabler/icons-react";
 import type { RfqFormDict, SuccessData } from "@/lib/types/rfq";
 
 interface Props {
   dict: RfqFormDict;
   data: SuccessData;
+  emailWarning?: string;
   onReset: () => void;
 }
 
-export function SuccessPanel({ dict, data }: Props) {
+export function SuccessPanel({ dict, data, emailWarning }: Props) {
   const s = dict.success;
 
   return (
@@ -24,6 +25,21 @@ export function SuccessPanel({ dict, data }: Props) {
         >
           <Text mt="xs">{s.message}</Text>
         </Alert>
+
+        {emailWarning && (
+          <Alert
+            variant="light"
+            color="yellow"
+            title={s.emailWarningTitle}
+            icon={<IconAlertTriangle size={24} />}
+          >
+            <Text mt="xs">
+              {s.emailWarningDesc
+                .replace("{reason}", emailWarning)
+                .replace("{email}", data.email)}
+            </Text>
+          </Alert>
+        )}
 
         <Stack gap="md">
           <div>

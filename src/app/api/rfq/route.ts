@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
     // Rate limit: max 3 submissions per hour per IP
     if (!checkRateLimit(clientIp)) {
       return NextResponse.json(
-        { success: false, error: "Too many requests. Please try again later." },
+        { success: false, error: "Too many requests. Please wait at least one hour before trying again, or contact us directly." },
         { status: 429 },
       );
     }
@@ -287,44 +287,46 @@ export async function POST(request: NextRequest) {
       );
       const rfqId: number = rfqResult.rows[0].id;
 
-      // 8. Insert file records with rfq_id back-reference
-      const firstFile = uploadedFiles[0];
-      const fileResult = await client.query(
-        `INSERT INTO rfq_files (file_name, file_url, file_type, file_size_bytes, additional_option, rfq_id)
-         VALUES ($1, $2, $3, $4, $5::additional_option_enum[], $6)
-         RETURNING id`,
-        [
-          firstFile.fileName,
-          firstFile.url,
-          firstFile.fileType,
-          firstFile.fileSize,
-          additional_options.length > 0 ? additional_options : null,
-          rfqId,
-        ],
-      );
-      const fileId: number = fileResult.rows[0].id;
-
-      // Update rfqs.file_id to point to the first file
-      await client.query(
-        `UPDATE rfqs SET file_id = $1 WHERE id = $2`,
-        [fileId, rfqId],
-      );
-
-      // Insert any remaining files (linked to the RFQ via rfq_id)
-      for (let i = 1; i < uploadedFiles.length; i++) {
-        const uf = uploadedFiles[i];
-        await client.query(
+      // 8. Insert file records (only when files were uploaded)
+      if (uploadedFiles.length > 0) {
+        const firstFile = uploadedFiles[0];
+        const fileResult = await client.query(
           `INSERT INTO rfq_files (file_name, file_url, file_type, file_size_bytes, additional_option, rfq_id)
-           VALUES ($1, $2, $3, $4, $5::additional_option_enum[], $6)`,
+           VALUES ($1, $2, $3, $4, $5::additional_option_enum[], $6)
+           RETURNING id`,
           [
-            uf.fileName,
-            uf.url,
-            uf.fileType,
-            uf.fileSize,
+            firstFile.fileName,
+            firstFile.url,
+            firstFile.fileType,
+            firstFile.fileSize,
             additional_options.length > 0 ? additional_options : null,
             rfqId,
           ],
         );
+        const fileId: number = fileResult.rows[0].id;
+
+        // Update rfqs.file_id to point to the first file
+        await client.query(
+          `UPDATE rfqs SET file_id = $1 WHERE id = $2`,
+          [fileId, rfqId],
+        );
+
+        // Insert any remaining files (linked to the RFQ via rfq_id)
+        for (let i = 1; i < uploadedFiles.length; i++) {
+          const uf = uploadedFiles[i];
+          await client.query(
+            `INSERT INTO rfq_files (file_name, file_url, file_type, file_size_bytes, additional_option, rfq_id)
+             VALUES ($1, $2, $3, $4, $5::additional_option_enum[], $6)`,
+            [
+              uf.fileName,
+              uf.url,
+              uf.fileType,
+              uf.fileSize,
+              additional_options.length > 0 ? additional_options : null,
+              rfqId,
+            ],
+          );
+        }
       }
 
       // Build reference from the auto-increment ID: RFQ-YYYY-NNNNNN
@@ -336,9 +338,9 @@ export async function POST(request: NextRequest) {
       // Build submitted date (used by both email and response)
       const submittedAt = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
 
-      // ---- Send confirmation email (fire-and-forget) ----
+      // ---- Send confirmation email (await with timeout) ----
       const emailLang = (formData.get("lang") as string) || "en";
-      sendConfirmationEmail({
+      const emailPromise = sendConfirmationEmail({
         to: validFields.email,
         rfqId,
         reference: referenceNumber,
@@ -347,14 +349,17 @@ export async function POST(request: NextRequest) {
         companyName: validFields.company_name,
         submittedAt,
         lang: emailLang,
-      }).catch((emailErr) => {
-        console.error(
-          `Confirmation email failed for RFQ ${referenceNumber}:`,
-          emailErr,
-        );
       });
 
+      // 5-second timeout — don't block the response indefinitely if SES hangs
+      const timeoutPromise = new Promise<{ sent: false; error: string }>((resolve) =>
+        setTimeout(() => resolve({ sent: false, error: "Email sending timed out. We will contact you soon." }), 5000),
+      );
+      const emailResult = await Promise.race([emailPromise, timeoutPromise]);
+
       // Build success response data
+      const emailSent = emailResult.sent;
+      const emailError = emailResult.error;
 
       return NextResponse.json(
         {
@@ -365,6 +370,8 @@ export async function POST(request: NextRequest) {
             projectName: validFields.project_name,
             submittedAt,
             email: validFields.email,
+            emailSent,
+            ...(emailError ? { emailError } : {}),
           },
         },
         { status: 201 },

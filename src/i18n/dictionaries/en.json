@@ -409,9 +409,12 @@
         "projectLabel": "Project",
         "dateLabel": "Submitted on",
         "emailLabel": "Confirmation sent to",
-        "newSubmission": "Submit Another RFQ"
+        "newSubmission": "Submit Another RFQ",
+        "emailWarningTitle": "Confirmation Email Not Sent",
+        "emailWarningDesc": "Your RFQ was received, but we could not send a confirmation email. Reason: {reason}. We will contact you at {email}."
       },
-      "errorMessage": "Something went wrong while submitting your RFQ. Please try again or contact us directly via email or phone."
+      "errorMessage": "Something went wrong while submitting your RFQ. Please try again or contact us directly via email or phone.",
+      "rateLimitError": "Too many requests. Please wait at least one hour before submitting again, or contact us directly."
     }
   },
   "about": {
@@ -622,5 +625,151 @@
         ]
       }
     ]
+  },
+  "admin": {
+    "shell": {
+      "title": "Well Da Admin",
+      "signOut": "Sign Out",
+      "rfqNav": "RFQ Submissions",
+      "accountsNav": "Account Management"
+    },
+    "login": {
+      "title": "Admin Login",
+      "username": "Username",
+      "usernamePlaceholder": "Enter your username",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "signIn": "Sign In",
+      "errors": {
+        "required": "Username and password are required.",
+        "tooManyAttempts": "Too many attempts. Please try again later.",
+        "invalidCredentials": "Invalid credentials."
+      }
+    },
+    "dashboard": {
+      "title": "RFQ Submissions",
+      "columns": {
+        "reference": "Reference",
+        "projectName": "Project Name",
+        "company": "Company",
+        "material": "Material",
+        "status": "Status",
+        "submitted": "Submitted"
+      },
+      "status": {
+        "initiated": "Initiated",
+        "reviewing": "Reviewing",
+        "quoted": "Quoted"
+      },
+      "filter": {
+        "selectColumn": "Select column...",
+        "selectStatus": "Select status...",
+        "selectColumnFirst": "Select a column first",
+        "enterValueHint": "Enter {label}..."
+      },
+      "empty": {
+        "noMatch": "No RFQs match your search or filter.",
+        "noSubmissions": "No RFQ submissions yet."
+      },
+      "error": "Failed to load RFQ submissions."
+    },
+    "accounts": {
+      "title": "Account Management",
+      "createTitle": "Create New Account",
+      "existingTitle": "Existing Accounts",
+      "username": "Username",
+      "usernamePlaceholder": "Enter username",
+      "password": "Password",
+      "passwordPlaceholder": "Min. 8 characters",
+      "role": "Role",
+      "displayName": "Display Name",
+      "displayNamePlaceholder": "Optional",
+      "create": "Create",
+      "tableHeaders": {
+        "username": "Username",
+        "displayName": "Display Name",
+        "role": "Role",
+        "status": "Status",
+        "lastLogin": "Last Login",
+        "created": "Created",
+        "actions": "Actions"
+      },
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "never": "Never",
+      "deactivate": "Deactivate",
+      "deleteTitle": "Deactivate Account",
+      "deleteConfirm": "Are you sure you want to deactivate {username}?",
+      "deleteWarning": "This will prevent them from logging in. Their session data will be preserved.",
+      "cancel": "Cancel",
+      "errors": {
+        "load": "Failed to load accounts.",
+        "create": "Failed to create account.",
+        "delete": "Failed to delete account.",
+        "unexpected": "An unexpected error occurred."
+      }
+    },
+    "rfqDetail": {
+      "backToList": "Back to List",
+      "sections": {
+        "contactInfo": "Contact Information",
+        "partProjectInfo": "Part & Project Information",
+        "materialManufacturing": "Material & Manufacturing",
+        "quantity": "Quantity",
+        "deliveryRequirements": "Delivery Requirements",
+        "technicalRequirements": "Additional Technical Requirements",
+        "drawingFiles": "Drawing & Specification Files"
+      },
+      "fields": {
+        "company": "Company",
+        "contactName": "Contact Name",
+        "email": "Email",
+        "phone": "Phone",
+        "countryRegion": "Country / Region",
+        "preferredMethod": "Preferred Method",
+        "projectName": "Project Name",
+        "partNumber": "Part Number",
+        "drawingNumber": "Drawing Number",
+        "drawingRevision": "Drawing Revision",
+        "drawingAvailability": "Drawing Availability",
+        "productType": "Product Type",
+        "material": "Material",
+        "grade": "Grade",
+        "thickness": "Thickness",
+        "surfaceFinish": "Surface Finish",
+        "finishColour": "Finish Colour",
+        "criticalTolerance": "Critical Tolerance Requirements",
+        "assemblyRequired": "Assembly Required",
+        "hardwareInserts": "Hardware Inserts",
+        "printingMarking": "Printing / Marking",
+        "prototypeQuantity": "Prototype Quantity",
+        "productionQuantity": "Production Quantity",
+        "estAnnualVol": "Est. Annual Volume",
+        "requiredDate": "Required Date",
+        "dateType": "Date Type",
+        "shippingQuote": "Shipping Quote",
+        "deliveryRegion": "Delivery Region",
+        "postalCode": "Postal Code",
+        "approxDimensions": "Approx. Dimensions",
+        "operatingEnv": "Operating Environment",
+        "protectionReq": "Protection Requirements",
+        "inspectionReq": "Inspection Requirements",
+        "certReport": "Certifications / Reports",
+        "specialReq": "Special Requirements"
+      },
+      "noFiles": "No files uploaded.",
+      "ndaRequired": "NDA Required",
+      "submitted": "Submitted",
+      "confirmationEmail": "Confirmation Email",
+      "sent": "Sent",
+      "notSent": "Not sent",
+      "errors": {
+        "notFound": "RFQ not found.",
+        "load": "Failed to load RFQ.",
+        "updateStatus": "Failed to update status."
+      }
+    }
   }
 }

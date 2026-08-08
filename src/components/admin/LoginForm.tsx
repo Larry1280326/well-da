@@ -13,13 +13,28 @@ import {
 import { IconAlertCircle } from "@tabler/icons-react";
 import { login } from "@/app/actions/admin";
 
-export function LoginForm({ lang }: { lang: string }) {
+export interface LoginFormDict {
+  title: string;
+  username: string;
+  usernamePlaceholder: string;
+  password: string;
+  passwordPlaceholder: string;
+  signIn: string;
+}
+
+export function LoginForm({
+  lang,
+  dict,
+}: {
+  lang: string;
+  dict: LoginFormDict;
+}) {
   const [state, action, pending] = useActionState(login, undefined);
 
   return (
     <Paper p="xl" radius="md" withBorder maw={420} mx="auto" mt="15vh">
       <Title order={2} mb="lg">
-        Admin Login
+        {dict.title}
       </Title>
 
       {state?.error && (
@@ -38,20 +53,20 @@ export function LoginForm({ lang }: { lang: string }) {
         <Stack>
           <TextInput
             name="username"
-            label="Username"
-            placeholder="Enter your username"
+            label={dict.username}
+            placeholder={dict.usernamePlaceholder}
             required
             autoComplete="username"
           />
           <PasswordInput
             name="password"
-            label="Password"
-            placeholder="Enter your password"
+            label={dict.password}
+            placeholder={dict.passwordPlaceholder}
             required
             autoComplete="current-password"
           />
           <Button type="submit" fullWidth loading={pending} mt="sm">
-            Sign In
+            {dict.signIn}
           </Button>
         </Stack>
       </form>

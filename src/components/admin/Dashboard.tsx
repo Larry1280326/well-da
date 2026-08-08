@@ -41,27 +41,56 @@ interface ColumnFilter {
   value: string;
 }
 
-const FILTER_COLUMNS = [
-  { value: "reference", label: "Reference" },
-  { value: "projectName", label: "Project Name" },
-  { value: "company", label: "Company" },
-  { value: "material", label: "Material" },
-  { value: "status", label: "Status" },
-] as const;
-
-const STATUS_OPTIONS = [
-  { value: "initiated", label: "Initiated" },
-  { value: "reviewing", label: "Reviewing" },
-  { value: "quoted", label: "Quoted" },
-] as const;
+export interface DashboardDict {
+  title: string;
+  columns: {
+    reference: string;
+    projectName: string;
+    company: string;
+    material: string;
+    status: string;
+    submitted: string;
+  };
+  status: {
+    initiated: string;
+    reviewing: string;
+    quoted: string;
+  };
+  filter: {
+    selectColumn: string;
+    selectStatus: string;
+    selectColumnFirst: string;
+    enterValueHint: string;
+  };
+  empty: {
+    noMatch: string;
+    noSubmissions: string;
+  };
+  error: string;
+}
 
 interface DashboardProps {
   role: AdminRole;
   lang: string;
+  dict: DashboardDict;
 }
 
-export function Dashboard({ role, lang }: DashboardProps) {
+export function Dashboard({ role, lang, dict }: DashboardProps) {
   const router = useRouter();
+
+  const FILTER_COLUMNS = [
+    { value: "reference", label: dict.columns.reference },
+    { value: "projectName", label: dict.columns.projectName },
+    { value: "company", label: dict.columns.company },
+    { value: "material", label: dict.columns.material },
+    { value: "status", label: dict.columns.status },
+  ] as const;
+
+  const STATUS_OPTIONS = [
+    { value: "initiated", label: dict.status.initiated },
+    { value: "reviewing", label: dict.status.reviewing },
+    { value: "quoted", label: dict.status.quoted },
+  ] as const;
   const [rfqs, setRfqs] = useState<RfqSummary[]>([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
@@ -105,7 +134,7 @@ export function Dashboard({ role, lang }: DashboardProps) {
       })
       .catch(() => {
         if (!cancelled) {
-          setError("Failed to load RFQ submissions.");
+          setError(dict.error);
           setLoading(false);
         }
       });
@@ -157,6 +186,7 @@ export function Dashboard({ role, lang }: DashboardProps) {
   const totalPages = Math.max(1, Math.ceil(total / limit));
   const isEngineer = role === "engineer";
   const hasActiveFilters = filters.length > 0;
+  const dateLocale = lang === "zh" ? "zh-HK" : "en-GB";
 
   const statusColor = (status: string): string => {
     const colors: Record<string, string> = {
@@ -166,6 +196,9 @@ export function Dashboard({ role, lang }: DashboardProps) {
     };
     return colors[status] ?? "gray";
   };
+
+  const statusLabel = (status: string): string =>
+    dict.status[status as keyof typeof dict.status] ?? status;
 
   const rows = rfqs.map((rfq) => (
     <Table.Tr
@@ -179,11 +212,11 @@ export function Dashboard({ role, lang }: DashboardProps) {
       <Table.Td>{rfq.material}</Table.Td>
       <Table.Td>
         <Badge color={statusColor(rfq.status)} variant="light" size="sm">
-          {rfq.status}
+          {statusLabel(rfq.status)}
         </Badge>
       </Table.Td>
       <Table.Td>
-        {new Date(rfq.submittedAt).toLocaleDateString("en-GB", {
+        {new Date(rfq.submittedAt).toLocaleDateString(dateLocale, {
           day: "numeric",
           month: "short",
           year: "numeric",
@@ -194,7 +227,7 @@ export function Dashboard({ role, lang }: DashboardProps) {
 
   return (
     <Stack>
-      <Title order={3}>RFQ Submissions</Title>
+      <Title order={3}>{dict.title}</Title>
 
       {/* Active Filter Pills */}
       {filters.length > 0 && (
@@ -228,7 +261,7 @@ export function Dashboard({ role, lang }: DashboardProps) {
           value={selectedColumn}
           onChange={handleColumnSelect}
           clearable
-          placeholder="Select column..."
+          placeholder={dict.filter.selectColumn}
           w={180}
         />
         {selectedColumn === "status" ? (
@@ -243,7 +276,7 @@ export function Dashboard({ role, lang }: DashboardProps) {
                   );
                   return [
                     ...withoutExisting,
-                    { column: "status", label: "Status", value: val },
+                    { column: "status", label: dict.columns.status, value: val },
                   ];
                 });
                 setSelectedColumn(null);
@@ -253,15 +286,18 @@ export function Dashboard({ role, lang }: DashboardProps) {
                 setFilterValue("");
               }
             }}
-            placeholder="Select status..."
+            placeholder={dict.filter.selectStatus}
             w={180}
           />
         ) : (
           <TextInput
             placeholder={
               selectedColumn
-                ? `Enter ${FILTER_COLUMNS.find((c) => c.value === selectedColumn)?.label}...`
-                : "Select a column first"
+                ? dict.filter.enterValueHint.replace(
+                    "{label}",
+                    FILTER_COLUMNS.find((c) => c.value === selectedColumn)?.label ?? "",
+                  )
+                : dict.filter.selectColumnFirst
             }
             value={filterValue}
             onChange={(e) => setFilterValue(e.currentTarget.value)}
@@ -285,8 +321,8 @@ export function Dashboard({ role, lang }: DashboardProps) {
           <IconInbox size={48} stroke={1.5} color="var(--mantine-color-gray-5)" />
           <Text c="dimmed" size="lg">
             {hasActiveFilters
-              ? "No RFQs match your search or filter."
-              : "No RFQ submissions yet."}
+              ? dict.empty.noMatch
+              : dict.empty.noSubmissions}
           </Text>
         </Stack>
       ) : (
@@ -294,17 +330,17 @@ export function Dashboard({ role, lang }: DashboardProps) {
           <Table striped highlightOnHover withTableBorder>
             <Table.Thead>
               <Table.Tr>
-                <Table.Th>Reference</Table.Th>
-                <Table.Th>Project Name</Table.Th>
-                {!isEngineer && <Table.Th>Company</Table.Th>}
-                <Table.Th>Material</Table.Th>
-                <Table.Th>Status</Table.Th>
+                <Table.Th>{dict.columns.reference}</Table.Th>
+                <Table.Th>{dict.columns.projectName}</Table.Th>
+                {!isEngineer && <Table.Th>{dict.columns.company}</Table.Th>}
+                <Table.Th>{dict.columns.material}</Table.Th>
+                <Table.Th>{dict.columns.status}</Table.Th>
                 <Table.Th
                   style={{ cursor: "pointer", userSelect: "none" }}
                   onClick={handleSortToggle}
                 >
                   <Group gap={4} wrap="nowrap">
-                    Submitted
+                    {dict.columns.submitted}
                     {sortOrder === "asc" ? (
                       <IconArrowUp size={14} />
                     ) : (

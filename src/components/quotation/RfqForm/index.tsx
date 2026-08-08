@@ -45,6 +45,8 @@ export function RfqForm({ dict, lang }: { dict: RfqFormDict; lang: string }) {
   const [errors, setErrors] = useState<FormErrors>({});
   const [status, setStatus] = useState<SubmitStatus>("idle");
   const [successData, setSuccessData] = useState<SuccessData | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [emailWarning, setEmailWarning] = useState<string>("");
 
   const isSubmitting = status === "submitting";
 
@@ -265,6 +267,11 @@ export function RfqForm({ dict, lang }: { dict: RfqFormDict; lang: string }) {
           setStatus("idle");
           return;
         }
+        if (res.status === 429) {
+          setErrorMessage(data.error || dict.rateLimitError);
+          setStatus("error");
+          return;
+        }
         throw new Error(data.error || dict.errorMessage);
       }
 
@@ -275,9 +282,16 @@ export function RfqForm({ dict, lang }: { dict: RfqFormDict; lang: string }) {
         submittedAt: new Date().toISOString(),
         email: formData.get("email")?.toString() || "",
       });
+
+      // Check if confirmation email failed
+      if (data.data?.emailSent === false && data.data?.emailError) {
+        setEmailWarning(data.data.emailError);
+      }
+
       setStatus("success");
       formRef.current?.scrollIntoView({ behavior: "smooth" });
-    } catch {
+    } catch (err) {
+      setErrorMessage(err instanceof Error ? err.message : dict.errorMessage);
       setStatus("error");
     }
   }
@@ -290,13 +304,15 @@ export function RfqForm({ dict, lang }: { dict: RfqFormDict; lang: string }) {
     setControlledValues({});
     setControlledArrays({});
     setSuccessData(null);
+    setErrorMessage("");
+    setEmailWarning("");
     formRef.current?.reset();
     formRef.current?.scrollIntoView({ behavior: "smooth" });
   }
 
   // ---- If success, show success panel ----
   if (status === "success" && successData) {
-    return <SuccessPanel dict={dict} data={successData} onReset={handleReset} />;
+    return <SuccessPanel dict={dict} data={successData} emailWarning={emailWarning || undefined} onReset={handleReset} />;
   }
 
   // ---- Form ----
@@ -374,9 +390,9 @@ export function RfqForm({ dict, lang }: { dict: RfqFormDict; lang: string }) {
             title="Error"
             icon={<IconAlertCircle size={20} />}
             withCloseButton
-            onClose={() => setStatus("idle")}
+            onClose={() => { setStatus("idle"); setErrorMessage(""); }}
           >
-            {dict.errorMessage}
+            {errorMessage || dict.errorMessage}
           </Alert>
         )}
       </Stack>

@@ -1,6 +1,8 @@
 import { validateSession } from "@/lib/auth/session";
 import { redirect } from "next/navigation";
 import { RfqDetail } from "@/components/admin/RfqDetail";
+import { getDictionary } from "@/i18n/dictionaries";
+import type { Locale } from "@/i18n/dictionaries";
 
 export default async function RfqDetailPage({
   params,
@@ -14,5 +16,7 @@ export default async function RfqDetailPage({
     redirect(`/${lang}/administrator`);
   }
 
-  return <RfqDetail rfqId={id} role={session.role} lang={lang} />;
+  const dict = await getDictionary(lang as Locale);
+
+  return <RfqDetail rfqId={id} role={session.role} lang={lang} dict={dict.admin.rfqDetail} />;
 }

@@ -1,6 +1,8 @@
 import { validateSession } from "@/lib/auth/session";
 import { AdminShell } from "@/components/admin/AdminShell";
 import type { SessionUser } from "@/lib/auth/types";
+import { getDictionary } from "@/i18n/dictionaries";
+import type { Locale } from "@/i18n/dictionaries";
 
 export default async function AdministratorLayout({
   children,
@@ -25,8 +27,10 @@ export default async function AdministratorLayout({
     displayName: session.displayName,
   };
 
+  const dict = await getDictionary(lang as Locale);
+
   return (
-    <AdminShell lang={lang} user={user}>
+    <AdminShell lang={lang} user={user} dict={dict.admin.shell}>
       {children}
     </AdminShell>
   );

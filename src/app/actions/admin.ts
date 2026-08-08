@@ -6,6 +6,8 @@ import { queryOne } from "@/lib/db";
 import { verifyPassword } from "@/lib/auth/password";
 import { createSession, setSessionCookie, deleteSession } from "@/lib/auth/session";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { getDictionary } from "@/i18n/dictionaries";
+import type { Locale } from "@/i18n/dictionaries";
 
 export async function login(
   prevState: { error?: string } | undefined,
@@ -14,9 +16,10 @@ export async function login(
   const username = formData.get("username")?.toString().trim();
   const password = formData.get("password")?.toString() ?? "";
   const lang = formData.get("lang")?.toString() ?? "en";
+  const dict = await getDictionary(lang as Locale);
 
   if (!username || !password) {
-    return { error: "Username and password are required." };
+    return { error: dict.admin.login.errors.required };
   }
 
   // Rate limit: 5 attempts per 15 minutes per IP
@@ -26,7 +29,7 @@ export async function login(
     headersList.get("x-real-ip") ??
     "unknown";
   if (!checkRateLimit(`login:${ip}`, 5, 15 * 60 * 1000)) {
-    return { error: "Too many attempts. Please try again later." };
+    return { error: dict.admin.login.errors.tooManyAttempts };
   }
 
   const user = await queryOne<{
@@ -45,12 +48,12 @@ export async function login(
   );
 
   if (!user) {
-    return { error: "Invalid credentials." };
+    return { error: dict.admin.login.errors.invalidCredentials };
   }
 
   const passwordValid = await verifyPassword(password, user.password_hash);
   if (!passwordValid) {
-    return { error: "Invalid credentials." };
+    return { error: dict.admin.login.errors.invalidCredentials };
   }
 
   const token = await createSession(

@@ -32,7 +32,53 @@ interface Account {
   is_active: boolean;
 }
 
-export function AccountManager() {
+export interface AccountManagerDict {
+  title: string;
+  createTitle: string;
+  existingTitle: string;
+  username: string;
+  usernamePlaceholder: string;
+  password: string;
+  passwordPlaceholder: string;
+  role: string;
+  displayName: string;
+  displayNamePlaceholder: string;
+  create: string;
+  tableHeaders: {
+    username: string;
+    displayName: string;
+    role: string;
+    status: string;
+    lastLogin: string;
+    created: string;
+    actions: string;
+  };
+  status: {
+    active: string;
+    inactive: string;
+  };
+  never: string;
+  deactivate: string;
+  deleteTitle: string;
+  deleteConfirm: string;
+  deleteWarning: string;
+  cancel: string;
+  errors: {
+    load: string;
+    create: string;
+    delete: string;
+    unexpected: string;
+  };
+}
+
+export function AccountManager({
+  lang,
+  dict,
+}: {
+  lang: string;
+  dict: AccountManagerDict;
+}) {
+  const dateLocale = lang === "zh" ? "zh-HK" : "en-GB";
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -56,7 +102,7 @@ export function AccountManager() {
         return fetch("/api/admin/accounts");
       })
       .then((res) => {
-        if (!res.ok) throw new Error("Failed to load accounts.");
+        if (!res.ok) throw new Error(dict.errors.load);
         return res.json();
       })
       .then((data) => {
@@ -64,7 +110,7 @@ export function AccountManager() {
         setLoading(false);
       })
       .catch(() => {
-        setError("Failed to load accounts.");
+        setError(dict.errors.load);
         setLoading(false);
       });
   };
@@ -92,7 +138,7 @@ export function AccountManager() {
 
       const data = await res.json();
       if (!res.ok) {
-        setCreateError(data.error ?? "Failed to create account.");
+        setCreateError(data.error ?? dict.errors.create);
         return;
       }
 
@@ -103,7 +149,7 @@ export function AccountManager() {
       setNewDisplayName("");
       await loadAccounts();
     } catch {
-      setCreateError("An unexpected error occurred.");
+      setCreateError(dict.errors.unexpected);
     } finally {
       setCreating(false);
     }
@@ -120,7 +166,7 @@ export function AccountManager() {
 
       const data = await res.json();
       if (!res.ok) {
-        alert(data.error ?? "Failed to delete account.");
+        alert(data.error ?? dict.errors.delete);
         return;
       }
 
@@ -128,7 +174,7 @@ export function AccountManager() {
       setDeleteTarget(null);
       await loadAccounts();
     } catch {
-      alert("An unexpected error occurred.");
+      alert(dict.errors.unexpected);
     } finally {
       setDeleting(false);
     }
@@ -155,12 +201,12 @@ export function AccountManager() {
 
   return (
     <Stack>
-      <Title order={3}>Account Management</Title>
+      <Title order={3}>{dict.title}</Title>
 
       {/* Create Account Form */}
       <Card withBorder>
         <Title order={5} mb="md">
-          Create New Account
+          {dict.createTitle}
         </Title>
         {createError && (
           <Alert
@@ -175,8 +221,8 @@ export function AccountManager() {
         <form onSubmit={handleCreate}>
           <Group align="end" gap="sm" wrap="wrap">
             <TextInput
-              label="Username"
-              placeholder="Enter username"
+              label={dict.username}
+              placeholder={dict.usernamePlaceholder}
               value={newUsername}
               onChange={(e) => setNewUsername(e.currentTarget.value)}
               required
@@ -185,8 +231,8 @@ export function AccountManager() {
               style={{ flex: 1 }}
             />
             <PasswordInput
-              label="Password"
-              placeholder="Min. 8 characters"
+              label={dict.password}
+              placeholder={dict.passwordPlaceholder}
               value={newPassword}
               onChange={(e) => setNewPassword(e.currentTarget.value)}
               required
@@ -194,7 +240,7 @@ export function AccountManager() {
               style={{ flex: 1 }}
             />
             <Select
-              label="Role"
+              label={dict.role}
               data={ADMIN_ROLES.map((r) => ({ value: r, label: r }))}
               value={newRole}
               onChange={setNewRole}
@@ -202,8 +248,8 @@ export function AccountManager() {
               style={{ width: 140 }}
             />
             <TextInput
-              label="Display Name"
-              placeholder="Optional"
+              label={dict.displayName}
+              placeholder={dict.displayNamePlaceholder}
               value={newDisplayName}
               onChange={(e) => setNewDisplayName(e.currentTarget.value)}
               maxLength={255}
@@ -214,7 +260,7 @@ export function AccountManager() {
               leftSection={<IconPlus size={16} />}
               loading={creating}
             >
-              Create
+              {dict.create}
             </Button>
           </Group>
         </form>
@@ -223,18 +269,18 @@ export function AccountManager() {
       {/* Accounts Table */}
       <Card withBorder>
         <Title order={5} mb="md">
-          Existing Accounts ({accounts.length})
+          {dict.existingTitle} ({accounts.length})
         </Title>
         <Table striped highlightOnHover withTableBorder>
           <Table.Thead>
             <Table.Tr>
-              <Table.Th>Username</Table.Th>
-              <Table.Th>Display Name</Table.Th>
-              <Table.Th>Role</Table.Th>
-              <Table.Th>Status</Table.Th>
-              <Table.Th>Last Login</Table.Th>
-              <Table.Th>Created</Table.Th>
-              <Table.Th w={80}>Actions</Table.Th>
+              <Table.Th>{dict.tableHeaders.username}</Table.Th>
+              <Table.Th>{dict.tableHeaders.displayName}</Table.Th>
+              <Table.Th>{dict.tableHeaders.role}</Table.Th>
+              <Table.Th>{dict.tableHeaders.status}</Table.Th>
+              <Table.Th>{dict.tableHeaders.lastLogin}</Table.Th>
+              <Table.Th>{dict.tableHeaders.created}</Table.Th>
+              <Table.Th w={80}>{dict.tableHeaders.actions}</Table.Th>
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>
@@ -260,16 +306,16 @@ export function AccountManager() {
                     variant="light"
                     size="sm"
                   >
-                    {acct.is_active ? "Active" : "Inactive"}
+                    {acct.is_active ? dict.status.active : dict.status.inactive}
                   </Badge>
                 </Table.Td>
                 <Table.Td>
                   {acct.last_login_at
-                    ? new Date(acct.last_login_at).toLocaleDateString("en-GB")
-                    : "Never"}
+                    ? new Date(acct.last_login_at).toLocaleDateString(dateLocale)
+                    : dict.never}
                 </Table.Td>
                 <Table.Td>
-                  {new Date(acct.created_at).toLocaleDateString("en-GB")}
+                  {new Date(acct.created_at).toLocaleDateString(dateLocale)}
                 </Table.Td>
                 <Table.Td>
                   <Button
@@ -283,7 +329,7 @@ export function AccountManager() {
                     }}
                     disabled={!acct.is_active}
                   >
-                    {acct.is_active ? "Deactivate" : "Inactive"}
+                    {acct.is_active ? dict.deactivate : dict.status.inactive}
                   </Button>
                 </Table.Td>
               </Table.Tr>
@@ -296,28 +342,29 @@ export function AccountManager() {
       <Modal
         opened={deleteModalOpen}
         onClose={closeDelete}
-        title="Deactivate Account"
+        title={dict.deleteTitle}
         size="sm"
       >
         <Stack>
           <Text>
-            Are you sure you want to deactivate{" "}
-            <strong>{deleteTarget?.username}</strong>?
+            {dict.deleteConfirm.replace(
+              "{username}",
+              deleteTarget?.username ?? "",
+            )}
           </Text>
           <Text size="sm" c="dimmed">
-            This will prevent them from logging in. Their session data will be
-            preserved.
+            {dict.deleteWarning}
           </Text>
           <Group justify="flex-end" mt="md">
             <Button variant="default" onClick={closeDelete} disabled={deleting}>
-              Cancel
+              {dict.cancel}
             </Button>
             <Button
               color="red"
               onClick={handleDelete}
               loading={deleting}
             >
-              Deactivate
+              {dict.deactivate}
             </Button>
           </Group>
         </Stack>

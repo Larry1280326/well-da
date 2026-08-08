@@ -154,6 +154,8 @@ export interface SuccessData {
   projectName: string;
   submittedAt: string; // ISO date string
   email: string;
+  emailSent?: boolean;
+  emailError?: string;
 }
 
 // ---- Dictionary shape (mirrors the JSON structure) ----
@@ -249,8 +251,11 @@ export interface RfqFormDict {
     dateLabel: string;
     emailLabel: string;
     newSubmission: string;
+    emailWarningTitle: string;
+    emailWarningDesc: string;
   };
   errorMessage: string;
+  rateLimitError: string;
 }
 
 // ---- Server-side field input shape (after parsing FormData) ----

@@ -19,16 +19,25 @@ import {
 import { logout } from "@/app/actions/admin";
 import type { SessionUser } from "@/lib/auth/types";
 
+export interface AdminShellDict {
+  title: string;
+  signOut: string;
+  rfqNav: string;
+  accountsNav: string;
+}
+
 export function AdminShell({
   children,
   lang,
   user,
+  dict,
 }: {
   children: React.ReactNode;
   lang: string;
   /** Guaranteed to be a valid session user — the layout only renders
    *  AdminShell when the session is valid. */
   user: SessionUser;
+  dict: AdminShellDict;
 }) {
   const [opened, { toggle }] = useDisclosure();
   const router = useRouter();
@@ -65,7 +74,7 @@ export function AdminShell({
               hiddenFrom="sm"
               size="sm"
             />
-            <Title order={4}>Well Da Admin</Title>
+            <Title order={4}>{dict.title}</Title>
           </Group>
           <Group gap="sm">
             <span>{user.displayName ?? user.username}</span>
@@ -79,7 +88,7 @@ export function AdminShell({
               leftSection={<IconLogout size={16} />}
               onClick={handleSignOut}
             >
-              Sign Out
+              {dict.signOut}
             </Button>
           </Group>
         </Group>
@@ -87,7 +96,7 @@ export function AdminShell({
 
       <AppShell.Navbar p="xs">
         <NavLink
-          label="RFQ Submissions"
+          label={dict.rfqNav}
           leftSection={<IconFileDescription size={18} />}
           onClick={() => router.push(rfqPath)}
           active={isRfqActive}
@@ -95,7 +104,7 @@ export function AdminShell({
         />
         {user.role === "root" && (
           <NavLink
-            label="Account Management"
+            label={dict.accountsNav}
             leftSection={<IconUsers size={18} />}
             onClick={() => router.push(accountsPath)}
             active={isAccountsActive}
