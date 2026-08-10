@@ -9,7 +9,7 @@ function getPool(): Pool {
     const host = process.env.PGHOST;
     if (!host) {
       throw new Error(
-        "PGHOST is not set. Add RDS connection variables to .env.local: PGHOST, PGPORT, PGDATABASE, PGUSER, PGPASSWORD",
+        "PGHOST is not set. For local dev, add RDS connection variables to .env.local. For production (AWS Amplify), add them under App settings → Environment variables. Required: PGHOST, PGPORT, PGDATABASE, PGUSER, PGPASSWORD",
       );
     }
     pool = new Pool({
