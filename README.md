@@ -163,19 +163,19 @@ Create a `.env.local` file with the following variables for the RFQ form backend
 
 | Variable               | Description                     |
 | ---------------------- | ------------------------------- |
-| `AWS_REGION`           | AWS region (e.g. `ap-southeast-1`) |
-| `AWS_ACCESS_KEY_ID`    | IAM access key ID               |
-| `AWS_SECRET_ACCESS_KEY`| IAM secret access key           |
-| `AWS_S3_BUCKET_NAME`   | S3 bucket name for RFQ uploads  |
+| `S3_REGION`            | AWS region (e.g. `ap-southeast-1`) |
+| `S3_ACCESS_KEY_ID`     | IAM access key ID               |
+| `S3_SECRET_ACCESS_KEY` | IAM secret access key           |
+| `S3_BUCKET_NAME`       | S3 bucket name for RFQ uploads  |
 
 **AWS SES (Email Confirmation):**
 
 | Variable                   | Description                          |
 | -------------------------- | ------------------------------------ |
-| `AWS_SES_ACCESS_KEY_ID`    | IAM access key ID for SES            |
-| `AWS_SES_SECRET_ACCESS_KEY`| IAM secret access key for SES        |
-| `AWS_SES_SENDER_EMAIL`     | Verified sender email address        |
-| `AWS_SES_REGION`           | AWS region for SES (e.g. `ap-southeast-1`) |
+| `SES_ACCESS_KEY_ID`        | IAM access key ID for SES            |
+| `SES_SECRET_ACCESS_KEY`    | IAM secret access key for SES        |
+| `SES_SENDER_EMAIL`         | Verified sender email address        |
+| `SES_REGION`               | AWS region for SES (e.g. `ap-southeast-1`) |
 
 The RFQ form works without these in development mode — the form renders, but submissions will fail. The rest of the site (pages, search, navigation) does not depend on these variables.
 

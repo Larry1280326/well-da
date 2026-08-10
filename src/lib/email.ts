@@ -9,10 +9,10 @@ let sesClient: SESClient | null = null;
 function getSesClient(): SESClient {
   if (!sesClient) {
     sesClient = new SESClient({
-      region: process.env.AWS_SES_REGION,
+      region: process.env.SES_REGION,
       credentials: {
-        accessKeyId: process.env.AWS_SES_ACCESS_KEY_ID!,
-        secretAccessKey: process.env.AWS_SES_SECRET_ACCESS_KEY!,
+        accessKeyId: process.env.SES_ACCESS_KEY_ID!,
+        secretAccessKey: process.env.SES_SECRET_ACCESS_KEY!,
       },
     });
   }
@@ -45,7 +45,7 @@ export async function sendConfirmationEmail(
   });
 
   const client = getSesClient();
-  const senderEmail = process.env.AWS_SES_SENDER_EMAIL!;
+  const senderEmail = process.env.SES_SENDER_EMAIL!;
 
   try {
     await client.send(

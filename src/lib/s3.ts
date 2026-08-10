@@ -15,10 +15,10 @@ let s3Client: S3Client | null = null;
 function getS3Client(): S3Client {
   if (!s3Client) {
     s3Client = new S3Client({
-      region: process.env.AWS_REGION,
+      region: process.env.S3_REGION,
       credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+        accessKeyId: process.env.S3_ACCESS_KEY_ID!,
+        secretAccessKey: process.env.S3_SECRET_ACCESS_KEY!,
       },
     });
   }
@@ -43,7 +43,7 @@ export async function uploadFile(
   contentType: string,
 ): Promise<{ url: string; key: string; bucket: string }> {
   const client = getS3Client();
-  const bucket = process.env.AWS_S3_BUCKET_NAME!;
+  const bucket = process.env.S3_BUCKET_NAME!;
   const key = generateS3Key(fileName);
 
   await client.send(
@@ -68,7 +68,7 @@ export async function uploadFile(
 
 export async function deleteFile(key: string): Promise<void> {
   const client = getS3Client();
-  const bucket = process.env.AWS_S3_BUCKET_NAME!;
+  const bucket = process.env.S3_BUCKET_NAME!;
   await client.send(
     new DeleteObjectCommand({
       Bucket: bucket,
