@@ -112,12 +112,11 @@ src/
 │   └── mantine-theme.ts              # Custom Mantine theme (green palette)
 └── proxy.ts                          # Middleware: locale detection + redirect
 scripts/
-├── copy-standalone-assets.mjs        # Post-build asset copy for standalone output
 └── generate-search-index.ts          # Builds search-index-{locale}.json at build time
 public/
 ├── search-index-en.json              # English search index (generated)
 └── search-index-zh.json              # Chinese search index (generated)
-next.config.ts                        # Next.js config (standalone output, serverExternalPackages)
+next.config.ts                        # Next.js config (serverExternalPackages)
 ```
 
 ## Getting Started
@@ -140,7 +139,7 @@ Open [http://localhost:3000](http://localhost:3000) — you'll be redirected to 
 | Command                    | Description                                |
 | -------------------------- | ------------------------------------------ |
 | `npm run dev`              | Start the development server               |
-| `npm run build`            | Production build (search index + Next.js + standalone assets) |
+| `npm run build`            | Production build (search index + Next.js) |
 | `npm run build-search-index`| Generate static search indexes only        |
 | `npm run start`            | Start the production server                |
 | `npm run lint`             | Run ESLint across the codebase             |
@@ -343,14 +342,13 @@ The site includes built-in SEO support:
 
 ## Deployment
 
-The site is deployed on a **Plesk server with Passenger** (Node.js application server). The build output is `standalone` mode — Next.js produces a self-contained Node.js server in `.next/standalone/`.
+The site is deployed on **AWS Amplify**. Connect your Git repository in the Amplify console and it auto-detects the Next.js project. The `amplify.yml` at the project root provides the build specification.
 
 **Build pipeline** (`npm run build`):
 1. `npm run build-search-index` — generates static search indexes
-2. `next build` — Next.js standalone production build
-3. `npm run copy-standalone-assets` — copies `public/` and `.next/static/` into the standalone output
+2. `next build` — Next.js production build
 
-The entry point `app.js` at the project root is the Plesk Passenger startup script that loads `.next/standalone/server.js`.
+Set all environment variables in the Amplify console under **App settings → Environment variables**. See the [Environment Variables](#environment-variables) section above for the full list.
 
 ## Brand
 

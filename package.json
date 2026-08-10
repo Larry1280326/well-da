@@ -4,9 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run build-search-index && next build && npm run copy-standalone-assets",
+    "build": "npm run build-search-index && next build",
     "build-search-index": "npx tsx scripts/generate-search-index.ts",
-    "copy-standalone-assets": "node scripts/copy-standalone-assets.mjs",
     "start": "next start",
     "lint": "eslint"
   },
