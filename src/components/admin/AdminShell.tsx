@@ -1,0 +1,119 @@
+"use client";
+
+import { useRouter, usePathname } from "next/navigation";
+import {
+  AppShell,
+  Burger,
+  Group,
+  NavLink,
+  Title,
+  Badge,
+  Button,
+} from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import {
+  IconFileDescription,
+  IconUsers,
+  IconLogout,
+} from "@tabler/icons-react";
+import { logout } from "@/app/actions/admin";
+import type { SessionUser } from "@/lib/auth/types";
+
+export interface AdminShellDict {
+  title: string;
+  signOut: string;
+  rfqNav: string;
+  accountsNav: string;
+}
+
+export function AdminShell({
+  children,
+  lang,
+  user,
+  dict,
+}: {
+  children: React.ReactNode;
+  lang: string;
+  /** Guaranteed to be a valid session user — the layout only renders
+   *  AdminShell when the session is valid. */
+  user: SessionUser;
+  dict: AdminShellDict;
+}) {
+  const [opened, { toggle }] = useDisclosure();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const rfqPath = `/${lang}/administrator`;
+  const accountsPath = `/${lang}/administrator/accounts`;
+  const isRfqActive = pathname === rfqPath || pathname === `${rfqPath}/`;
+  const isAccountsActive = pathname === accountsPath || pathname === `${accountsPath}/`;
+
+  const roleColor =
+    user.role === "root" ? "red" : user.role === "owner" ? "blue" : "gray";
+
+  const handleSignOut = async () => {
+    await logout();
+  };
+
+  return (
+    <AppShell
+      header={{ height: 60 }}
+      navbar={{
+        width: 240,
+        breakpoint: "sm",
+        collapsed: { mobile: !opened },
+      }}
+      padding="md"
+    >
+      <AppShell.Header>
+        <Group h="100%" px="md" justify="space-between">
+          <Group>
+            <Burger
+              opened={opened}
+              onClick={toggle}
+              hiddenFrom="sm"
+              size="sm"
+            />
+            <Title order={4}>{dict.title}</Title>
+          </Group>
+          <Group gap="sm">
+            <span>{user.displayName ?? user.username}</span>
+            <Badge color={roleColor} variant="filled">
+              {user.role}
+            </Badge>
+            <Button
+              variant="subtle"
+              color="red"
+              size="xs"
+              leftSection={<IconLogout size={16} />}
+              onClick={handleSignOut}
+            >
+              {dict.signOut}
+            </Button>
+          </Group>
+        </Group>
+      </AppShell.Header>
+
+      <AppShell.Navbar p="xs">
+        <NavLink
+          label={dict.rfqNav}
+          leftSection={<IconFileDescription size={18} />}
+          onClick={() => router.push(rfqPath)}
+          active={isRfqActive}
+          styles={{ root: { borderRadius: "var(--mantine-radius-sm)" } }}
+        />
+        {user.role === "root" && (
+          <NavLink
+            label={dict.accountsNav}
+            leftSection={<IconUsers size={18} />}
+            onClick={() => router.push(accountsPath)}
+            active={isAccountsActive}
+            styles={{ root: { borderRadius: "var(--mantine-radius-sm)" } }}
+          />
+        )}
+      </AppShell.Navbar>
+
+      <AppShell.Main>{children}</AppShell.Main>
+    </AppShell>
+  );
+}

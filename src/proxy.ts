@@ -4,6 +4,7 @@ import { SITE_URL } from "@/config/site";
 
 const locales = ["en", "zh"] as const;
 const canonicalHost = new URL(SITE_URL).host;
+const SESSION_COOKIE = "admin_session";
 
 function getLocale(request: NextRequest): string {
   // 1. Check cookie first (user's explicit choice)
@@ -41,6 +42,29 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(canonicalUrl, 308);
   }
 
+  // ---- Admin route protection (optimistic cookie check, no DB) ----
+  const isAdminApi = pathname.startsWith("/api/admin/");
+  const isAdminPageRoute = pathname.includes("/administrator");
+  const hasSessionCookie = !!request.cookies.get(SESSION_COOKIE)?.value;
+
+  if (isAdminApi && !hasSessionCookie) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  if (isAdminPageRoute && !hasSessionCookie) {
+    const locale = getLocale(request);
+    // Only redirect if NOT already on the login page
+    const isLoginPage =
+      pathname === `/${locale}/administrator` ||
+      pathname === `/${locale}/administrator/` ||
+      pathname === `/administrator` ||
+      pathname === `/administrator/`;
+    if (!isLoginPage) {
+      const loginUrl = new URL(`/${locale}/administrator`, request.url);
+      return NextResponse.redirect(loginUrl);
+    }
+  }
+
   // Check if pathname already has a known locale
   const pathnameHasLocale = locales.some(
     (locale) =>
@@ -48,6 +72,9 @@ export function proxy(request: NextRequest) {
   );
 
   if (pathnameHasLocale) return;
+
+  // API routes do not use locale prefixes — let them through as-is
+  if (pathname.startsWith("/api/")) return;
 
   // Redirect to locale-prefixed URL
   const locale = getLocale(request);

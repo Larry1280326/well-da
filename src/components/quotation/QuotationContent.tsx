@@ -13,6 +13,8 @@ import {
 } from "@tabler/icons-react";
 import type { TablerIcon } from "@tabler/icons-react";
 import { YouTubeEmbed } from "@/components/ui/YouTubeEmbed";
+import { RfqForm } from "@/components/quotation/RfqForm";
+import type { RfqFormDict } from "@/lib/types/rfq";
 
 interface QuotationContact {
   label: string;
@@ -27,6 +29,7 @@ interface QuotationDict {
   contactIntro: string;
   contacts: QuotationContact[];
   youtubeVideoId: string;
+  rfqForm?: RfqFormDict;
 }
 
 const CONTACT_ICONS: Record<string, TablerIcon> = {
@@ -39,7 +42,7 @@ const CONTACT_ICONS: Record<string, TablerIcon> = {
   電郵: IconMail,
 };
 
-export function QuotationContent({ dict }: { dict: QuotationDict }) {
+export function QuotationContent({ dict, lang }: { dict: QuotationDict; lang: string }) {
   return (
     <>
       {/* Page Title Section */}
@@ -54,6 +57,15 @@ export function QuotationContent({ dict }: { dict: QuotationDict }) {
           <Title order={1}>{dict.pageTitle}</Title>
         </Container>
       </section>
+
+      {/* RFQ Form Section */}
+      {dict.rfqForm && (
+        <section style={{ scrollMarginTop: 80, background: "#f9fbf9" }}>
+          <Container size="xl" py={60}>
+            <RfqForm dict={dict.rfqForm} lang={lang} />
+          </Container>
+        </section>
+      )}
 
       {/* Main Content */}
       <section style={{ scrollMarginTop: 80 }}>

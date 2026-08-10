@@ -10,7 +10,7 @@ import {
   type Locale,
   type ClientDictionary,
 } from "@/i18n/locale-context";
-import "../globals.css";
+import "../../globals.css";
 import { SITE_URL } from "@/config/site";
 
 export async function generateMetadata(props: {

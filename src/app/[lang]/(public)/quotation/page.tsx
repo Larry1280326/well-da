@@ -10,5 +10,5 @@ export default async function QuotationPage({
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
   const dict = await getDictionary(lang);
-  return <QuotationContent dict={dict.quotation} />;
+  return <QuotationContent dict={dict.quotation} lang={lang} />;
 }
