@@ -123,7 +123,7 @@ next.config.ts                        # Next.js config (serverExternalPackages)
 
 ### Prerequisites
 
-- Node.js 18+ (or the version required by Next.js 16)
+- Node.js 22.23.4+ (the version pinned in `.nvmrc`; required by Next.js 16 and by the Brotli security fix in CVE-2026-111497)
 
 ### Install & Run
 
@@ -345,8 +345,10 @@ The site includes built-in SEO support:
 The site is deployed on **AWS Amplify**. Connect your Git repository in the Amplify console and it auto-detects the Next.js project. The `amplify.yml` at the project root provides the build specification.
 
 **Build pipeline** (`npm run build`):
-1. `npm run build-search-index` — generates static search indexes
-2. `next build` — Next.js production build
+1. `nvm install 22.23.4 && nvm use 22.23.4` — pins the build to the patched Node release (see `amplify.yml`)
+2. `npm ci` — installs dependencies
+3. `npm run build-search-index` — generates static search indexes
+4. `next build` — Next.js production build
 
 Set all environment variables in the Amplify console under **App settings → Environment variables**. See the [Environment Variables](#environment-variables) section above for the full list.
 
