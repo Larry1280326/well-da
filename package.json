@@ -10,7 +10,11 @@
     "build": "npm run build-search-index && next build",
     "build-search-index": "npx tsx scripts/generate-search-index.ts",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "node --test tests/rfq.test.mjs",
+    "test:site": "node scripts/verify-site.mjs",
+    "typecheck": "tsc --noEmit",
+    "preview:rfq-test": "node tests/rfq-preview.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1094.0",
@@ -30,6 +34,7 @@
     "@types/pg": "^8.20.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "esbuild": "0.28.1",
     "eslint": "^9",
     "eslint-config-next": "16.4.3",
     "postcss": "^8.5.19",

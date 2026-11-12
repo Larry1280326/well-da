@@ -1,6 +1,14 @@
+import { pageMetadata } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import { hasLocale, getDictionary } from "@/i18n/dictionaries";
 import { CaseStudiesContent } from "@/components/case-studies/CaseStudiesContent";
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  if (!hasLocale(lang)) return {};
+  const meta = (await getDictionary(lang)).seo["case-studies"];
+  return { ...pageMetadata(lang, "/case-studies", meta.title, meta.description) };
+}
 
 export default async function CaseStudiesPage({
   params,

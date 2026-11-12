@@ -216,7 +216,16 @@ const zh: LocaleNavData = {
 const data: Record<Locale, LocaleNavData> = { en, zh };
 
 export function getNavItems(locale: Locale): NavItem[] {
-  return data[locale].navItems;
+  const priorityProducts = locale === "zh" ? [
+    { label: "客製金屬外殼與機櫃", href: "/applications/custom-metal-enclosures-cabinets" },
+    { label: "設備外罩與機械蓋板", href: "/applications/equipment-housings-machine-covers" },
+    { label: "客製鈑金面板與底盤", href: "/applications/sheet-metal-panels-chassis" },
+  ] : [
+    { label: "Custom Metal Enclosures & Cabinets", href: "/applications/custom-metal-enclosures-cabinets" },
+    { label: "Equipment Housings & Machine Covers", href: "/applications/equipment-housings-machine-covers" },
+    { label: "Custom Sheet Metal Panels & Chassis", href: "/applications/sheet-metal-panels-chassis" },
+  ];
+  return data[locale].navItems.map(item => item.href === "/applications" ? { ...item, children: [...priorityProducts, ...(item.children ?? [])] } : item);
 }
 
 export function getContactInfo(locale: Locale) {

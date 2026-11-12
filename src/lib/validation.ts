@@ -1,4 +1,5 @@
 import "server-only";
+import { parseQuantity } from "./rfq-source";
 import {
   type RfqFields,
   type FileInfo,
@@ -13,7 +14,6 @@ import {
   REQUIRED_DATE_TYPES,
   SHIPPING_QUOTE_REQ,
   ADDITIONAL_OPTIONS,
-  SURFACE_FINISH_OPTIONS,
   OPERATING_ENV_OPTIONS,
   PROTECTION_REQ_OPTIONS,
   INSPECTION_REQ_OPTIONS,
@@ -39,7 +39,7 @@ function isValidEmail(email: string): boolean {
 
 function isValidDate(date: string): boolean {
   if (!date) return true; // optional
-  return /^\d{4}-\d{2}-\d{2}$/.test(date) && !isNaN(Date.parse(date));
+  return /^\d{4}-\d{2}-\d{2}$/.test(date) && !isNaN(Date.parse(date)) && new Date(date).toISOString().slice(0, 10) === date;
 }
 
 function parseJsonArray(raw: string): string[] {
@@ -145,8 +145,8 @@ export function validateRfqInput(
 
   const thickness = (rawFields.thickness ?? "").trim();
   if (thickness) {
-    const n = parseFloat(thickness);
-    if (isNaN(n) || n <= 0) errors.thickness = "thickness";
+    const n = Number(thickness);
+    if (!Number.isFinite(n) || n <= 0) errors.thickness = "thickness";
   }
 
   const thickness_unit = (rawFields.thickness_unit ?? "").trim();
@@ -200,8 +200,8 @@ export function validateRfqInput(
   const rawProtoQty = (rawFields.prototype_quantity ?? "").trim();
   let prototype_quantity: number | null = null;
   if (rawProtoQty) {
-    const n = parseInt(rawProtoQty, 10);
-    if (isNaN(n) || n <= 0 || n > 2147483647) {
+    const n = parseQuantity(rawProtoQty);
+    if (n === null) {
       errors.prototype_quantity = "prototypeQuantity";
     } else {
       prototype_quantity = n;
@@ -212,8 +212,8 @@ export function validateRfqInput(
   if (!rawProdQty) {
     errors.production_quantity = "productionQuantity";
   }
-  const production_quantity = parseInt(rawProdQty, 10);
-  if (rawProdQty && (isNaN(production_quantity) || production_quantity <= 0 || production_quantity > 2147483647)) {
+  const production_quantity = parseQuantity(rawProdQty);
+  if (rawProdQty && production_quantity === null) {
     errors.production_quantity = "productionQuantity";
   }
 
@@ -318,7 +318,7 @@ export function validateRfqInput(
 
   // ---------- Privacy ----------
   const privacy_accepted = (rawFields.privacy_accepted ?? "").trim();
-  if (!privacy_accepted) errors.privacy_accepted = "privacyRequired";
+  if (!["on", "true"].includes(privacy_accepted)) errors.privacy_accepted = "privacyRequired";
 
   // ---------- File validation ----------
   const hasNoDrawing = additional_options.includes("NO_DRAWING");
@@ -337,6 +337,7 @@ export function validateRfqInput(
   }
 
   for (const f of files) {
+    if (f.size <= 0) { errors.files = "fileRequired"; break; }
     if (f.size > MAX_FILE_SIZE) {
       errors.files = "fileSize";
       break;
@@ -379,7 +380,7 @@ export function validateRfqInput(
     hardware_inserts,
     printing_marking,
     prototype_quantity,
-    production_quantity,
+    production_quantity: production_quantity!,
     est_annual_vol,
     required_date,
     required_date_type,

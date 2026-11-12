@@ -82,6 +82,11 @@ function generateIndex(locale: "en" | "zh"): SearchEntry[] {
   }
 
   // ---- Manufacturing ----
+  for (const [slug, product] of Object.entries(dict.productPages ?? {})) {
+    const p = product as { title: string; intro: string; sections: { text: string }[] };
+    entries.push({ id: nextId(), type: "product", title: p.title, text: [p.intro, ...p.sections.map(s => s.text)].join(" "), href: `/applications/${slug}`, section: dict.applications.pageTitle });
+  }
+
   if (dict.manufacturing?.capabilities) {
     for (const c of dict.manufacturing.capabilities) {
       entries.push({

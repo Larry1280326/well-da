@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, type FormEvent } from "react";
-import { Stack, Alert } from "@mantine/core";
+import { Stack, Alert, Title, Text } from "@mantine/core";
 import { IconAlertCircle } from "@tabler/icons-react";
 import type { RfqFormDict, FormErrors, SubmitStatus, SuccessData } from "@/lib/types/rfq";
 import {
@@ -21,6 +21,8 @@ import { FileUploadSection } from "./FileUploadSection";
 import { PrivacySection } from "./PrivacySection";
 import { SubmitSection } from "./SubmitSection";
 import { SuccessPanel } from "./SuccessPanel";
+import { parseQuantity, sourcePage } from "@/lib/rfq-source";
+import { trackRfqSuccess } from "@/lib/rfq-measurement";
 
 // ---- Validation helpers ----
 
@@ -49,6 +51,14 @@ export function RfqForm({ dict, lang }: { dict: RfqFormDict; lang: string }) {
   const [emailWarning, setEmailWarning] = useState<string>("");
 
   const isSubmitting = status === "submitting";
+
+  function focusFirstError() {
+    requestAnimationFrame(() => {
+      const first = formRef.current?.querySelector<HTMLElement>('input[data-error], [data-error] input, [aria-invalid="true"]');
+      first?.focus({ preventScroll: true });
+      first?.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+  }
 
   // ---- Controlled value handlers ----
   function handleValueChange(key: string, value: string) {
@@ -84,7 +94,6 @@ export function RfqForm({ dict, lang }: { dict: RfqFormDict; lang: string }) {
 
     const get = (name: string) => (formData.get(name) as string)?.trim() ?? "";
     const v = controlledValues;
-    const a = controlledArrays;
 
     // Contact (required: company_name, contact_name, email, country_region)
     if (!get("company_name")) errs.company_name = dict.validation.companyName;
@@ -106,8 +115,7 @@ export function RfqForm({ dict, lang }: { dict: RfqFormDict; lang: string }) {
     if (!prodQtyRaw) {
       errs.production_quantity = dict.validation.productionQuantity;
     } else {
-      const prodNum = parseInt(prodQtyRaw, 10);
-      if (isNaN(prodNum) || prodNum <= 0 || prodNum > 2147483647) {
+      if (parseQuantity(prodQtyRaw) === null) {
         errs.production_quantity = dict.validation.productionQuantityInvalid;
       }
     }
@@ -133,8 +141,8 @@ export function RfqForm({ dict, lang }: { dict: RfqFormDict; lang: string }) {
 
     const thicknessRaw = get("thickness");
     if (thicknessRaw) {
-      const n = parseFloat(thicknessRaw);
-      if (isNaN(n) || n <= 0) errs.thickness = dict.validation.thickness;
+      const n = Number(thicknessRaw);
+      if (!Number.isFinite(n) || n <= 0) errs.thickness = dict.validation.thickness;
     }
 
     const surfaceFinishOther = get("surface_finish_other");
@@ -151,8 +159,7 @@ export function RfqForm({ dict, lang }: { dict: RfqFormDict; lang: string }) {
 
     const protoQty = get("prototype_quantity");
     if (protoQty) {
-      const protoNum = parseInt(protoQty, 10);
-      if (isNaN(protoNum) || protoNum <= 0 || protoNum > 2147483647)
+      if (parseQuantity(protoQty) === null)
         errs.prototype_quantity = dict.validation.prototypeQuantityInvalid;
     }
 
@@ -209,13 +216,14 @@ export function RfqForm({ dict, lang }: { dict: RfqFormDict; lang: string }) {
   // ---- Submit handler ----
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (isSubmitting) return;
     setErrors({});
 
     const clientErrors = validateClient();
     if (Object.keys(clientErrors).length > 0) {
       setErrors(clientErrors);
       // Scroll to first error
-      formRef.current?.querySelector("[data-error]")?.scrollIntoView({ behavior: "smooth", block: "center" });
+      focusFirstError();
       return;
     }
 
@@ -227,13 +235,13 @@ export function RfqForm({ dict, lang }: { dict: RfqFormDict; lang: string }) {
 
       // Append controlled single values
       for (const [key, value] of Object.entries(controlledValues)) {
-        if (value) formData.append(key, value);
+        if (value) formData.set(key, value);
       }
 
       // Append controlled array values as JSON
       for (const [key, value] of Object.entries(controlledArrays)) {
         if (value.length > 0) {
-          formData.append(key, JSON.stringify(value));
+          formData.set(key, JSON.stringify(value));
         }
       }
 
@@ -248,12 +256,20 @@ export function RfqForm({ dict, lang }: { dict: RfqFormDict; lang: string }) {
         formData.append("files", f);
       }
 
+      const source = sourcePage(new URLSearchParams(window.location.search).get("source")) ?? `/${lang}/quotation`;
+      formData.set("source_page", source);
+      for (const name of ["production_quantity", "prototype_quantity"]) {
+        const raw = formData.get(name)?.toString() ?? "";
+        if (raw) formData.set(name, String(parseQuantity(raw)));
+      }
+
       const res = await fetch("/api/rfq", {
         method: "POST",
         body: formData,
       });
 
-      const data = await res.json();
+      const data = await res.json().catch(() => null);
+      if (!data) throw new Error(res.status === 413 ? dict.validation.totalSizeExceeded : dict.errorMessage);
 
       if (!res.ok) {
         if (res.status === 400 && data.errors) {
@@ -265,16 +281,20 @@ export function RfqForm({ dict, lang }: { dict: RfqFormDict; lang: string }) {
           }
           setErrors(mappedErrors);
           setStatus("idle");
+          focusFirstError();
           return;
         }
         if (res.status === 429) {
-          setErrorMessage(data.error || dict.rateLimitError);
+          setErrorMessage(dict.rateLimitError);
           setStatus("error");
           return;
         }
-        throw new Error(data.error || dict.errorMessage);
+        throw new Error(res.status === 413 ? dict.validation.totalSizeExceeded : dict.errorMessage);
       }
 
+      // A transport success or honeypot response is not proof of persistence.
+      if (data.success !== true || data.persisted !== true || !data.data?.reference) throw new Error(dict.errorMessage);
+      trackRfqSuccess(source, lang);
       // Success
       setSuccessData(data.data ?? {
         reference: data.reference,
@@ -320,6 +340,10 @@ export function RfqForm({ dict, lang }: { dict: RfqFormDict; lang: string }) {
     <form ref={formRef} onSubmit={handleSubmit} noValidate suppressHydrationWarning>
       <input type="hidden" name="lang" value={lang} />
       <Stack gap="xl">
+        <div>
+          <Title order={2} mb="sm">{dict.sectionTitle}</Title>
+          <Text>{dict.sectionDescription}</Text>
+        </div>
         <ContactSection
           dict={dict}
           disabled={isSubmitting}
@@ -387,7 +411,7 @@ export function RfqForm({ dict, lang }: { dict: RfqFormDict; lang: string }) {
           <Alert
             variant="light"
             color="red"
-            title="Error"
+            title={lang === "zh" ? "未能提交" : "Submission failed"}
             icon={<IconAlertCircle size={20} />}
             withCloseButton
             onClose={() => { setStatus("idle"); setErrorMessage(""); }}

@@ -34,6 +34,10 @@ export async function sendConfirmationEmail(
   params: SendConfirmationEmailParams,
 ): Promise<EmailResult> {
   const { to, rfqId, reference, projectName, contactName, companyName, submittedAt, lang } = params;
+  if (!["SES_REGION", "SES_ACCESS_KEY_ID", "SES_SECRET_ACCESS_KEY", "SES_SENDER_EMAIL"].every(key => process.env[key])) {
+    console.warn("RFQ confirmation email is not configured.");
+    return { sent: false, error: lang === "zh" ? "詢價已儲存，但確認電郵服務尚未設定。" : "Your RFQ is saved, but confirmation email is not configured." };
+  }
 
   const templateFn = lang === "zh" ? confirmationEmailZh : confirmationEmailEn;
   const { subject, html } = templateFn({
@@ -61,22 +65,12 @@ export async function sendConfirmationEmail(
   } catch (err) {
     const sesError = err as Error & { name?: string; $metadata?: unknown };
     console.error(
-      `Confirmation email failed for RFQ ${reference} (to: ${to}):`,
+      `Confirmation email failed for RFQ ${reference}:`,
       sesError.name ?? "UnknownSESError",
-      sesError.message,
     );
 
     // Produce a user-friendly error message
-    let userError: string;
-    if (sesError.name === "MessageRejected") {
-      userError = `Email could not be delivered to ${to}. ${sesError.message}`;
-    } else if (sesError.name === "MailFromDomainNotVerified") {
-      userError = "Sender email domain is not verified in SES.";
-    } else if (sesError.name === "ConfigurationSetDoesNotExist") {
-      userError = "SES configuration error. Please contact support.";
-    } else {
-      userError = "Failed to send confirmation email. Please contact us directly.";
-    }
+    const userError = lang === "zh" ? "詢價已儲存，但確認電郵未能寄出。如有需要，請直接聯絡我們。" : "Your RFQ is saved, but the confirmation email could not be sent. Contact us directly if needed.";
 
     return { sent: false, error: userError };
   }

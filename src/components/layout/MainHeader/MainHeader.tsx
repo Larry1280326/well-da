@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useState, useRef, useEffect, useCallback } from "react";
 import {
   ActionIcon,
@@ -22,6 +22,7 @@ import classes from "./MainHeader.module.css";
 
 export function MainHeader() {
   const router = useRouter();
+  const pathname = usePathname();
   const [searchQuery, setSearchQuery] = useState("");
   const [mobileOpened, { toggle, close }] = useDisclosure(false);
   const [overlayOpened, { open: openOverlay, close: closeOverlay }] =
@@ -137,8 +138,7 @@ export function MainHeader() {
                 <IconSearch size={20} stroke={1.75} />
               </ActionIcon>
 
-              <Link href={`/${locale}/quotation`} className={classes.ctaLink}>
-                <Button
+                <Button component={Link} href={`/${locale}/quotation?source=${encodeURIComponent(pathname)}`}
                   color="green"
                   radius="md"
                   rightSection={<IconArrowRight size={16} stroke={2} />}
@@ -149,7 +149,6 @@ export function MainHeader() {
                     {dict.mainHeader.ctaShort}
                   </span>
                 </Button>
-              </Link>
             </Group>
           </Group>
         </Container>

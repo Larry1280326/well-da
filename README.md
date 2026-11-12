@@ -1,6 +1,6 @@
 # Well Da Website
 
-The corporate website for **Well Da Factory Limited** — a precision manufacturing company specializing in CNC machining, sheet metal fabrication, die casting, and surface finishing across electronics, automotive, medical, and industrial sectors.
+The corporate website for **Well Da Factory Limited** — a manufacturer of custom sheet metal parts and assemblies made to customer drawings.
 
 Built with **Next.js 16**, **React 19**, and **Mantine UI v9**.
 
@@ -357,4 +357,8 @@ Set all environment variables in the Amplify console under **App settings → En
 - **Company:** Well Da Factory Limited
 - **Primary color:** Green (`#45a145`)
 - **Font:** Arial / Helvetica with CJK fallbacks (Microsoft JhengHei, PingFang TC)
-- **Contact:** (+852) 2790 5008 · `eng@wellda.com`
+- **Contact:** (+852) 6151 5732 · `eng@wellda.com`
+
+## SEO and RFQ improvement verification
+
+See [SEO_RFQ_DELIVERY.md](SEO_RFQ_DELIVERY.md) for the Goal 1 + Goal 2 change record, manufacturing sources, local tests and remaining production checks.

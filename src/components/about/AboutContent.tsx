@@ -10,6 +10,7 @@ import {
 } from "@mantine/core";
 import { IconArrowRight } from "@tabler/icons-react";
 import { TrustLineSection } from "@/components/about/TrustLineSection";
+import { productSlugs, type ProductSlug } from "@/config/products";
 
 interface AboutDict {
   profileTitle: string;
@@ -34,10 +35,14 @@ export function AboutContent({
   dict,
   locale,
   isHomepage = false,
+  homepage,
+  products,
 }: {
   dict: AboutDict;
   locale: string;
   isHomepage?: boolean;
+  homepage?: { title: string; intro: string; processes: string };
+  products?: Record<ProductSlug, { title: string; intro: string }>;
 }) {
   return (
     <>
@@ -60,22 +65,27 @@ export function AboutContent({
           >
             {/* Left: Text content */}
             <div style={{ flex: "1 1 360px", minWidth: 0 }}>
-              <Title order={isHomepage ? 1 : 2} mb="md">
-                {dict.profileTitle}
+              <Title order={1} mb="md">
+                {isHomepage && homepage ? homepage.title : dict.profileTitle}
               </Title>
               <Text c="dimmed" maw={640} mb="md">
-                {dict.profileDesc1}
+                {isHomepage && homepage ? homepage.intro : dict.profileDesc1}
               </Text>
               <Text c="dimmed" maw={640}>
-                {dict.profileDesc2}
+                {isHomepage && homepage ? homepage.processes : dict.profileDesc2}
               </Text>
+              {isHomepage && <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginTop: "1.5rem" }}>
+                <Button component="a" href={`/${locale}/quotation?source=/${locale}`}>{dict.getQuote}</Button>
+                <Link href={`/${locale}/manufacturing`}>{locale === "zh" ? "製造能力" : "Manufacturing Capabilities"}</Link>
+                <Link href={`/${locale}/applications`}>{locale === "zh" ? "產品與應用" : "Products & Applications"}</Link>
+              </div>}
             </div>
 
             {/* Right: Image */}
             <div style={{ flex: "1 1 360px", minWidth: 0 }}>
               <Image
                 src="/images/cool-photo.jpg"
-                alt="Sheet metal manufacturing workshop and production facility"
+                alt={locale === "zh" ? "現有金屬加工照片" : "Existing metal fabrication photograph"}
                 width={640}
                 height={480}
                 sizes="(max-width: 768px) 100vw, 480px"
@@ -89,6 +99,18 @@ export function AboutContent({
           </div>
         </Container>
       </section>
+
+      {isHomepage && products && <section>
+        <Container size="xl" py={40}>
+          <Title order={2} mb="lg">{locale === "zh" ? "產品與應用" : "Products & Applications"}</Title>
+          <SimpleGrid cols={{ base: 1, sm: 3 }}>
+            {productSlugs.map(slug => <Paper key={slug} p="lg" withBorder radius="md">
+              <Title order={3} size="h4" mb="sm"><Link href={`/${locale}/applications/${slug}`}>{products[slug].title}</Link></Title>
+              <Text>{products[slug].intro}</Text>
+            </Paper>)}
+          </SimpleGrid>
+        </Container>
+      </section>}
 
       {/* Core Value Proposition Section */}
       <section
@@ -124,7 +146,7 @@ export function AboutContent({
             <div style={{ flex: "1 1 360px", minWidth: 0 }}>
               <Image
                 src="/images/cool-photo2.jpg"
-                alt="Custom sheet metal enclosures and fabricated metal components"
+                alt={locale === "zh" ? "帶開孔的金屬面板" : "Flat metal panels with cut-outs"}
                 width={640}
                 height={480}
                 sizes="(max-width: 768px) 100vw, 480px"
@@ -153,14 +175,12 @@ export function AboutContent({
               <Text c="dimmed" mb="lg">
                 {dict.sendDrawingDesc}
               </Text>
-              <Link href={`/${locale}/quotation`}>
-                <Button
+                <Button component="a" href={`/${locale}/quotation?source=/${locale}${isHomepage ? "" : "/about"}`}
                   color="green"
                   rightSection={<IconArrowRight size={18} stroke={2} />}
                 >
                   {dict.getQuote}
                 </Button>
-              </Link>
             </Paper>
             <Image
               src="/images/cool-photo3.jpg"

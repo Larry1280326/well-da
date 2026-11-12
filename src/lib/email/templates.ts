@@ -61,7 +61,7 @@ export function confirmationEmailEn(
   const body = `<h2 style="margin:0 0 16px;font-size:22px;color:#212529;">RFQ Acknowledgement</h2>
 <p style="margin:0 0 24px;font-size:15px;color:#495057;line-height:1.6;">
   Dear ${escapeHtml(contactName)},<br><br>
-  Thank you for submitting your RFQ to Well Da Factory Limited. We have received your enquiry and will review your specifications. We normally acknowledge RFQs within <strong>one business day</strong>. Quotation lead time depends on project complexity and information completeness.
+  Thank you for submitting your RFQ to Well Da Factory Limited. We have received your enquiry and will review your specifications. Quotation lead time depends on project complexity and information completeness.
 </p>
 <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f8f9fa;border-radius:6px;border:1px solid #e2e5e7;padding:20px 24px;margin-bottom:16px;">
   <tr>
@@ -98,7 +98,7 @@ export function confirmationEmailZh(
   const body = `<h2 style="margin:0 0 16px;font-size:22px;color:#212529;">詢價確認通知</h2>
 <p style="margin:0 0 24px;font-size:15px;color:#495057;line-height:1.6;">
   ${escapeHtml(contactName)} 您好，<br><br>
-  感謝您向 Well Da Factory Limited 提交詢價申請。我們已收到您的詢價，並將進行技術審核。我們通常會在 <strong>一個工作日內</strong> 確認收悉。報價週期取決於項目的複雜程度及資料的完整性。
+  感謝您向 Well Da Factory Limited 提交詢價申請。我們已收到您的詢價，並將進行技術審核。報價週期取決於項目的複雜程度及資料的完整性。
 </p>
 <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f8f9fa;border-radius:6px;border:1px solid #e2e5e7;padding:20px 24px;margin-bottom:16px;">
   <tr>
