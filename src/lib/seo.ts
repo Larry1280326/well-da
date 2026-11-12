@@ -10,7 +10,7 @@ export function pageMetadata(lang: string, path: string, title: string, descript
       languages: { en: `${SITE_URL}/en${path}`, "zh-Hant": `${SITE_URL}/zh${path}`, "x-default": `${SITE_URL}/en${path}` },
     },
     openGraph: {
-      type: "website", siteName: "Well Da Factory Limited", title, description, url,
+      type: "website", siteName: "Well Da Metal Factory Limited", title, description, url,
       locale: lang === "zh" ? "zh_HK" : "en_US",
       alternateLocale: lang === "zh" ? "en_US" : "zh_HK",
       images: [{ url: `${SITE_URL}${image}`, alt: title }],

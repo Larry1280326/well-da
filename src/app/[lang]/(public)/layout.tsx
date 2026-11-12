@@ -62,7 +62,7 @@ export default async function RootLayout({
             <SiteHeader locale={lang as Locale} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
               "@context": "https://schema.org", "@type": "Organization",
-              "@id": `${SITE_URL}/#organization`, name: "Well Da Factory Limited", url: SITE_URL,
+              "@id": `${SITE_URL}/#organization`, name: "Well Da Metal Factory Limited", url: SITE_URL,
               logo: `${SITE_URL}/logo.jpg`, email: "eng@wellda.com", telephone: "+85261515732",
             }).replace(/</g, "\\u003c") }} />
             <main>{children}</main>

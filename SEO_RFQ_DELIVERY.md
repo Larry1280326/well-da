@@ -2,6 +2,8 @@
 
 Review date: 2026-11-12 (Asia/Shanghai).
 
+Deployment-readiness continuation from commit `3cf121b`: see [DEPLOYMENT_READINESS.md](DEPLOYMENT_READINESS.md) for current AWS access findings, upstream correction, name restoration, isolated E2E plan and merge gates. [PR_DRAFT.md](PR_DRAFT.md) is prepared locally and has not been submitted. The results below describe the original Goal 1/2 implementation.
+
 ## Repository and authorization
 
 - Repository: https://github.com/Larry1280326/well-da

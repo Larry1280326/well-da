@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "title": "滙達五金廠",
+    "title": "滙達五金廠 | Well Da Metal Factory Limited",
     "description": "滙達五金廠 — 香港精密金屬製造、CNC加工及定制鈑金製造。"
   },
   "topBar": {
@@ -774,46 +774,46 @@
   },
   "seo": {
     "home": {
-      "title": "客製鈑金加工、金屬外殼及機箱製造 | Well Da",
+      "title": "客製鈑金加工、金屬外殼及機箱製造 | Well Da Metal Factory Limited",
       "description": "按客戶圖紙製造客製鈑金零件及組件，包括金屬外殼、機櫃、設備外罩、面板、底盤及支架。支援樣辦、小批量及重複生產，歡迎提交圖紙詢價。"
     },
     "about": {
       "title": "關於 Well Da | 始於 1992 年的鈑金製造經驗",
-      "description": "了解 Well Da Factory Limited 的按圖鈑金製造服務，從圖紙審核到樣辦、小批量及重複生產，配合不同項目的加工要求。"
+      "description": "了解 Well Da Metal Factory Limited 的按圖鈑金製造服務，從圖紙審核到樣辦、小批量及重複生產，配合不同項目的加工要求。"
     },
     "applications": {
-      "title": "客製鈑金產品與應用 | Well Da",
+      "title": "客製鈑金產品與應用 | Well Da Metal Factory Limited",
       "description": "了解按圖製造的金屬外殼、機櫃、設備外罩、面板及底盤，以及相關材料、工序與詢價要求，協助評估您的零件或組件需求。"
     },
     "manufacturing": {
-      "title": "鈑金加工與製造能力 | Well Da",
+      "title": "鈑金加工與製造能力 | Well Da Metal Factory Limited",
       "description": "了解剪切、激光切割、沖孔、折彎、焊接、表面處理、絲印及組裝，以及普通鋼板、不鏽鋼、電解板和鋁材的按圖加工。"
     },
     "quality": {
-      "title": "鈑金品質控制與圖紙審核 | Well Da",
+      "title": "鈑金品質控制與圖紙審核 | Well Da Metal Factory Limited",
       "description": "了解 Well Da 如何審核圖紙、重要尺寸、焊接、表面處理及檢驗要求。公差及驗收標準按具體零件和工序確認。"
     },
     "case-studies": {
-      "title": "鈑金加工產品案例 | Well Da",
+      "title": "鈑金加工產品案例 | Well Da Metal Factory Limited",
       "description": "查看 Well Da 現有電箱及點餐機外殼的實際照片與加工流程，了解按圖製造的鈑金產品及相關工序。"
     },
     "quotation": {
-      "title": "提交圖紙及客製鈑金詢價 | Well Da",
+      "title": "提交圖紙及客製鈑金詢價 | Well Da Metal Factory Limited",
       "description": "提交圖紙、材料、數量、表面處理及交貨要求，索取客製鈑金報價。支援 PDF、DXF、DWG、STEP 等檔案與多檔案上傳。"
     },
     "faq": {
-      "title": "鈑金加工與詢價常見問題 | Well Da",
+      "title": "鈑金加工與詢價常見問題 | Well Da Metal Factory Limited",
       "description": "查看有關鈑金訂單、圖紙、材料、加工、公差、表面處理及詢價所需資料的常見問題，協助準備製造要求。"
     },
     "search": {
-      "title": "搜尋 Well Da 產品與製造能力",
+      "title": "搜尋產品與製造能力 | Well Da Metal Factory Limited",
       "description": "搜尋 Well Da 的鈑金產品、製造能力、現有案例及常見問題。"
     }
   },
   "productPages": {
     "custom-metal-enclosures-cabinets": {
       "title": "客製金屬外殼與機櫃",
-      "seoTitle": "按圖製造客製金屬外殼與機櫃 | Well Da",
+      "seoTitle": "按圖製造客製金屬外殼與機櫃 | Well Da Metal Factory Limited",
       "description": "按客戶圖紙加工金屬外殼、設備機櫃、箱門及安裝面板。可評估普通鋼板、不鏽鋼、電解板及鋁材，配合切割、折彎、焊接及表面處理。",
       "intro": "Well Da 按客戶圖紙製造客製鈑金外殼及機櫃。金屬加工範圍可包括櫃身、箱門、可拆卸面板，以及供設備和電子硬體使用的安裝開孔。",
       "image": "/images/case-study-electrical-panel.jpg",
@@ -837,7 +837,7 @@
     },
     "equipment-housings-machine-covers": {
       "title": "設備外罩與機械蓋板",
-      "seoTitle": "客製設備外罩與機械蓋板加工 | Well Da",
+      "seoTitle": "客製設備外罩與機械蓋板加工 | Well Da Metal Factory Limited",
       "description": "按圖製造非標設備外罩、可拆卸機械蓋板及維修面板，配合切割、沖孔、折彎、焊接與表面處理。提交材料及組裝接口資料以供評估。",
       "intro": "Well Da 按客戶設備設計加工非標金屬外罩及蓋板，可包括設備外殼、機械外罩、可拆卸上蓋及維修面板。",
       "image": "/images/bending1.jpg",
@@ -861,7 +861,7 @@
     },
     "sheet-metal-panels-chassis": {
       "title": "客製鈑金面板與底盤",
-      "seoTitle": "按圖加工客製鈑金面板與底盤 | Well Da",
+      "seoTitle": "按圖加工客製鈑金面板與底盤 | Well Da Metal Factory Limited",
       "description": "按客戶圖紙製造金屬前面板、儀器面板、安裝板、底盤及機箱骨架，提供開孔、折彎、焊接、表面處理及絲印相關加工。",
       "intro": "Well Da 按客戶圖紙製造客製前面板、儀器及設備面板、安裝板、金屬底盤及機箱骨架。孔位、折彎及印刷標記按已確認規格加工。",
       "image": "/images/cool-photo2.jpg",

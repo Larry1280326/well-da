@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "Well Da Factory Limited",
-    "description": "Well Da Factory Limited — precision metal manufacturing, CNC machining, and custom fabrication in Hong Kong."
+    "title": "Well Da Metal Factory Limited",
+    "description": "Well Da Metal Factory Limited — precision metal manufacturing, CNC machining, and custom fabrication in Hong Kong."
   },
   "topBar": {
     "switchTo": "中文"
@@ -774,46 +774,46 @@
   },
   "seo": {
     "home": {
-      "title": "Custom Sheet Metal Fabrication & Enclosures | Well Da",
+      "title": "Custom Sheet Metal Fabrication & Enclosures | Well Da Metal Factory Limited",
       "description": "Custom sheet metal parts and assemblies made to your drawings: enclosures, cabinets, equipment housings, panels, chassis and brackets. Send an RFQ."
     },
     "about": {
-      "title": "About Well Da | Sheet Metal Manufacturing Since 1992",
-      "description": "Learn about Well Da Factory Limited and its drawing-based sheet metal manufacturing for prototypes, small batches and repeat production."
+      "title": "About Well Da Metal Factory Limited | Sheet Metal Manufacturing Since 1992",
+      "description": "Learn about Well Da Metal Factory Limited and its drawing-based sheet metal manufacturing for prototypes, small batches and repeat production."
     },
     "applications": {
-      "title": "Custom Sheet Metal Products & Applications | Well Da",
+      "title": "Custom Sheet Metal Products & Applications | Well Da Metal Factory Limited",
       "description": "Explore custom metal enclosures, cabinets, equipment covers, panels and chassis manufactured to customer drawings, with materials and processes for your RFQ."
     },
     "manufacturing": {
-      "title": "Sheet Metal Manufacturing Capabilities | Well Da",
+      "title": "Sheet Metal Manufacturing Capabilities | Well Da Metal Factory Limited",
       "description": "Review cutting, punching, bending, welding, finishing, silk screening and assembly capabilities for custom steel, stainless steel and aluminium parts."
     },
     "quality": {
-      "title": "Sheet Metal Quality & Drawing Review | Well Da",
+      "title": "Sheet Metal Quality & Drawing Review | Well Da Metal Factory Limited",
       "description": "How Well Da reviews drawings, critical dimensions, welding, finishing and inspection requirements for custom sheet metal parts and assemblies."
     },
     "case-studies": {
-      "title": "Sheet Metal Fabrication Examples | Well Da",
+      "title": "Sheet Metal Fabrication Examples | Well Da Metal Factory Limited",
       "description": "See existing Well Da enclosure and kiosk fabrication examples, with product photographs and the manufacturing steps used for custom sheet metal work."
     },
     "quotation": {
-      "title": "Request a Sheet Metal Manufacturing Quote | Well Da",
+      "title": "Request a Sheet Metal Manufacturing Quote | Well Da Metal Factory Limited",
       "description": "Submit drawings, material, quantity, finish and delivery requirements for a custom sheet metal quotation. Upload PDF, DXF, DWG, STEP and other supported files."
     },
     "faq": {
-      "title": "Sheet Metal Manufacturing FAQ | Well Da",
+      "title": "Sheet Metal Manufacturing FAQ | Well Da Metal Factory Limited",
       "description": "Answers about sheet metal orders, drawings, materials, manufacturing, tolerances, finishing and the information to include in your quotation request."
     },
     "search": {
-      "title": "Search Well Da Products & Capabilities",
+      "title": "Search Products & Capabilities | Well Da Metal Factory Limited",
       "description": "Search Well Da sheet metal products, manufacturing capabilities, examples and frequently asked questions."
     }
   },
   "productPages": {
     "custom-metal-enclosures-cabinets": {
       "title": "Custom Metal Enclosures & Cabinets",
-      "seoTitle": "Custom Metal Enclosures & Cabinets Manufacturing | Well Da",
+      "seoTitle": "Custom Metal Enclosures & Cabinets Manufacturing | Well Da Metal Factory Limited",
       "description": "Drawing-based fabrication of metal enclosures, equipment cabinets, doors and mounting panels in steel, stainless steel and aluminium. Send drawings for review.",
       "intro": "Well Da manufactures custom sheet metal enclosures and cabinets to customer drawings. The metalwork can include cabinet bodies, doors, removable panels and mounting openings for equipment and electronic hardware.",
       "image": "/images/case-study-electrical-panel.jpg",
@@ -837,7 +837,7 @@
     },
     "equipment-housings-machine-covers": {
       "title": "Equipment Housings & Machine Covers",
-      "seoTitle": "Custom Equipment Housings & Machine Covers | Well Da",
+      "seoTitle": "Custom Equipment Housings & Machine Covers | Well Da Metal Factory Limited",
       "description": "Custom sheet metal equipment housings, removable machine covers and maintenance panels fabricated to drawings, with cutting, bending, welding and finishing.",
       "intro": "Well Da fabricates non-standard metal housings and covers to match the customer’s equipment design. Work can include outer housings, machine covers, removable lids and maintenance access panels.",
       "image": "/images/bending1.jpg",
@@ -861,7 +861,7 @@
     },
     "sheet-metal-panels-chassis": {
       "title": "Custom Sheet Metal Panels & Chassis",
-      "seoTitle": "Custom Sheet Metal Panels & Chassis Fabrication | Well Da",
+      "seoTitle": "Custom Sheet Metal Panels & Chassis Fabrication | Well Da Metal Factory Limited",
       "description": "Metal front panels, instrument panels, mounting plates and chassis made to drawings with cut-outs, bending, welding, finishing and silk screening.",
       "intro": "Well Da produces custom front panels, instrument and equipment panels, mounting plates, chassis and metal enclosure frames from customer drawings. Hole patterns, bends and printed markings are manufactured to the agreed specification.",
       "image": "/images/cool-photo2.jpg",
