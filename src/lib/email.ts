@@ -103,10 +103,7 @@ export interface InternalRfqNotificationParams {
   fileCount: number;
 }
 
-const RFQ_STAFF_NOTIFICATION_RECIPIENTS = [
-  "eng@wellda.com",
-  "henrychoi@wellda.com",
-];
+const RFQ_STAFF_NOTIFICATION_RECIPIENT = "eng@wellda.com";
 
 export async function sendInternalRfqNotification(
   params: InternalRfqNotificationParams,
@@ -137,7 +134,7 @@ export async function sendInternalRfqNotification(
   try {
     await getSesClient().send(new SendEmailCommand({
       Source: process.env.SES_SENDER_EMAIL!,
-      Destination: { ToAddresses: RFQ_STAFF_NOTIFICATION_RECIPIENTS },
+      Destination: { ToAddresses: [RFQ_STAFF_NOTIFICATION_RECIPIENT] },
       Message: {
         Subject: { Data: "New website RFQ - " + params.reference, Charset: "UTF-8" },
         Body: { Text: { Data: message, Charset: "UTF-8" } },
