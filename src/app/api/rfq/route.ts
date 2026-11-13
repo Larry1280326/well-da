@@ -360,7 +360,7 @@ export async function POST(request: NextRequest) {
         ),
       ]);
       clearTimeout(notificationTimer!);
-      if (!notificationResult.sent && process.env.RFQ_NOTIFICATION_EMAIL) {
+      if (!notificationResult.sent) {
         console.error("RFQ staff notification not confirmed:", referenceNumber);
       }
 

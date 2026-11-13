@@ -25,7 +25,7 @@ await build({
   } }],
 });
 const { sendInternalRfqNotification } = require("../.test-build/internal-alert.cjs");
-const keys = ["SES_REGION","SES_ACCESS_KEY_ID","SES_SECRET_ACCESS_KEY","SES_SENDER_EMAIL","RFQ_NOTIFICATION_EMAIL"];
+const keys = ["SES_REGION","SES_ACCESS_KEY_ID","SES_SECRET_ACCESS_KEY","SES_SENDER_EMAIL"];
 const previous = Object.fromEntries(keys.map(k => [k, process.env[k]]));
 const params = { rfqId: 42, reference: "RFQ-2026-000042", companyName: "Test & <Co>", projectName: "Panels",
   contactName: "Test Buyer", contactEmail: "buyer@example.invalid", submittedAt: "2026-11-13", fileCount: 2 };
@@ -35,7 +35,7 @@ beforeEach(() => {
   globalThis.__alertSES = { send: async input => { captured.push(input); if (shouldFail) throw new Error("test-failure"); return {}; } };
   Object.assign(process.env, {
     SES_REGION: "ap-southeast-1", SES_ACCESS_KEY_ID: "test", SES_SECRET_ACCESS_KEY: "test",
-    SES_SENDER_EMAIL: "verified-sender@example.invalid", RFQ_NOTIFICATION_EMAIL: "staff@example.invalid",
+    SES_SENDER_EMAIL: "verified-sender@example.invalid",
   });
 });
 after(() => { for (const k of keys) if (previous[k] === undefined) delete process.env[k]; else process.env[k] = previous[k]; });
@@ -43,19 +43,14 @@ test("internal alert sends only to configured staff, with reference, contact and
   assert.equal((await sendInternalRfqNotification(params)).sent, true);
   assert.equal(captured.length, 1);
   const m = captured[0];
-  assert.deepEqual(m.Destination.ToAddresses, ["staff@example.invalid"]);
+  assert.deepEqual(m.Destination.ToAddresses, ["eng@wellda.com", "henrychoi@wellda.com"]);
   assert.match(m.Message.Subject.Data, /RFQ-2026-000042/);
   assert.match(m.Message.Body.Text.Data, /buyer@example.invalid/);
   assert.match(m.Message.Body.Text.Data, /\/en\/administrator\/rfq\/42/);
   assert.ok(!("Attachments" in m));
 });
-test("without a configured recipient no staff mail is sent", async () => {
-  delete process.env.RFQ_NOTIFICATION_EMAIL;
-  assert.equal((await sendInternalRfqNotification(params)).sent, false);
-  assert.equal(captured.length, 0);
-});
-test("rejects accidental multiple recipients and malformed address", async () => {
-  process.env.RFQ_NOTIFICATION_EMAIL = "staff@example.invalid,other@example.invalid";
+test("missing SES configuration prevents internal email but does not throw", async () => {
+  delete process.env.SES_REGION;
   assert.equal((await sendInternalRfqNotification(params)).sent, false);
   assert.equal(captured.length, 0);
 });

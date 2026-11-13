@@ -25,11 +25,12 @@ After a successful database commit, the RFQ endpoint attempts both a customer
 confirmation and an independent internal staff email via the configured SES
 sender. Staff email includes the reference, project/contact summary and an
 authenticated admin detail URL; it never attaches customer CAD files.
-Customer RFQs remain stored if either email fails. Missing or invalid
-`RFQ_NOTIFICATION_EMAIL` disables staff alerts and logs a failure when configured
-delivery cannot be confirmed; it must be set to **one verified, monitored
-Well Da staff inbox** before production acceptance. Never use the personal
-Gmail customer-test address as the default staff alert recipient.
+Customer RFQs remain stored if either email fails. Staff notifications are
+addressed to **eng@wellda.com** and **henrychoi@wellda.com** in the same SES
+message, as confirmed by the website owner. They require the existing SES
+sender credentials to be configured and functioning in the deployed runtime;
+no separate staff-recipient environment variable is required. The personal
+Gmail customer-test address is not a staff notification destination.
 
 The bilingual RFQ data collection notice lives at `/en/privacy` and
 `/zh/privacy` and is linked from the form and public footer. The operator

@@ -103,15 +103,14 @@ export interface InternalRfqNotificationParams {
   fileCount: number;
 }
 
+const RFQ_STAFF_NOTIFICATION_RECIPIENTS = [
+  "eng@wellda.com",
+  "henrychoi@wellda.com",
+];
+
 export async function sendInternalRfqNotification(
   params: InternalRfqNotificationParams,
 ): Promise<EmailResult> {
-  const to = process.env.RFQ_NOTIFICATION_EMAIL?.trim();
-  if (!to) return { sent: false, error: "RFQ_NOTIFICATION_EMAIL not configured" };
-  if (!/^[^\s@,;]+@[^\s@,;]+\.[^\s@,;]+$/.test(to)) {
-    console.error("RFQ internal notification recipient is invalid.");
-    return { sent: false, error: "Invalid internal notification recipient" };
-  }
   if (!["SES_REGION", "SES_ACCESS_KEY_ID", "SES_SECRET_ACCESS_KEY", "SES_SENDER_EMAIL"].every(key => process.env[key])) {
     return { sent: false, error: "SES not configured" };
   }
@@ -138,7 +137,7 @@ export async function sendInternalRfqNotification(
   try {
     await getSesClient().send(new SendEmailCommand({
       Source: process.env.SES_SENDER_EMAIL!,
-      Destination: { ToAddresses: [to] },
+      Destination: { ToAddresses: RFQ_STAFF_NOTIFICATION_RECIPIENTS },
       Message: {
         Subject: { Data: "New website RFQ - " + params.reference, Charset: "UTF-8" },
         Body: { Text: { Data: message, Charset: "UTF-8" } },
