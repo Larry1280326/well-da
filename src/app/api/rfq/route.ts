@@ -3,7 +3,9 @@ import { getClient } from "@/lib/db";
 import { uploadFile, deleteFile } from "@/lib/s3";
 import { validateRfqInput } from "@/lib/validation";
 import { checkRateLimit } from "@/lib/rate-limit";
-import { sendConfirmationEmail } from "@/lib/email";
+import { sendConfirmationEmail, sendInternalRfqNotification } from "@/lib/email";
+import { sourcePage } from "@/lib/rfq-source";
+import { MAX_TOTAL_SIZE } from "@/lib/types/rfq";
 import type { FileInfo } from "@/lib/types/rfq";
 
 function getClientIp(request: NextRequest): string {
@@ -14,38 +16,10 @@ function getClientIp(request: NextRequest): string {
   );
 }
 
-function parseJsonArray(raw: string | null): string[] {
-  if (!raw) return [];
-  try {
-    const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) return [];
-    return parsed.filter((v): v is string => typeof v === "string");
-  } catch {
-    return [];
-  }
-}
-
-function parseOptionalFloat(raw: string | null): number | null {
-  if (!raw) return null;
-  const n = parseFloat(raw);
-  return isNaN(n) ? null : n;
-}
-
-function parseOptionalInt(raw: string | null): number | null {
-  if (!raw) return null;
-  const n = parseInt(raw, 10);
-  return isNaN(n) || n <= 0 || n > 2147483647 ? null : n;
-}
-
-function parseRequiredInt(raw: string | null): number | null {
-  if (!raw) return null;
-  const n = parseInt(raw, 10);
-  return isNaN(n) || n <= 0 || n > 2147483647 ? null : n;
-}
-
 export async function POST(request: NextRequest) {
   let client: Awaited<ReturnType<typeof getClient>> | null = null;
   const uploadedS3Keys: string[] = [];
+  let committed = false;
 
   try {
     const clientIp = getClientIp(request);
@@ -58,12 +32,17 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const formData = await request.formData();
+    if (Number(request.headers.get("content-length")) > MAX_TOTAL_SIZE + 1024 * 1024) {
+      return NextResponse.json({ success: false, error: "Upload exceeds the total size limit." }, { status: 413 });
+    }
+    let formData: FormData;
+    try { formData = await request.formData(); }
+    catch { return NextResponse.json({ success: false, error: "Invalid multipart form data." }, { status: 400 }); }
 
     // HoneyPot check — hidden field that bots fill in
     if (formData.get("website")?.toString().trim()) {
       return NextResponse.json(
-        { success: true, reference: "RFQ-0000-000000" },
+        { success: true, persisted: false },
         { status: 201 },
       );
     }
@@ -86,7 +65,8 @@ export async function POST(request: NextRequest) {
 
     const rawFields: Record<string, string> = {};
     for (const name of textFieldNames) {
-      rawFields[name] = (formData.get(name) as string) ?? "";
+      const value = formData.get(name);
+      rawFields[name] = typeof value === "string" ? value : "";
     }
 
     // ---- Extract JSON array fields ----
@@ -105,8 +85,11 @@ export async function POST(request: NextRequest) {
     }
 
     // ---- Extract files ----
-    const fileEntries = formData.getAll("files") as File[];
-    const files: File[] = fileEntries.filter((f) => f && f.size > 0);
+    const fileEntries = formData.getAll("files");
+    if (fileEntries.some(f => !(f instanceof File))) {
+      return NextResponse.json({ success: false, errors: { files: "fileType" } }, { status: 400 });
+    }
+    const files = fileEntries as File[];
 
     const fileInfos: FileInfo[] = files.map((f) => ({
       fileName: f.name,
@@ -117,9 +100,6 @@ export async function POST(request: NextRequest) {
     // ---- Validate ----
     const validation = validateRfqInput(rawFields, fileInfos);
     if (!validation.ok) {
-      console.error("RFQ validation errors:", JSON.stringify(validation.errors));
-      console.error("RFQ rawFields received:", JSON.stringify(rawFields));
-      console.error("RFQ files count:", fileInfos.length);
       return NextResponse.json(
         { success: false, errors: validation.errors },
         { status: 400 },
@@ -128,14 +108,12 @@ export async function POST(request: NextRequest) {
 
     const { fields: validFields } = validation.data;
 
-    // Parse array fields for DB insertion
-    const product_type = parseJsonArray(rawFields.product_type);
-    const printing_marking = parseJsonArray(rawFields.printing_marking);
-    const operating_env = parseJsonArray(rawFields.operating_env);
-    const protection_req = parseJsonArray(rawFields.protection_req);
-    const inspection_req = parseJsonArray(rawFields.inspection_req);
-    const cert_report = parseJsonArray(rawFields.cert_report);
-    const additional_options = parseJsonArray(rawFields.additional_options);
+    const { product_type, printing_marking, operating_env, protection_req, inspection_req, cert_report, additional_options } = validFields;
+    const source = sourcePage(formData.get("source_page")) ?? (formData.get("lang") === "zh" ? "/zh/quotation" : "/en/quotation");
+    // Reuse the existing internal notes field, avoiding a production schema change.
+    const internalNotes = [validFields.special_req_notes, "[Website source page] " + source,
+      additional_options.length ? "[File instructions] " + additional_options.join(", ") : "",
+    ].filter(Boolean).join("\n\n");
 
     // ---- Pre-upload files to S3 (before DB transaction to avoid holding it open) ----
     const uploadedFiles: { key: string; url: string; fileName: string; fileType: string; fileSize: number }[] = [];
@@ -209,9 +187,9 @@ export async function POST(request: NextRequest) {
         [
           validFields.material,
           validFields.material_grade || null,
-          parseOptionalFloat(rawFields.thickness),
+          validFields.thickness ? Number(validFields.thickness) : null,
           validFields.thickness_unit || null,
-          validFields.surface_finish || validFields.surface_finish_other || null,
+          (validFields.surface_finish === "Other" ? validFields.surface_finish_other : validFields.surface_finish) || null,
           validFields.finish_color || null,
           validFields.critical_tolerance_req || null,
           validFields.assembly_required || null,
@@ -227,8 +205,8 @@ export async function POST(request: NextRequest) {
          VALUES ($1, $2, $3)
          RETURNING id`,
         [
-          parseOptionalInt(rawFields.prototype_quantity),
-          parseRequiredInt(rawFields.production_quantity),
+          validFields.prototype_quantity,
+          validFields.production_quantity,
           validFields.est_annual_vol || null,
         ],
       );
@@ -264,7 +242,7 @@ export async function POST(request: NextRequest) {
             : null,
           inspection_req.length > 0 ? JSON.stringify(inspection_req) : null,
           cert_report.length > 0 ? JSON.stringify(cert_report) : null,
-          validFields.special_req_notes || null,
+          internalNotes,
         ],
       );
       const techId: number = techResult.rows[0].id;
@@ -334,12 +312,26 @@ export async function POST(request: NextRequest) {
 
       // Commit
       await client.query("COMMIT");
+      committed = true;
 
       // Build submitted date (used by both email and response)
       const submittedAt = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
 
+      // Start the staff notification after COMMIT, independently of customer email.
+      // Missing configuration or SES failure never rolls back a saved RFQ.
+      const internalNotification = sendInternalRfqNotification({
+        rfqId,
+        reference: referenceNumber,
+        companyName: validFields.company_name,
+        projectName: validFields.project_name,
+        contactName: validFields.contact_name,
+        contactEmail: validFields.email,
+        submittedAt,
+        fileCount: uploadedFiles.length,
+      }).catch(() => ({ sent: false }));
+
       // ---- Send confirmation email (await with timeout) ----
-      const emailLang = (formData.get("lang") as string) || "en";
+      const emailLang = formData.get("lang") === "zh" ? "zh" : "en";
       const emailPromise = sendConfirmationEmail({
         to: validFields.email,
         rfqId,
@@ -349,13 +341,28 @@ export async function POST(request: NextRequest) {
         companyName: validFields.company_name,
         submittedAt,
         lang: emailLang,
-      });
+      }).catch(() => ({ sent: false, error: emailLang === "zh" ? "詢價已儲存，但確認電郵未能寄出。" : "Your RFQ is saved, but the confirmation email could not be sent." }));
 
       // 5-second timeout — don't block the response indefinitely if SES hangs
+      let emailTimer: ReturnType<typeof setTimeout>;
       const timeoutPromise = new Promise<{ sent: false; error: string }>((resolve) =>
-        setTimeout(() => resolve({ sent: false, error: "Email sending timed out. We will contact you soon." }), 5000),
+        emailTimer = setTimeout(() => resolve({ sent: false, error: emailLang === "zh" ? "詢價已儲存，但確認電郵未能及時寄出。" : "Your RFQ is saved, but confirmation email timed out." }), 5000),
       );
       const emailResult = await Promise.race([emailPromise, timeoutPromise]);
+      clearTimeout(emailTimer!);
+
+      // Bounded wait for staff notification (do not expose its status to the customer).
+      let notificationTimer: ReturnType<typeof setTimeout>;
+      const notificationResult = await Promise.race([
+        internalNotification,
+        new Promise<{ sent: false }>((resolve) =>
+          notificationTimer = setTimeout(() => resolve({ sent: false }), 5000),
+        ),
+      ]);
+      clearTimeout(notificationTimer!);
+      if (!notificationResult.sent) {
+        console.error("RFQ staff notification not confirmed:", referenceNumber);
+      }
 
       // Build success response data
       const emailSent = emailResult.sent;
@@ -364,6 +371,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           success: true,
+          persisted: true,
           reference: referenceNumber,
           data: {
             reference: referenceNumber,
@@ -377,21 +385,17 @@ export async function POST(request: NextRequest) {
         { status: 201 },
       );
     } catch (innerError) {
-      // Rollback DB
-      await client.query("ROLLBACK");
-
-      // Best-effort S3 cleanup for pre-uploaded files
-      for (const key of uploadedS3Keys) {
-        try {
-          await deleteFile(key);
-        } catch (cleanupError) {
-          console.error("Failed to clean up S3 file after rollback:", cleanupError);
-        }
-      }
+      if (!committed) await client.query("ROLLBACK");
 
       throw innerError;
     }
   } catch (error) {
+    if (!committed) {
+      for (const key of uploadedS3Keys) {
+        try { await deleteFile(key); }
+        catch { console.error("RFQ attachment cleanup failed; check the upload bucket."); }
+      }
+    }
     const err = error as Error & { code?: string };
     if (err.code === "ECONNREFUSED" || err.code === "ENOTFOUND") {
       console.error(
@@ -404,7 +408,7 @@ export async function POST(request: NextRequest) {
           "Check that your IP is allowed in the RDS security group inbound rules (port 5432).",
       );
     } else {
-      console.error("RFQ submission error:", error);
+      console.error("RFQ submission failed:", err.code ?? err.name);
     }
     return NextResponse.json(
       {

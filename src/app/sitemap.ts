@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/config/site";
+import { productSlugs } from "@/config/products";
 
 const routes = [
   "",
@@ -10,6 +11,8 @@ const routes = [
   "/case-studies",
   "/quotation",
   "/faq",
+  "/privacy",
+  ...productSlugs.map(slug => `/applications/${slug}`),
 ] as const;
 
 const locales = ["en", "zh"] as const;

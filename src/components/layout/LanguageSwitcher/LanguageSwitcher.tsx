@@ -4,6 +4,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { IconWorld } from "@tabler/icons-react";
 import { useLocale } from "@/i18n/locale-context";
 import classes from "../TopBar/TopBar.module.css";
+import { sourcePage } from "@/lib/rfq-source";
 
 export function LanguageSwitcher() {
   const router = useRouter();
@@ -20,7 +21,12 @@ export function LanguageSwitcher() {
     // Set cookie so proxy remembers the choice
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Lax`;
 
-    router.push("/" + segments.join("/"));
+    // Keep search/hash navigation and translate only a validated attribution path.
+    const query = new URLSearchParams(window.location.search);
+    const source = sourcePage(query.get("source"));
+    if (source) query.set("source", source.replace(/^\/(en|zh)(?=\/|$)/, `/${newLocale}`));
+    else query.delete("source");
+    router.push("/" + segments.join("/") + (query.size ? `?${query}` : "") + window.location.hash);
   }
 
   return (

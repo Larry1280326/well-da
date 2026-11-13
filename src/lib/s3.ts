@@ -46,21 +46,21 @@ export async function uploadFile(
   const bucket = process.env.S3_BUCKET_NAME!;
   const key = generateS3Key(fileName);
 
+  // Sign first, so a signing failure cannot leave an uploaded object untracked.
+  const url = await getSignedUrl(
+    client,
+    new GetObjectCommand({ Bucket: bucket, Key: key }),
+    { expiresIn: PRESIGNED_URL_EXPIRY_SECONDS },
+  );
+
   await client.send(
     new PutObjectCommand({
       Bucket: bucket,
       Key: key,
       Body: buffer,
       ContentType: contentType,
-      ContentDisposition: `attachment; filename="${fileName}"`,
+      ContentDisposition: `attachment; filename="${sanitizeFileName(fileName)}"`,
     }),
-  );
-
-  // Generate a presigned URL for accessing the private file
-  const url = await getSignedUrl(
-    client,
-    new GetObjectCommand({ Bucket: bucket, Key: key }),
-    { expiresIn: PRESIGNED_URL_EXPIRY_SECONDS },
   );
 
   return { url, key, bucket };
@@ -75,4 +75,23 @@ export async function deleteFile(key: string): Promise<void> {
       Key: key,
     }),
   );
+}
+
+// Stored presigned links expire after seven days. Re-sign only keys in our configured
+// RFQ bucket when an authenticated administrator opens the existing RFQ detail page.
+export async function refreshRfqFileUrl(storedUrl: string): Promise<string> {
+  const bucket = process.env.S3_BUCKET_NAME;
+  const region = process.env.S3_REGION;
+  if (!bucket || !region) return storedUrl;
+  let url: URL;
+  try { url = new URL(storedUrl); } catch { return storedUrl; }
+  if (url.protocol !== "https:") return storedUrl;
+  let key: string;
+  if ([`${bucket}.s3.${region}.amazonaws.com`, `${bucket}.s3.amazonaws.com`].includes(url.hostname)) {
+    key = decodeURIComponent(url.pathname.slice(1));
+  } else if (url.hostname === `s3.${region}.amazonaws.com` && url.pathname.startsWith(`/${bucket}/`)) {
+    key = decodeURIComponent(url.pathname.slice(bucket.length + 2));
+  } else return storedUrl;
+  if (!key.startsWith("rfq-uploads/")) return storedUrl;
+  return getSignedUrl(getS3Client(), new GetObjectCommand({ Bucket: bucket, Key: key }), { expiresIn: PRESIGNED_URL_EXPIRY_SECONDS });
 }

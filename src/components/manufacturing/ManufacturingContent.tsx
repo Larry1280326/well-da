@@ -1,5 +1,8 @@
 import { Container, Text, Title } from "@mantine/core";
 import { CapabilityItem, type Capability } from "./CapabilityItem";
+import Link from "next/link";
+import { Button } from "@mantine/core";
+import { productSlugs, type ProductSlug } from "@/config/products";
 
 export interface ManufacturingDict {
   pageTitle: string;
@@ -11,8 +14,13 @@ export interface ManufacturingDict {
 
 export function ManufacturingContent({
   dict,
+  locale, guide, products, quoteLabel,
 }: {
   dict: ManufacturingDict;
+  locale: string;
+  guide: { title: string; text: string };
+  products: Record<ProductSlug, { title: string }>;
+  quoteLabel: string;
 }) {
   return (
     <>
@@ -60,6 +68,10 @@ export function ManufacturingContent({
           <Text c="dimmed" maw={720}>
             {dict.materials}
           </Text>
+          <Title order={2} mt="xl" mb="md">{guide.title}</Title>
+          <Text maw={850} mb="lg">{guide.text}</Text>
+          <ul>{productSlugs.map(slug => <li key={slug}><Link href={`/${locale}/applications/${slug}`}>{products[slug].title}</Link></li>)}</ul>
+          <Button component="a" href={`/${locale}/quotation?source=/${locale}/manufacturing`}>{quoteLabel}</Button>
         </Container>
       </section>
     </>

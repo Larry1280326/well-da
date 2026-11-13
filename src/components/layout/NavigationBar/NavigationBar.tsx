@@ -63,6 +63,8 @@ export function NavigationBar() {
               >
                 <MenuTarget>
                   <UnstyledButton
+                    component={HashLink}
+                    href={localizedHref}
                     className={classes.navButton}
                     data-active={isActive || undefined}
                     aria-haspopup="menu"

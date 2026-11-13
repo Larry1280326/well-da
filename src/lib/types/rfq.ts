@@ -191,6 +191,7 @@ export interface RfqFormDict {
     privacy: {
       text: string;
       checkboxLabel: string;
+      noticeLinkLabel: string;
     };
   };
   fields: {

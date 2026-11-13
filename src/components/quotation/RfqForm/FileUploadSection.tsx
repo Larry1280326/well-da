@@ -59,16 +59,16 @@ export function FileUploadSection({
 
   function validateFiles(newFiles: File[]): File[] {
     const accepted: File[] = [];
-    const totalExisting = files.reduce((s, f) => s + f.size, 0);
+    let validationError: string | null = null;
 
     for (const f of newFiles) {
       const ext = getFileExtension(f.name);
       if (!(ACCEPTED_EXTENSIONS as readonly string[]).includes(ext)) {
-        setLocalError(`"${f.name}" has an unsupported file type`);
+        validationError = dict.validation.fileType;
         continue;
       }
-      if (f.size > MAX_FILE_SIZE) {
-        setLocalError(`"${f.name}" exceeds the 50 MB per-file limit`);
+      if (f.size === 0 || f.size > MAX_FILE_SIZE) {
+        validationError = f.size === 0 ? dict.validation.fileRequired : dict.validation.fileSize;
         continue;
       }
       accepted.push(f);
@@ -76,21 +76,22 @@ export function FileUploadSection({
 
     const combined = [...files, ...accepted];
     if (combined.length > MAX_FILES) {
-      setLocalError(`Maximum ${MAX_FILES} files allowed`);
+      setLocalError(dict.validation.tooManyFiles);
       return [];
     }
 
     const totalSize = combined.reduce((s, f) => s + f.size, 0);
     if (totalSize > MAX_TOTAL_SIZE) {
-      setLocalError("Total file size exceeds 100 MB");
+      setLocalError(dict.validation.totalSizeExceeded);
       return [];
     }
 
-    setLocalError(null);
+    setLocalError(validationError);
     return accepted;
   }
 
   function handleFilesAdded(newFiles: File[]) {
+    if (disabled) return;
     const valid = validateFiles(newFiles);
     if (valid.length > 0) {
       onFilesChange([...files, ...valid]);
@@ -158,6 +159,13 @@ export function FileUploadSection({
 
       {/* Drop Zone */}
       <Paper
+        role="button"
+        tabIndex={disabled ? -1 : 0}
+        aria-label={sec.browseText}
+        aria-disabled={disabled}
+        onKeyDown={(e) => {
+          if (!disabled && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); fileInputRef.current?.click(); }
+        }}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
         onDragOver={handleDragOver}
@@ -191,6 +199,7 @@ export function FileUploadSection({
             type="file"
             multiple
             accept={ACCEPTED_EXTENSIONS.join(",")}
+            aria-label={sec.browseText}
             disabled={disabled}
             style={{ display: "none" }}
             onChange={(e) => {
@@ -237,6 +246,7 @@ export function FileUploadSection({
                 </div>
               </Group>
               <ActionIcon
+                aria-label={`${dict.sections.files.title}: ${f.name} ×`}
                 variant="subtle"
                 color="red"
                 onClick={() => handleRemove(i)}

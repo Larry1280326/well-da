@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "Well Da Factory Limited",
-    "description": "Well Da Factory Limited — precision metal manufacturing, CNC machining, and custom fabrication in Hong Kong."
+    "title": "Well Da Metal Factory Limited",
+    "description": "Well Da Metal Factory Limited — precision metal manufacturing, CNC machining, and custom fabrication in Hong Kong."
   },
   "topBar": {
     "switchTo": "中文"
@@ -222,7 +222,7 @@
       {
         "slug": "ordering-kiosk-enclosures",
         "title": "Ordering Kiosk Enclosure",
-        "description": "A rugged, purpose-built enclosure designed for self-service ordering kiosks. The cabinet features integrated cable management routing and efficient ventilation to support internal hardware components. Manufactured to the client's exact 42U rack-mount specifications, all panels are produced through precision laser cutting, CNC bending, structural welding, and a durable powder-coated finish—ensuring long-lasting durability and a clean, professional appearance suitable for public-facing environments.",
+        "description": "This existing project shows sheet metal enclosures for self-service ordering kiosks. The photographs illustrate the outer metal housing and panel openings. For a similar project, provide your own equipment dimensions, mounting interfaces and finish requirements for drawing review.",
         "images": [
           {
             "src": "/images/case-study-ordering-kiosk.jpeg",
@@ -230,7 +230,7 @@
           },
           {
             "src": "/images/case-study-ordering-kiosk-2.jpeg",
-            "alt": "Ordering kiosk enclosure showing rack-mount design and powder-coated finish"
+            "alt": "Existing ordering kiosk metal enclosure and panel openings"
           }
         ]
       }
@@ -282,8 +282,9 @@
           "requireNdaLabel": "I require an NDA before providing further confidential information."
         },
         "privacy": {
-          "text": "Your files and information will be used solely for quotation, technical review and manufacturing feasibility assessment. Please refer to our Privacy Policy for details.",
-          "checkboxLabel": "I confirm that the information provided is accurate and agree to the Privacy Policy."
+          "text": "We use your RFQ details and files to assess and respond to your enquiry. Please read how we handle them.",
+          "checkboxLabel": "I confirm these details are correct and I have read the RFQ data collection notice.",
+          "noticeLinkLabel": "Read the RFQ Data Collection & Privacy Notice"
         }
       },
       "fields": {
@@ -399,16 +400,16 @@
         "fileType": "Unsupported file type. Accepted: PDF, DXF, DWG, STEP, STP, JPG, PNG, XLSX, ZIP",
         "tooManyFiles": "Maximum 10 files allowed",
         "totalSizeExceeded": "Total file size exceeds 100 MB",
-        "privacyRequired": "You must agree to the Privacy Policy to submit",
+        "privacyRequired": "Please consent to the use of your information for this enquiry.",
         "serverError": "Something went wrong. Please try again or contact us directly."
       },
       "success": {
         "title": "RFQ Submitted Successfully",
-        "message": "Thank you. We have received your RFQ. We normally acknowledge RFQs within one business day. Quotation lead time depends on project complexity and information completeness. Please quote your RFQ reference number in any follow-up communication.",
+        "message": "Thank you. We have received your RFQ. Quotation timing depends on project complexity and information completeness. Please quote your RFQ reference number when following up.",
         "referenceLabel": "RFQ Reference",
         "projectLabel": "Project",
         "dateLabel": "Submitted on",
-        "emailLabel": "Confirmation sent to",
+        "emailLabel": "Contact email",
         "newSubmission": "Submit Another RFQ",
         "emailWarningTitle": "Confirmation Email Not Sent",
         "emailWarningDesc": "Your RFQ was received, but we could not send a confirmation email. Reason: {reason}. We will contact you at {email}."
@@ -433,7 +434,7 @@
     "trustEstablished": "Established in 1992",
     "trustISO": "ISO 9001",
     "trustCustom": "Custom Manufacturing",
-    "trustPrecision": "Precision up to ±0.2 mm"
+    "trustPrecision": "Critical dimensions reviewed per drawing"
   },
   "faq": {
     "pageTitle": "Frequently Asked Questions",
@@ -771,5 +772,126 @@
         "updateStatus": "Failed to update status."
       }
     }
+  },
+  "seo": {
+    "home": {
+      "title": "Custom Sheet Metal Fabrication & Enclosures | Well Da Metal Factory Limited",
+      "description": "Custom sheet metal parts and assemblies made to your drawings: enclosures, cabinets, equipment housings, panels, chassis and brackets. Send an RFQ."
+    },
+    "about": {
+      "title": "About Well Da Metal Factory Limited | Sheet Metal Manufacturing Since 1992",
+      "description": "Learn about Well Da Metal Factory Limited and its drawing-based sheet metal manufacturing for prototypes, small batches and repeat production."
+    },
+    "applications": {
+      "title": "Custom Sheet Metal Products & Applications | Well Da Metal Factory Limited",
+      "description": "Explore custom metal enclosures, cabinets, equipment covers, panels and chassis manufactured to customer drawings, with materials and processes for your RFQ."
+    },
+    "manufacturing": {
+      "title": "Sheet Metal Manufacturing Capabilities | Well Da Metal Factory Limited",
+      "description": "Review cutting, punching, bending, welding, finishing, silk screening and assembly capabilities for custom steel, stainless steel and aluminium parts."
+    },
+    "quality": {
+      "title": "Sheet Metal Quality & Drawing Review | Well Da Metal Factory Limited",
+      "description": "How Well Da reviews drawings, critical dimensions, welding, finishing and inspection requirements for custom sheet metal parts and assemblies."
+    },
+    "case-studies": {
+      "title": "Sheet Metal Fabrication Examples | Well Da Metal Factory Limited",
+      "description": "See existing Well Da enclosure and kiosk fabrication examples, with product photographs and the manufacturing steps used for custom sheet metal work."
+    },
+    "quotation": {
+      "title": "Request a Sheet Metal Manufacturing Quote | Well Da Metal Factory Limited",
+      "description": "Submit drawings, material, quantity, finish and delivery requirements for a custom sheet metal quotation. Upload PDF, DXF, DWG, STEP and other supported files."
+    },
+    "faq": {
+      "title": "Sheet Metal Manufacturing FAQ | Well Da Metal Factory Limited",
+      "description": "Answers about sheet metal orders, drawings, materials, manufacturing, tolerances, finishing and the information to include in your quotation request."
+    },
+    "search": {
+      "title": "Search Products & Capabilities | Well Da Metal Factory Limited",
+      "description": "Search Well Da sheet metal products, manufacturing capabilities, examples and frequently asked questions."
+    }
+  },
+  "productPages": {
+    "custom-metal-enclosures-cabinets": {
+      "title": "Custom Metal Enclosures & Cabinets",
+      "seoTitle": "Custom Metal Enclosures & Cabinets Manufacturing | Well Da Metal Factory Limited",
+      "description": "Drawing-based fabrication of metal enclosures, equipment cabinets, doors and mounting panels in steel, stainless steel and aluminium. Send drawings for review.",
+      "intro": "Well Da manufactures custom sheet metal enclosures and cabinets to customer drawings. The metalwork can include cabinet bodies, doors, removable panels and mounting openings for equipment and electronic hardware.",
+      "image": "/images/case-study-electrical-panel.jpg",
+      "imageAlt": "Existing Well Da sheet metal boxes with formed sides, openings and painted surfaces",
+      "imageCaption": "Existing enclosure metalwork from the Well Da product photographs.",
+      "sections": [
+        {
+          "title": "Enclosures built around your equipment",
+          "text": "Typical uses include equipment cabinets, communication hardware housings and metal boxes for control equipment. Door positions, cable openings, mounting holes and panel interfaces follow the confirmed drawing. The scope is the fabricated metalwork; electrical wiring and complete electrical control panels are not included in this service description."
+        },
+        {
+          "title": "Materials and fabrication",
+          "text": "Available sheet materials include mild steel, stainless steel, electrolytic steel sheet and aluminium. Cutting or punching creates profiles and openings; bending forms the body and doors; welding joins suitable structures. Grinding, powder coating, stainless-steel brushing, polishing and silk screening are selected to suit the agreed material and finish."
+        },
+        {
+          "title": "From drawing review to repeat orders",
+          "text": "Send dimensioned drawings and, where available, a 3D model. We review material, thickness, interfaces, critical dimensions, finishing and assembly requirements before agreeing the manufacturing scope. Prototype and small-batch work can be used to confirm fit before repeat production. Revisions and acceptance requirements should be confirmed for each order."
+        }
+      ],
+      "rfq": "Include the enclosure dimensions, material and thickness, door and mounting details, finish, quantity and delivery destination. Upload your PDF, DXF, DWG or STEP files through the quotation form."
+    },
+    "equipment-housings-machine-covers": {
+      "title": "Equipment Housings & Machine Covers",
+      "seoTitle": "Custom Equipment Housings & Machine Covers | Well Da Metal Factory Limited",
+      "description": "Custom sheet metal equipment housings, removable machine covers and maintenance panels fabricated to drawings, with cutting, bending, welding and finishing.",
+      "intro": "Well Da fabricates non-standard metal housings and covers to match the customer’s equipment design. Work can include outer housings, machine covers, removable lids and maintenance access panels.",
+      "image": "/images/bending1.jpg",
+      "imageAlt": "Existing press brake used to bend sheet metal",
+      "imageCaption": "Bending equipment shown in the existing manufacturing gallery; this is a process photograph.",
+      "sections": [
+        {
+          "title": "Access, fit and installation",
+          "text": "Equipment builders can specify cover profiles, service openings, attachment points and removable sections to suit their own machine layout. Provide adjoining-part dimensions and clearances so the cover can be reviewed as part of the equipment assembly. A fabricated cover does not establish machine safety certification or an IP protection rating."
+        },
+        {
+          "title": "Materials and manufacturing route",
+          "text": "Mild steel, stainless steel, electrolytic steel sheet and aluminium can be evaluated against the drawing and operating environment. Laser cutting or punching forms cut-outs and fixing holes. Bending shapes the covers; welding is used where the design calls for joined parts. Powder coating or suitable stainless-steel finishing can be specified for the agreed surface requirements."
+        },
+        {
+          "title": "Prototype through production",
+          "text": "Begin with drawings showing the equipment interfaces and the required material and finish. A prototype or small batch can support checks of fit, access and installation before repeat production. Any changes to hole positions, panel clearances or assembly details are confirmed against the drawing revision before manufacture."
+        }
+      ],
+      "rfq": "Upload cover drawings and any relevant assembly views. Include overall dimensions, fixing details, material, thickness, finish, quantities and the intended operating environment. State any testing requirements for separate review."
+    },
+    "sheet-metal-panels-chassis": {
+      "title": "Custom Sheet Metal Panels & Chassis",
+      "seoTitle": "Custom Sheet Metal Panels & Chassis Fabrication | Well Da Metal Factory Limited",
+      "description": "Metal front panels, instrument panels, mounting plates and chassis made to drawings with cut-outs, bending, welding, finishing and silk screening.",
+      "intro": "Well Da produces custom front panels, instrument and equipment panels, mounting plates, chassis and metal enclosure frames from customer drawings. Hole patterns, bends and printed markings are manufactured to the agreed specification.",
+      "image": "/images/cool-photo2.jpg",
+      "imageAlt": "Existing flat metal panels with cut edges and hole patterns",
+      "imageCaption": "Metal panels from the existing Well Da website image collection.",
+      "sections": [
+        {
+          "title": "Panels and supporting metalwork",
+          "text": "Applications include front faces for instruments, access-control equipment panels, internal mounting plates and chassis supporting equipment components. Provide cut-outs, connector positions, mounting interfaces and visible-surface requirements. Metal control panels here refer to fabricated panels, without electrical components or wiring."
+        },
+        {
+          "title": "Materials, openings and markings",
+          "text": "Sheet materials include mild steel, stainless steel, electrolytic steel sheet and aluminium. Cutting and punching create profiles and apertures; bending forms flanges; welding joins chassis sections where required. Finishing and silk-screen printing can add the agreed surface appearance and legends. Confirm artwork, orientation and drawing revision before production."
+        },
+        {
+          "title": "Review the interfaces before manufacture",
+          "text": "Submit dimensioned drawings with critical hole centres, mating dimensions and assembly information. We review material, thickness, finish, markings and inspection requirements. Prototype, small-batch and repeat orders are supported, with the production scope and any assembly work confirmed for the specific project."
+        }
+      ],
+      "rfq": "Send the panel or chassis drawing, material and thickness, order quantity, finish and any silk-screen artwork. Identify critical dimensions, assembly requirements and the delivery destination in your RFQ."
+    }
+  },
+  "homepage": {
+    "title": "Custom Sheet Metal Parts & Assemblies Made to Your Drawings",
+    "intro": "Enclosures, cabinets, equipment housings, panels, chassis and brackets for OEMs and equipment builders. Prototype, small-batch and repeat production.",
+    "processes": "Laser cutting, punching, bending, welding, finishing, silk screening and suitable assembly work are selected to match the confirmed drawing and manufacturing requirements."
+  },
+  "manufacturingGuide": {
+    "title": "From Prototype to Production",
+    "text": "Start with a dimensioned drawing and material, thickness, quantity and finish requirements. Drawing review defines cut-outs and profiles before forming and joining; finishing and silk screening follow the agreed surface and artwork requirements. Suitable hardware insertion and assembly are confirmed for each project. Prototype or small-batch checks can confirm fit and appearance before repeat production. Critical dimensions and inspection requirements are agreed for the specific part; process locations and production arrangements are confirmed per project."
   }
 }

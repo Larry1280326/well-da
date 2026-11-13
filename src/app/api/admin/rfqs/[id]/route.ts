@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import { queryOne, query } from "@/lib/db";
 import { validateSession } from "@/lib/auth/session";
 import { RFQ_STATUSES, type RfqStatus } from "@/lib/auth/types";
+import { refreshRfqFileUrl } from "@/lib/s3";
 
 /**
  * Parse a PostgreSQL array string (e.g. "{val1,val2}" or "{val1}") into a JS array.
@@ -85,6 +86,7 @@ export async function GET(
         if (field in row) (row as Record<string, unknown>)[field] = parsePgArray(row[field]);
       }
       for (const file of files) {
+        if (typeof file.file_url === "string") file.file_url = await refreshRfqFileUrl(file.file_url);
         if ("additional_option" in file) {
           (file as Record<string, unknown>).additional_option = parsePgArray(file.additional_option);
         }
@@ -136,6 +138,7 @@ export async function GET(
       if (field in row) (row as Record<string, unknown>)[field] = parsePgArray(row[field]);
     }
     for (const file of files) {
+      if (typeof file.file_url === "string") file.file_url = await refreshRfqFileUrl(file.file_url);
       if ("additional_option" in file) {
         (file as Record<string, unknown>).additional_option = parsePgArray(file.additional_option);
       }

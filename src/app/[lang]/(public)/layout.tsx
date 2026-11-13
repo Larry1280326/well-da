@@ -25,6 +25,7 @@ export async function generateMetadata(props: {
     description: dict.metadata.description,
     verification: {
       google: "xUXJ1A5EKDBurAe0XZt3G4ADIZew0xkWaMfaeQvdEN4",
+      ...(process.env.BING_SITE_VERIFICATION ? { other: { "msvalidate.01": process.env.BING_SITE_VERIFICATION } } : {}),
     },
   };
 }
@@ -54,12 +55,22 @@ export default async function RootLayout({
   };
 
   return (
-    <html lang={lang} {...mantineHtmlProps} suppressHydrationWarning>
+    <html lang={lang === "zh" ? "zh-Hant" : "en"} {...mantineHtmlProps} suppressHydrationWarning>
       <body suppressHydrationWarning>
         <MantineProvider theme={theme} defaultColorScheme="light">
           <LocaleProvider locale={lang as Locale} dict={clientDict}>
             <SiteHeader locale={lang as Locale} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+              "@context": "https://schema.org", "@type": "Organization",
+              "@id": `${SITE_URL}/#organization`, name: "Well Da Metal Factory Limited", url: SITE_URL,
+              logo: `${SITE_URL}/logo.jpg`, email: "eng@wellda.com", telephone: "+85261515732",
+            }).replace(/</g, "\\u003c") }} />
             <main>{children}</main>
+            <footer style={{ textAlign: "center", padding: "24px 16px", borderTop: "1px solid #ececec" }}>
+              <a href={`/${lang}/privacy`} style={{ color: "#495057", fontSize: "14px" }}>
+                {lang === "zh" ? "詢價資料及私隱告知" : "RFQ data collection & privacy notice"}
+              </a>
+            </footer>
           </LocaleProvider>
         </MantineProvider>
       </body>

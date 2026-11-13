@@ -1,6 +1,6 @@
 # Well Da Website
 
-The corporate website for **Well Da Factory Limited** — a precision manufacturing company specializing in CNC machining, sheet metal fabrication, die casting, and surface finishing across electronics, automotive, medical, and industrial sectors.
+The corporate website for **Well Da Metal Factory Limited** — a manufacturer of custom sheet metal parts and assemblies made to customer drawings.
 
 Built with **Next.js 16**, **React 19**, and **Mantine UI v9**.
 
@@ -18,6 +18,24 @@ Built with **Next.js 16**, **React 19**, and **Mantine UI v9**.
 - **YouTube embedding** — reusable component for embedded video content
 - **In-website search** — static search index covering all pages, case studies, FAQ, products, and manufacturing capabilities; pre-built at compile time with client-side search overlay
 - **SEO** — dynamic sitemap with hreflang alternates, robots.txt, canonical host enforcement
+
+## RFQ staff notification and data notice
+
+After a successful database commit, the RFQ endpoint attempts both a customer
+confirmation and an independent internal staff email via the configured SES
+sender. Staff email includes the reference, project/contact summary and an
+authenticated admin detail URL; it never attaches customer CAD files.
+Customer RFQs remain stored if either email fails. Staff notifications are
+addressed only to **eng@wellda.com**, as confirmed by the website owner.
+Staff alerts require the existing SES sender credentials to be configured
+and functioning in the deployed runtime; no separate staff-recipient
+environment variable is required. The personal Gmail customer-test address
+is not a staff notification destination.
+
+The bilingual RFQ data collection notice lives at `/en/privacy` and
+`/zh/privacy` and is linked from the form and public footer. The operator
+must review the factual handling and retention wording before publishing it
+as an approved policy. GA4 remains off.
 
 ## Tech Stack
 
@@ -175,6 +193,47 @@ Create a `.env.local` file with the following variables for the RFQ form backend
 | `SES_SECRET_ACCESS_KEY`    | IAM secret access key for SES        |
 | `SES_SENDER_EMAIL`         | Verified sender email address        |
 | `SES_REGION`               | AWS region for SES (e.g. `ap-southeast-1`) |
+
+**AWS SNS (Internal RFQ Alerts):**
+
+| Variable | Description |
+| --- | --- |
+| `SNS_RFQ_TOPIC_ARN` | ARN of the preconfigured SNS topic; `arn:aws:sns:ap-southeast-1:347912233598:wellda-rfq-internal-alerts` for Well Da |
+
+The handler publishes to the SNS topic **after** the RFQ database transaction
+commits. As of 2026-11-13, the topic's confirmed email subscriber is
+`henrychoi@wellda.com`; SNS subscribers, rather than an application-side
+recipient list, control delivery. Customer confirmation emails still use SES.
+The staff notification contains an RFQ reference, company, project, date, file
+count and an authenticated admin link; it does **not** include customer contact
+details, notes or drawings. Failure to publish does not discard the saved RFQ.
+
+For deployment, attach an **Amplify SSR Compute role** (not merely a build
+service role) with a least-privilege policy allowing only `sns:Publish` on the
+exact topic ARN above. The AWS SDK uses this role's temporary credentials;
+there is no SNS access key or Microsoft Graph secret in the website configuration.
+Set `SNS_RFQ_TOPIC_ARN` in the Amplify server-side build environment before
+building. See [AWS's Amplify SSR Compute role setup](https://docs.aws.amazon.com/amplify/latest/userguide/amplify-SSR-compute-role.html)
+and [SSR environment-variable handling](https://docs.aws.amazon.com/amplify/latest/userguide/ssr-environment-variables.html).
+
+Topic-scoped IAM permission for the runtime role:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [{
+    "Effect": "Allow",
+    "Action": "sns:Publish",
+    "Resource": "arn:aws:sns:ap-southeast-1:347912233598:wellda-rfq-internal-alerts"
+  }]
+}
+```
+
+An SNS `MessageId` means SNS accepted the publication, **not** that Henry's
+mailbox received it. Before enabling production notifications, verify the
+runtime role permission and an isolated RFQ submission through the actual
+deployed handler, then confirm receipt in Outlook. Without the role or topic
+variable, SNS alerts are unavailable but RFQs remain saved.
 
 The RFQ form works without these in development mode — the form renders, but submissions will fail. The rest of the site (pages, search, navigation) does not depend on these variables.
 
@@ -354,7 +413,11 @@ Set all environment variables in the Amplify console under **App settings → En
 
 ## Brand
 
-- **Company:** Well Da Factory Limited
+- **Company:** Well Da Metal Factory Limited
 - **Primary color:** Green (`#45a145`)
 - **Font:** Arial / Helvetica with CJK fallbacks (Microsoft JhengHei, PingFang TC)
-- **Contact:** (+852) 2790 5008 · `eng@wellda.com`
+- **Contact:** (+852) 6151 5732 · `eng@wellda.com`
+
+## SEO and RFQ improvement verification
+
+See [SEO_RFQ_DELIVERY.md](SEO_RFQ_DELIVERY.md) for the Goal 1 + Goal 2 change record, manufacturing sources, local tests and remaining production checks.

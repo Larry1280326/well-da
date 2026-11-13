@@ -2,6 +2,9 @@ import "@mantine/core/styles.css";
 import { MantineProvider, mantineHtmlProps } from "@mantine/core";
 import { theme } from "@/theme/mantine-theme";
 import "../../globals.css";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 export default async function AdminRootLayout({
   children,

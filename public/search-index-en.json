@@ -44,159 +44,180 @@
   {
     "id": "entry-7",
     "type": "page",
+    "title": "Custom Metal Enclosures & Cabinets",
+    "text": "Custom Metal Enclosures & Cabinets",
+    "href": "/applications/custom-metal-enclosures-cabinets"
+  },
+  {
+    "id": "entry-8",
+    "type": "page",
+    "title": "Equipment Housings & Machine Covers",
+    "text": "Equipment Housings & Machine Covers",
+    "href": "/applications/equipment-housings-machine-covers"
+  },
+  {
+    "id": "entry-9",
+    "type": "page",
+    "title": "Custom Sheet Metal Panels & Chassis",
+    "text": "Custom Sheet Metal Panels & Chassis",
+    "href": "/applications/sheet-metal-panels-chassis"
+  },
+  {
+    "id": "entry-10",
+    "type": "page",
     "title": "Custom Metal Enclosures",
     "text": "Custom Metal Enclosures",
     "href": "/applications#custom-metal-enclosures"
   },
   {
-    "id": "entry-8",
+    "id": "entry-11",
     "type": "page",
     "title": "Electrical and Control Boxes",
     "text": "Electrical and Control Boxes",
     "href": "/applications#electrical-and-control-boxes"
   },
   {
-    "id": "entry-9",
+    "id": "entry-12",
     "type": "page",
     "title": "Cabinets and Lockers",
     "text": "Cabinets and Lockers",
     "href": "/applications#cabinets-and-lockers"
   },
   {
-    "id": "entry-10",
+    "id": "entry-13",
     "type": "page",
     "title": "Communication Equipment Housings",
     "text": "Communication Equipment Housings",
     "href": "/applications#communication-equipment-housings"
   },
   {
-    "id": "entry-11",
+    "id": "entry-14",
     "type": "page",
     "title": "Security System Hardware",
     "text": "Security System Hardware",
     "href": "/applications#security-system-hardware"
   },
   {
-    "id": "entry-12",
+    "id": "entry-15",
     "type": "page",
     "title": "Non-Standard Metal Products",
     "text": "Non-Standard Metal Products",
     "href": "/applications#non-standard-metal-products"
   },
   {
-    "id": "entry-13",
+    "id": "entry-16",
     "type": "page",
     "title": "Manufacturing Capabilities",
     "text": "Manufacturing Capabilities",
     "href": "/manufacturing"
   },
   {
-    "id": "entry-14",
+    "id": "entry-17",
     "type": "page",
     "title": "Integrated Sheet Metal Manufacturing",
     "text": "Integrated Sheet Metal Manufacturing",
     "href": "/manufacturing#integrated_sheet_metal"
   },
   {
-    "id": "entry-15",
+    "id": "entry-18",
     "type": "page",
     "title": "Quality & Tolerance",
     "text": "Quality & Tolerance",
     "href": "/quality"
   },
   {
-    "id": "entry-16",
+    "id": "entry-19",
     "type": "page",
     "title": "Quality Control",
     "text": "Quality Control",
     "href": "/quality#control"
   },
   {
-    "id": "entry-17",
+    "id": "entry-20",
     "type": "page",
     "title": "Case Studies",
     "text": "Case Studies",
     "href": "/case-studies"
   },
   {
-    "id": "entry-18",
+    "id": "entry-21",
     "type": "page",
     "title": "Electrical Enclosure",
     "text": "Electrical Enclosure",
     "href": "/case-studies#flat-sheet-to-electrical-enclosure"
   },
   {
-    "id": "entry-19",
+    "id": "entry-22",
     "type": "page",
     "title": "Kiosk Enclosure",
     "text": "Kiosk Enclosure",
     "href": "/case-studies#ordering-kiosk-enclosures"
   },
   {
-    "id": "entry-20",
+    "id": "entry-23",
     "type": "page",
     "title": "FAQ",
     "text": "FAQ",
     "href": "/faq"
   },
   {
-    "id": "entry-21",
+    "id": "entry-24",
     "type": "page",
     "title": "Products & Orders",
     "text": "Products & Orders",
     "href": "/faq#products-orders"
   },
   {
-    "id": "entry-22",
+    "id": "entry-25",
     "type": "page",
     "title": "Manufacturing & Capabilities",
     "text": "Manufacturing & Capabilities",
     "href": "/faq#manufacturing-capabilities"
   },
   {
-    "id": "entry-23",
+    "id": "entry-26",
     "type": "page",
     "title": "Lead Time & Finishing",
     "text": "Lead Time & Finishing",
     "href": "/faq#lead-time-finishing"
   },
   {
-    "id": "entry-24",
+    "id": "entry-27",
     "type": "page",
     "title": "Quality & Compliance",
     "text": "Quality & Compliance",
     "href": "/faq#quality-compliance"
   },
   {
-    "id": "entry-25",
+    "id": "entry-28",
     "type": "page",
     "title": "Shipping & Quotation",
     "text": "Shipping & Quotation",
     "href": "/faq#shipping-quotation"
   },
   {
-    "id": "entry-26",
+    "id": "entry-29",
     "type": "page",
     "title": "Trusted Sheet Metal Manufacturing Since 1992",
     "text": "Custom metal enclosures and sheet metal products made with specified materials, proven workmanship and careful quality control. From electrical boxes and equipment cabinets to non-standard metal components, we manufacture according to your confirmed drawings and project requirements.",
     "href": "/about"
   },
   {
-    "id": "entry-27",
+    "id": "entry-30",
     "type": "page",
     "title": "Flexible Manufacturing for Custom and Non-Standard Projects",
     "text": "We support prototype, low-volume and production orders with flexible manufacturing, practical engineering communication and a complete range of sheet metal processes. Whether you have a finished drawing, a sample or an initial product concept, our team can help evaluate the manufacturing requirements and recommend a suitable production approach.",
     "href": "/about#core-value"
   },
   {
-    "id": "entry-28",
+    "id": "entry-31",
     "type": "page",
     "title": "Trust Line",
     "text": "Our credentials and capabilities reflect decades of dedication to quality and precision in metal manufacturing.",
     "href": "/about#trust-line"
   },
   {
-    "id": "entry-29",
+    "id": "entry-32",
     "type": "product",
     "title": "Custom Metal Enclosures",
     "text": "Custom-fabricated metal housings for electronic equipment, control systems, industrial devices and specialised applications.",
@@ -204,7 +225,7 @@
     "section": "Products & Applications"
   },
   {
-    "id": "entry-30",
+    "id": "entry-33",
     "type": "product",
     "title": "Electrical and Control Boxes",
     "text": "Sheet metal electrical boxes and control enclosures manufactured according to customer drawings, installation requirements and operating environments.",
@@ -212,7 +233,7 @@
     "section": "Products & Applications"
   },
   {
-    "id": "entry-31",
+    "id": "entry-34",
     "type": "product",
     "title": "Cabinets and Lockers",
     "text": "Custom metal cabinets, equipment cabinets and storage lockers designed for industrial, commercial and security applications.",
@@ -220,7 +241,7 @@
     "section": "Products & Applications"
   },
   {
-    "id": "entry-32",
+    "id": "entry-35",
     "type": "product",
     "title": "Communication Equipment Housings",
     "text": "Metal cabinets and enclosures for communication equipment, network hardware and related infrastructure.",
@@ -228,7 +249,7 @@
     "section": "Products & Applications"
   },
   {
-    "id": "entry-33",
+    "id": "entry-36",
     "type": "product",
     "title": "Security System Hardware",
     "text": "Custom metal housings, brackets and supporting components for security, access-control and anti-theft systems.",
@@ -236,7 +257,7 @@
     "section": "Products & Applications"
   },
   {
-    "id": "entry-34",
+    "id": "entry-37",
     "type": "product",
     "title": "Non-Standard Metal Products",
     "text": "Made-to-order sheet metal products for projects that cannot be fulfilled with standard off-the-shelf components.",
@@ -244,7 +265,31 @@
     "section": "Products & Applications"
   },
   {
-    "id": "entry-35",
+    "id": "entry-38",
+    "type": "product",
+    "title": "Custom Metal Enclosures & Cabinets",
+    "text": "Well Da manufactures custom sheet metal enclosures and cabinets to customer drawings. The metalwork can include cabinet bodies, doors, removable panels and mounting openings for equipment and electronic hardware. Typical uses include equipment cabinets, communication hardware housings and metal boxes for control equipment. Door positions, cable openings, mounting holes and panel interfaces follow the confirmed drawing. The scope is the fabricated metalwork; electrical wiring and complete electrical control panels are not included in this service description. Available sheet materials include mild steel, stainless steel, electrolytic steel sheet and aluminium. Cutting or punching creates profiles and openings; bending forms the body and doors; welding joins suitable structures. Grinding, powder coating, stainless-steel brushing, polishing and silk screening are selected to suit the agreed material and finish. Send dimensioned drawings and, where available, a 3D model. We review material, thickness, interfaces, critical dimensions, finishing and assembly requirements before agreeing the manufacturing scope. Prototype and small-batch work can be used to confirm fit before repeat production. Revisions and acceptance requirements should be confirmed for each order.",
+    "href": "/applications/custom-metal-enclosures-cabinets",
+    "section": "Products & Applications"
+  },
+  {
+    "id": "entry-39",
+    "type": "product",
+    "title": "Equipment Housings & Machine Covers",
+    "text": "Well Da fabricates non-standard metal housings and covers to match the customer’s equipment design. Work can include outer housings, machine covers, removable lids and maintenance access panels. Equipment builders can specify cover profiles, service openings, attachment points and removable sections to suit their own machine layout. Provide adjoining-part dimensions and clearances so the cover can be reviewed as part of the equipment assembly. A fabricated cover does not establish machine safety certification or an IP protection rating. Mild steel, stainless steel, electrolytic steel sheet and aluminium can be evaluated against the drawing and operating environment. Laser cutting or punching forms cut-outs and fixing holes. Bending shapes the covers; welding is used where the design calls for joined parts. Powder coating or suitable stainless-steel finishing can be specified for the agreed surface requirements. Begin with drawings showing the equipment interfaces and the required material and finish. A prototype or small batch can support checks of fit, access and installation before repeat production. Any changes to hole positions, panel clearances or assembly details are confirmed against the drawing revision before manufacture.",
+    "href": "/applications/equipment-housings-machine-covers",
+    "section": "Products & Applications"
+  },
+  {
+    "id": "entry-40",
+    "type": "product",
+    "title": "Custom Sheet Metal Panels & Chassis",
+    "text": "Well Da produces custom front panels, instrument and equipment panels, mounting plates, chassis and metal enclosure frames from customer drawings. Hole patterns, bends and printed markings are manufactured to the agreed specification. Applications include front faces for instruments, access-control equipment panels, internal mounting plates and chassis supporting equipment components. Provide cut-outs, connector positions, mounting interfaces and visible-surface requirements. Metal control panels here refer to fabricated panels, without electrical components or wiring. Sheet materials include mild steel, stainless steel, electrolytic steel sheet and aluminium. Cutting and punching create profiles and apertures; bending forms flanges; welding joins chassis sections where required. Finishing and silk-screen printing can add the agreed surface appearance and legends. Confirm artwork, orientation and drawing revision before production. Submit dimensioned drawings with critical hole centres, mating dimensions and assembly information. We review material, thickness, finish, markings and inspection requirements. Prototype, small-batch and repeat orders are supported, with the production scope and any assembly work confirmed for the specific project.",
+    "href": "/applications/sheet-metal-panels-chassis",
+    "section": "Products & Applications"
+  },
+  {
+    "id": "entry-41",
     "type": "capability",
     "title": "Shearing and sheet cutting",
     "text": "Shearing and sheet cutting",
@@ -252,7 +297,7 @@
     "section": "Manufacturing Capabilities"
   },
   {
-    "id": "entry-36",
+    "id": "entry-42",
     "type": "capability",
     "title": "Punching and laser cutting",
     "text": "Punching and laser cutting",
@@ -260,7 +305,7 @@
     "section": "Manufacturing Capabilities"
   },
   {
-    "id": "entry-37",
+    "id": "entry-43",
     "type": "capability",
     "title": "Bending and forming",
     "text": "Bending and forming",
@@ -268,7 +313,7 @@
     "section": "Manufacturing Capabilities"
   },
   {
-    "id": "entry-38",
+    "id": "entry-44",
     "type": "capability",
     "title": "Laser, TIG, spot and arc welding",
     "text": "Laser, TIG, spot and arc welding",
@@ -276,7 +321,7 @@
     "section": "Manufacturing Capabilities"
   },
   {
-    "id": "entry-39",
+    "id": "entry-45",
     "type": "capability",
     "title": "Grinding and polishing",
     "text": "Grinding and polishing",
@@ -284,7 +329,7 @@
     "section": "Manufacturing Capabilities"
   },
   {
-    "id": "entry-40",
+    "id": "entry-46",
     "type": "capability",
     "title": "Powder coating",
     "text": "Powder coating",
@@ -292,7 +337,7 @@
     "section": "Manufacturing Capabilities"
   },
   {
-    "id": "entry-41",
+    "id": "entry-47",
     "type": "capability",
     "title": "Stainless-steel brushing and mirror finishing",
     "text": "Stainless-steel brushing and mirror finishing",
@@ -300,7 +345,7 @@
     "section": "Manufacturing Capabilities"
   },
   {
-    "id": "entry-42",
+    "id": "entry-48",
     "type": "capability",
     "title": "Silk-screen printing",
     "text": "Silk-screen printing",
@@ -308,7 +353,7 @@
     "section": "Manufacturing Capabilities"
   },
   {
-    "id": "entry-43",
+    "id": "entry-49",
     "type": "capability",
     "title": "Product assembly and packing",
     "text": "Product assembly and packing",
@@ -316,21 +361,21 @@
     "section": "Manufacturing Capabilities"
   },
   {
-    "id": "entry-44",
+    "id": "entry-50",
     "type": "page",
     "title": "Integrated Sheet Metal Manufacturing Capabilities",
     "text": "Our manufacturing capabilities cover the key stages required to produce custom metal products, from material preparation and forming to finishing and final assembly. We work with steel, stainless steel, electrolytic steel sheet and aluminium according to project requirements.",
     "href": "/manufacturing"
   },
   {
-    "id": "entry-45",
+    "id": "entry-51",
     "type": "page",
     "title": "Controlled Quality from Drawing Review to Final Inspection",
     "text": "Every project begins with a review of the drawing, material, dimensions, surface finish and application requirements. For suitable sheet metal components, manufacturing precision of up to ±0.2 mm may be achieved, depending on product design, material, thickness and production process. Inspection requirements can include dimensional checks, welding quality, surface finishing, assembly and final appearance.",
     "href": "/quality"
   },
   {
-    "id": "entry-46",
+    "id": "entry-52",
     "type": "case-study",
     "title": "From Flat Sheet to Finished Electrical Enclosure",
     "text": "For this custom electrical box project, the production process included sheet cutting, punching or laser opening, bending, welding, grinding, powder coating, silk-screen printing and final assembly.\n\nBy coordinating each manufacturing stage around the confirmed drawing, the enclosure was produced according to the required dimensions, appearance and functional requirements.",
@@ -338,15 +383,15 @@
     "section": "Case Studies"
   },
   {
-    "id": "entry-47",
+    "id": "entry-53",
     "type": "case-study",
     "title": "Ordering Kiosk Enclosure",
-    "text": "A rugged, purpose-built enclosure designed for self-service ordering kiosks. The cabinet features integrated cable management routing and efficient ventilation to support internal hardware components. Manufactured to the client's exact 42U rack-mount specifications, all panels are produced through precision laser cutting, CNC bending, structural welding, and a durable powder-coated finish—ensuring long-lasting durability and a clean, professional appearance suitable for public-facing environments.",
+    "text": "This existing project shows sheet metal enclosures for self-service ordering kiosks. The photographs illustrate the outer metal housing and panel openings. For a similar project, provide your own equipment dimensions, mounting interfaces and finish requirements for drawing review.",
     "href": "/case-studies#ordering-kiosk-enclosures",
     "section": "Case Studies"
   },
   {
-    "id": "entry-48",
+    "id": "entry-54",
     "type": "faq",
     "title": "What types of products do you manufacture?",
     "text": "We manufacture custom sheet metal parts, enclosures, housings, cabinets, panels and non-standard metal products based on customer drawings or design requirements. Typical applications include intercom systems, ordering kiosks, electrical equipment, communication systems, security equipment, lockers and precision equipment housings.",
@@ -354,7 +399,7 @@
     "section": "Products & Orders"
   },
   {
-    "id": "entry-49",
+    "id": "entry-55",
     "type": "faq",
     "title": "Do you have a minimum order quantity?",
     "text": "There is no fixed minimum order quantity. We can support single-piece prototypes, small-batch orders and production quantities. Pricing will depend on the material, manufacturing process, setup requirements and order quantity.",
@@ -362,7 +407,7 @@
     "section": "Products & Orders"
   },
   {
-    "id": "entry-50",
+    "id": "entry-56",
     "type": "faq",
     "title": "What drawing formats do you accept?",
     "text": "We can review common engineering drawing and 3D file formats, including: - PDF - CAD drawings - DXF - STEP Please include dimensions, material, thickness, tolerance, surface finish and quantity whenever possible.",
@@ -370,14 +415,14 @@
     "section": "Products & Orders"
   },
   {
-    "id": "entry-51",
+    "id": "entry-57",
     "type": "page",
     "title": "Products & Orders",
     "text": "Products & Orders",
     "href": "/faq#products-orders"
   },
   {
-    "id": "entry-52",
+    "id": "entry-58",
     "type": "faq",
     "title": "Can you manufacture from a sample?",
     "text": "Sample-based evaluation may be possible, depending on the product. However, drawings or dimensional information are strongly recommended to improve quotation accuracy and reduce the risk of misunderstanding.",
@@ -385,7 +430,7 @@
     "section": "Manufacturing & Capabilities"
   },
   {
-    "id": "entry-53",
+    "id": "entry-59",
     "type": "faq",
     "title": "What materials can you work with?",
     "text": "Our commonly used materials include: - Mild steel - Stainless steel - Aluminium - Electrolytic steel sheet Material grade and thickness should be specified in the drawing or enquiry. Alternative materials may be reviewed case by case.",
@@ -393,7 +438,7 @@
     "section": "Manufacturing & Capabilities"
   },
   {
-    "id": "entry-54",
+    "id": "entry-60",
     "type": "faq",
     "title": "What manufacturing processes are available?",
     "text": "Our capabilities include: - Shearing and cutting - Laser cutting - Punching - Bending - Welding - Grinding and polishing - Powder coating - Silk-screen printing - Assembly The final manufacturing route will be selected according to the product design, material, tolerance and order quantity.",
@@ -401,7 +446,7 @@
     "section": "Manufacturing & Capabilities"
   },
   {
-    "id": "entry-55",
+    "id": "entry-61",
     "type": "faq",
     "title": "What tolerance can you achieve?",
     "text": "Depending on the material, part geometry and manufacturing process, dimensional tolerance may reach approximately ±0.2 mm. Not every dimension can be controlled to the same tolerance. Critical dimensions and inspection requirements should be clearly identified on the drawing for engineering review.",
@@ -409,7 +454,7 @@
     "section": "Manufacturing & Capabilities"
   },
   {
-    "id": "entry-56",
+    "id": "entry-62",
     "type": "faq",
     "title": "Can you produce prototypes?",
     "text": "Yes. We can support prototypes and trial production before mass production. Prototype lead time is commonly around one week, depending on material availability, product complexity, finishing requirements and engineering confirmation.",
@@ -417,14 +462,14 @@
     "section": "Manufacturing & Capabilities"
   },
   {
-    "id": "entry-57",
+    "id": "entry-63",
     "type": "page",
     "title": "Manufacturing & Capabilities",
     "text": "Manufacturing & Capabilities",
     "href": "/faq#manufacturing-capabilities"
   },
   {
-    "id": "entry-58",
+    "id": "entry-64",
     "type": "faq",
     "title": "What is the typical production lead time?",
     "text": "Lead time depends on product complexity, quantity, material availability and surface treatment. Simple orders may be completed in approximately 8 working days, while larger production orders commonly require around one month, including sample approval where applicable. The confirmed lead time will be stated in the quotation.",
@@ -432,7 +477,7 @@
     "section": "Lead Time & Finishing"
   },
   {
-    "id": "entry-59",
+    "id": "entry-65",
     "type": "faq",
     "title": "What surface finishes are available?",
     "text": "Available surface treatments include: - Powder coating in different colours - Stainless steel brushing - Mirror finishing - Polishing - Silk-screen printing Colour references, surface standards and appearance requirements should be provided before production.",
@@ -440,14 +485,14 @@
     "section": "Lead Time & Finishing"
   },
   {
-    "id": "entry-60",
+    "id": "entry-66",
     "type": "page",
     "title": "Lead Time & Finishing",
     "text": "Lead Time & Finishing",
     "href": "/faq#lead-time-finishing"
   },
   {
-    "id": "entry-61",
+    "id": "entry-67",
     "type": "faq",
     "title": "Can you manufacture outdoor or weather-resistant products?",
     "text": "We can manufacture products with outdoor anti-rust and water-resistance requirements through material selection, structural design, welding, sealing and surface treatment. However, an IP rating or other certified protection level should only be claimed after appropriate testing. Third-party testing may be arranged on a project basis, subject to the customer's requirements, budget and testing standard.",
@@ -455,7 +500,7 @@
     "section": "Quality & Compliance"
   },
   {
-    "id": "entry-62",
+    "id": "entry-68",
     "type": "faq",
     "title": "Are you ISO certified?",
     "text": "Our manufacturing operation follows an ISO 9001 quality management system. Relevant certification information may be provided during supplier qualification or project discussion.",
@@ -463,7 +508,7 @@
     "section": "Quality & Compliance"
   },
   {
-    "id": "entry-63",
+    "id": "entry-69",
     "type": "faq",
     "title": "How do you control product quality?",
     "text": "Quality control may include incoming material checking, dimensional inspection, in-process inspection, appearance checking and final inspection before shipment. Inspection requirements, critical dimensions and acceptance criteria should be confirmed before production.",
@@ -471,7 +516,7 @@
     "section": "Quality & Compliance"
   },
   {
-    "id": "entry-64",
+    "id": "entry-70",
     "type": "faq",
     "title": "Can you help improve my design for manufacturing?",
     "text": "Yes. Our engineering team can review drawings for manufacturability and may suggest adjustments relating to bending, hole positions, welding access, material use, tolerances, assembly and production efficiency. Any design changes will be discussed with the customer before production.",
@@ -479,14 +524,14 @@
     "section": "Quality & Compliance"
   },
   {
-    "id": "entry-65",
+    "id": "entry-71",
     "type": "page",
     "title": "Quality & Compliance",
     "text": "Quality & Compliance",
     "href": "/faq#quality-compliance"
   },
   {
-    "id": "entry-66",
+    "id": "entry-72",
     "type": "faq",
     "title": "Can you arrange international shipping?",
     "text": "Yes. Depending on the shipment size and destination, delivery may be arranged by courier, air freight or sea freight. Customers may also nominate their own freight forwarder or arrange factory collection. Freight, customs duties, taxes and import clearance responsibilities will be confirmed separately.",
@@ -494,7 +539,7 @@
     "section": "Shipping & Quotation"
   },
   {
-    "id": "entry-67",
+    "id": "entry-73",
     "type": "faq",
     "title": "What information is required for a quotation?",
     "text": "For a more accurate quotation, please provide: - 2D drawing or 3D model - Material and material grade - Material thickness - Order quantity - Required tolerances - Surface finish - Colour requirements - Assembly requirements - Inspection or testing requirements - Delivery destination - Required delivery date Incomplete information may result in a preliminary quotation that is subject to engineering confirmation.",
@@ -502,7 +547,7 @@
     "section": "Shipping & Quotation"
   },
   {
-    "id": "entry-68",
+    "id": "entry-74",
     "type": "faq",
     "title": "How quickly can I receive a quotation?",
     "text": "Quotation time depends on the complexity and completeness of the enquiry. Straightforward parts may be reviewed quickly, while assemblies, tight-tolerance products or projects requiring material and process evaluation may require additional engineering review. Providing complete drawings and requirements will help shorten the quotation process.",
@@ -510,14 +555,14 @@
     "section": "Shipping & Quotation"
   },
   {
-    "id": "entry-69",
+    "id": "entry-75",
     "type": "page",
     "title": "Shipping & Quotation",
     "text": "Shipping & Quotation",
     "href": "/faq#shipping-quotation"
   },
   {
-    "id": "entry-70",
+    "id": "entry-76",
     "type": "page",
     "title": "Have a Drawing or Custom Metal Project?",
     "text": "Send us your drawing, CAD, DXF or STEP file together with the required material, thickness, quantity, surface finish and delivery schedule. Our team will review the manufacturing requirements and prepare a quotation based on your project specifications.",

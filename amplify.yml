@@ -22,6 +22,7 @@ frontend:
         - echo "SES_SECRET_ACCESS_KEY=$SES_SECRET_ACCESS_KEY" >> .env
         - echo "SES_SENDER_EMAIL=$SES_SENDER_EMAIL" >> .env
         - echo "SES_REGION=$SES_REGION" >> .env
+        - echo "SNS_RFQ_TOPIC_ARN=$SNS_RFQ_TOPIC_ARN" >> .env
         - npm run build
   artifacts:
     baseDirectory: .next
