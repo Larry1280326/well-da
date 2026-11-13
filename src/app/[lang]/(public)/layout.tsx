@@ -66,6 +66,11 @@ export default async function RootLayout({
               logo: `${SITE_URL}/logo.jpg`, email: "eng@wellda.com", telephone: "+85261515732",
             }).replace(/</g, "\\u003c") }} />
             <main>{children}</main>
+            <footer style={{ textAlign: "center", padding: "24px 16px", borderTop: "1px solid #ececec" }}>
+              <a href={`/${lang}/privacy`} style={{ color: "#495057", fontSize: "14px" }}>
+                {lang === "zh" ? "詢價資料及私隱告知" : "RFQ data collection & privacy notice"}
+              </a>
+            </footer>
           </LocaleProvider>
         </MantineProvider>
       </body>

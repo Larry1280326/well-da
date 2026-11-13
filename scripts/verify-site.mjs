@@ -6,7 +6,7 @@ const origin = process.env.SITE_TEST_ORIGIN || "http://127.0.0.1:3000";
 if (!["127.0.0.1", "localhost", "[::1]"].includes(new URL(origin).hostname)) throw new Error("Use a local test server only.");
 const host = "https://www.wellda.com";
 const slugs = ["custom-metal-enclosures-cabinets", "equipment-housings-machine-covers", "sheet-metal-panels-chassis"];
-const routes = ["", "/about", "/applications", "/manufacturing", "/quality", "/case-studies", "/quotation", "/faq", ...slugs.map(s => `/applications/${s}`)];
+const routes = ["", "/about", "/applications", "/manufacturing", "/quality", "/case-studies", "/quotation", "/faq", "/privacy", ...slugs.map(s => `/applications/${s}`)];
 const pages = new Map();
 const titles = new Set(), descriptions = new Set();
 const decode = s => s.replaceAll("&amp;", "&").replaceAll("&quot;", '"').replaceAll("&#x27;", "'");

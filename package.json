@@ -11,7 +11,7 @@
     "build-search-index": "npx tsx scripts/generate-search-index.ts",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --test tests/rfq.test.mjs",
+    "test": "node --test tests/*.test.mjs",
     "test:site": "node scripts/verify-site.mjs",
     "typecheck": "tsc --noEmit",
     "preview:rfq-test": "node tests/rfq-preview.mjs"

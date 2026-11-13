@@ -90,3 +90,63 @@ export async function sendConfirmationEmail(
 
   return { sent: true };
 }
+
+// Sent only after the RFQ transaction commits. Does not attach customer drawings.
+export interface InternalRfqNotificationParams {
+  rfqId: number;
+  reference: string;
+  companyName: string;
+  projectName: string;
+  contactName: string;
+  contactEmail: string;
+  submittedAt: string;
+  fileCount: number;
+}
+
+export async function sendInternalRfqNotification(
+  params: InternalRfqNotificationParams,
+): Promise<EmailResult> {
+  const to = process.env.RFQ_NOTIFICATION_EMAIL?.trim();
+  if (!to) return { sent: false, error: "RFQ_NOTIFICATION_EMAIL not configured" };
+  if (!/^[^\s@,;]+@[^\s@,;]+\.[^\s@,;]+$/.test(to)) {
+    console.error("RFQ internal notification recipient is invalid.");
+    return { sent: false, error: "Invalid internal notification recipient" };
+  }
+  if (!["SES_REGION", "SES_ACCESS_KEY_ID", "SES_SECRET_ACCESS_KEY", "SES_SENDER_EMAIL"].every(key => process.env[key])) {
+    return { sent: false, error: "SES not configured" };
+  }
+
+  // Plain text: no customer-provided HTML or attachments are included in email.
+  // The administrator retrieves drawings from the authenticated RFQ detail screen.
+  const message = [
+    "A new website RFQ has been saved to the Well Da database.",
+    "",
+    "Reference: " + params.reference,
+    "Company: " + params.companyName,
+    "Project: " + params.projectName,
+    "Contact: " + params.contactName,
+    "Customer email: " + params.contactEmail,
+    "Submitted: " + params.submittedAt,
+    "Drawing files: " + params.fileCount,
+    "",
+    "View after signing in:",
+    "https://www.wellda.com/en/administrator/rfq/" + params.rfqId,
+    "",
+    "Do not forward confidential drawings outside approved channels.",
+  ].join("\n");
+
+  try {
+    await getSesClient().send(new SendEmailCommand({
+      Source: process.env.SES_SENDER_EMAIL!,
+      Destination: { ToAddresses: [to] },
+      Message: {
+        Subject: { Data: "New website RFQ - " + params.reference, Charset: "UTF-8" },
+        Body: { Text: { Data: message, Charset: "UTF-8" } },
+      },
+    }));
+    return { sent: true };
+  } catch (err) {
+    console.error("RFQ internal notification SES failure:", (err as Error).name);
+    return { sent: false, error: "SES notification failed" };
+  }
+}

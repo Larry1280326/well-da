@@ -282,8 +282,9 @@
           "requireNdaLabel": "I require an NDA before providing further confidential information."
         },
         "privacy": {
-          "text": "Your files and information will be used solely for quotation, technical review and manufacturing feasibility assessment.",
-          "checkboxLabel": "I confirm these details are correct and consent to Well Da using my information and files to assess and respond to this enquiry."
+          "text": "We use your RFQ details and files to assess and respond to your enquiry. Please read how we handle them.",
+          "checkboxLabel": "I confirm these details are correct and I have read the RFQ data collection notice.",
+          "noticeLinkLabel": "Read the RFQ Data Collection & Privacy Notice"
         }
       },
       "fields": {

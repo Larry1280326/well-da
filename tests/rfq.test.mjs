@@ -10,10 +10,10 @@ const { parseQuantity, sourcePage } = await load("src/lib/rfq-source.ts", "sourc
 const { trackRfqSuccess } = await load("src/lib/rfq-measurement.ts", "measurement");
 const { refreshRfqFileUrl } = await load("src/lib/s3.ts", "storage");
 const { NextRequest } = require("next/server");
-let queries, uploads, deleted, emails, released, failQuery, failUpload, failConnect, failEmail;
+let queries, uploads, deleted, emails, notifications, released, failQuery, failUpload, failConnect, failEmail, failNotification;
 beforeEach(() => {
-  queries = []; uploads = []; deleted = []; emails = []; released = false;
-  failQuery = failUpload = failConnect = failEmail = false;
+  queries = []; uploads = []; deleted = []; emails = []; notifications = []; released = false;
+  failQuery = failUpload = failConnect = failEmail = failNotification = false;
   globalThis.__rfqTest = {
     getClient: async () => {
       if (failConnect) throw new Error("isolated connection failure");
@@ -29,6 +29,11 @@ beforeEach(() => {
       return { key: fileName, url: `https://test.invalid/${fileName}` };
     },
     deleteFile: async key => { deleted.push(key); },
+    sendInternalRfqNotification: async params => {
+      assert.ok(queries.some(q => q.sql === "COMMIT"), "staff notification must follow commit");
+      notifications.push(params);
+      return { sent: !failNotification };
+    },
     sendConfirmationEmail: async params => {
       assert.ok(queries.some(q => q.sql === "COMMIT"), "email must follow commit");
       emails.push(params);
@@ -65,11 +70,11 @@ test("successful multipart submission persists all files, quantities, requiremen
   assert.equal(material[4], "Per drawing"); assert.deepEqual(material[9], ["Silk Screen"]);
   const technical = queries.find(q => q.sql.includes("INSERT INTO additional_technical_requirements")).values[5];
   assert.match(technical, /Keep this technical requirement/); assert.match(technical, /\[Website source page\] \/en\/applications\/custom-metal-enclosures-cabinets$/);
-  assert.ok(!technical.includes("private")); assert.equal(emails.length, 1); assert.equal(released, true);
+  assert.ok(!technical.includes("private")); assert.equal(emails.length, 1); assert.equal(notifications.length, 1); assert.equal(notifications[0].fileCount, 2); assert.equal(released, true);
 });
 test("DB connection failure cleans every pre-uploaded file", async () => {
   failConnect = true; const res = await POST(request());
-  assert.equal(res.status, 500); assert.deepEqual(deleted, ["drawing.pdf", "part.step"]); assert.equal(emails.length, 0);
+  assert.equal(res.status, 500); assert.deepEqual(deleted, ["drawing.pdf", "part.step"]); assert.equal(emails.length, 0); assert.equal(notifications.length, 0);
 });
 test("second upload failure cleans first file without writing to DB", async () => {
   failUpload = true; assert.equal((await POST(request())).status, 500);
@@ -78,13 +83,24 @@ test("second upload failure cleans first file without writing to DB", async () =
 test("failed file record rolls back transaction and deletes attachments", async () => {
   failQuery = true; assert.equal((await POST(request())).status, 500);
   assert.ok(queries.some(q => q.sql === "ROLLBACK")); assert.ok(!queries.some(q => q.sql === "COMMIT"));
-  assert.equal(deleted.length, 2); assert.equal(emails.length, 0); assert.equal(released, true);
+  assert.equal(deleted.length, 2); assert.equal(emails.length, 0); assert.equal(notifications.length, 0); assert.equal(released, true);
 });
 test("email failure after commit preserves RFQ and attachments", async () => {
   failEmail = true; const res = await POST(request()); const body = await res.json();
   assert.equal(res.status, 201); assert.equal(body.persisted, true); assert.equal(body.data.emailSent, false);
   assert.equal(deleted.length, 0); assert.ok(!queries.some(q => q.sql === "ROLLBACK"));
 });
+test("staff notification failure cannot lose a committed RFQ", async () => {
+  failNotification = true;
+  const res = await POST(request());
+  const body = await res.json();
+  assert.equal(res.status, 201);
+  assert.equal(body.persisted, true);
+  assert.equal(notifications.length, 1);
+  assert.ok(queries.some(q => q.sql === "COMMIT"));
+  assert.ok(!queries.some(q => q.sql === "ROLLBACK"));
+});
+
 test("honeypot does not persist or return a conversion-eligible response", async () => {
   const body = await (await POST(request({ website: "bot" }))).json();
   assert.equal(body.persisted, false); assert.equal(queries.length, 0); assert.equal(uploads.length, 0);

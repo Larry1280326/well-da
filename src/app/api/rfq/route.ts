@@ -3,7 +3,7 @@ import { getClient } from "@/lib/db";
 import { uploadFile, deleteFile } from "@/lib/s3";
 import { validateRfqInput } from "@/lib/validation";
 import { checkRateLimit } from "@/lib/rate-limit";
-import { sendConfirmationEmail } from "@/lib/email";
+import { sendConfirmationEmail, sendInternalRfqNotification } from "@/lib/email";
 import { sourcePage } from "@/lib/rfq-source";
 import { MAX_TOTAL_SIZE } from "@/lib/types/rfq";
 import type { FileInfo } from "@/lib/types/rfq";
@@ -317,6 +317,19 @@ export async function POST(request: NextRequest) {
       // Build submitted date (used by both email and response)
       const submittedAt = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
 
+      // Start the staff notification after COMMIT, independently of customer email.
+      // Missing configuration or SES failure never rolls back a saved RFQ.
+      const internalNotification = sendInternalRfqNotification({
+        rfqId,
+        reference: referenceNumber,
+        companyName: validFields.company_name,
+        projectName: validFields.project_name,
+        contactName: validFields.contact_name,
+        contactEmail: validFields.email,
+        submittedAt,
+        fileCount: uploadedFiles.length,
+      }).catch(() => ({ sent: false }));
+
       // ---- Send confirmation email (await with timeout) ----
       const emailLang = formData.get("lang") === "zh" ? "zh" : "en";
       const emailPromise = sendConfirmationEmail({
@@ -337,6 +350,19 @@ export async function POST(request: NextRequest) {
       );
       const emailResult = await Promise.race([emailPromise, timeoutPromise]);
       clearTimeout(emailTimer!);
+
+      // Bounded wait for staff notification (do not expose its status to the customer).
+      let notificationTimer: ReturnType<typeof setTimeout>;
+      const notificationResult = await Promise.race([
+        internalNotification,
+        new Promise<{ sent: false }>((resolve) =>
+          notificationTimer = setTimeout(() => resolve({ sent: false }), 5000),
+        ),
+      ]);
+      clearTimeout(notificationTimer!);
+      if (!notificationResult.sent && process.env.RFQ_NOTIFICATION_EMAIL) {
+        console.error("RFQ staff notification not confirmed:", referenceNumber);
+      }
 
       // Build success response data
       const emailSent = emailResult.sent;

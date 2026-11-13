@@ -11,6 +11,7 @@ const routes = [
   "/case-studies",
   "/quotation",
   "/faq",
+  "/privacy",
   ...productSlugs.map(slug => `/applications/${slug}`),
 ] as const;
 

@@ -14,7 +14,7 @@ export async function load(entry, name, services = false) {
         empty: "",
         db: "export const getClient = (...a) => globalThis.__rfqTest.getClient(...a);",
         s3: "export const uploadFile = (...a) => globalThis.__rfqTest.uploadFile(...a); export const deleteFile = (...a) => globalThis.__rfqTest.deleteFile(...a);",
-        email: "export const sendConfirmationEmail = (...a) => globalThis.__rfqTest.sendConfirmationEmail(...a);",
+        email: "export const sendConfirmationEmail = (...a) => globalThis.__rfqTest.sendConfirmationEmail(...a); export const sendInternalRfqNotification = (...a) => globalThis.__rfqTest.sendInternalRfqNotification(...a);",
       })[args.path], loader: "js" }));
     } }],
   });

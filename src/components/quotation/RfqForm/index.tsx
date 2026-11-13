@@ -400,6 +400,7 @@ export function RfqForm({ dict, lang }: { dict: RfqFormDict; lang: string }) {
           onAdditionalOptionsChange={setAdditionalOptions}
         />
         <PrivacySection
+          lang={lang}
           dict={dict}
           disabled={isSubmitting}
           error={errors.privacy_accepted}

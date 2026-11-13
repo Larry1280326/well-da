@@ -19,6 +19,23 @@ Built with **Next.js 16**, **React 19**, and **Mantine UI v9**.
 - **In-website search** — static search index covering all pages, case studies, FAQ, products, and manufacturing capabilities; pre-built at compile time with client-side search overlay
 - **SEO** — dynamic sitemap with hreflang alternates, robots.txt, canonical host enforcement
 
+## RFQ staff notification and data notice
+
+After a successful database commit, the RFQ endpoint attempts both a customer
+confirmation and an independent internal staff email via the configured SES
+sender. Staff email includes the reference, project/contact summary and an
+authenticated admin detail URL; it never attaches customer CAD files.
+Customer RFQs remain stored if either email fails. Missing or invalid
+`RFQ_NOTIFICATION_EMAIL` disables staff alerts and logs a failure when configured
+delivery cannot be confirmed; it must be set to **one verified, monitored
+Well Da staff inbox** before production acceptance. Never use the personal
+Gmail customer-test address as the default staff alert recipient.
+
+The bilingual RFQ data collection notice lives at `/en/privacy` and
+`/zh/privacy` and is linked from the form and public footer. The operator
+must review the factual handling and retention wording before publishing it
+as an approved policy. GA4 remains off.
+
 ## Tech Stack
 
 | Layer          | Technology                          |
