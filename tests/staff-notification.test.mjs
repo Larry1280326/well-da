@@ -39,11 +39,11 @@ beforeEach(() => {
   });
 });
 after(() => { for (const k of keys) if (previous[k] === undefined) delete process.env[k]; else process.env[k] = previous[k]; });
-test("internal alert sends only to eng@wellda.com, with reference, contact and no drawing payload", async () => {
+test("internal alert sends only to henrychoi@wellda.com, with reference, contact and no drawing payload", async () => {
   assert.equal((await sendInternalRfqNotification(params)).sent, true);
   assert.equal(captured.length, 1);
   const m = captured[0];
-  assert.deepEqual(m.Destination.ToAddresses, ["eng@wellda.com"]);
+  assert.deepEqual(m.Destination.ToAddresses, ["henrychoi@wellda.com"]);
   assert.match(m.Message.Subject.Data, /RFQ-2026-000042/);
   assert.match(m.Message.Body.Text.Data, /buyer@example.invalid/);
   assert.match(m.Message.Body.Text.Data, /\/en\/administrator\/rfq\/42/);

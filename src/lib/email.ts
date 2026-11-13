@@ -103,7 +103,7 @@ export interface InternalRfqNotificationParams {
   fileCount: number;
 }
 
-const RFQ_STAFF_NOTIFICATION_RECIPIENT = "eng@wellda.com";
+const RFQ_STAFF_NOTIFICATION_RECIPIENT = "henrychoi@wellda.com";
 
 export async function sendInternalRfqNotification(
   params: InternalRfqNotificationParams,
