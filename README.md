@@ -194,32 +194,46 @@ Create a `.env.local` file with the following variables for the RFQ form backend
 | `SES_SENDER_EMAIL`         | Verified sender email address        |
 | `SES_REGION`               | AWS region for SES (e.g. `ap-southeast-1`) |
 
-**Microsoft 365 / Microsoft Graph (Internal RFQ Alerts):**
+**AWS SNS (Internal RFQ Alerts):**
 
-| Variable             | Description |
-| -------------------- | ----------- |
-| `M365_TENANT_ID`     | Microsoft Entra tenant (directory) ID |
-| `M365_CLIENT_ID`     | Application (client) ID of the website's app registration |
-| `M365_CLIENT_SECRET` | Client secret value for that app; server-side only, never commit it |
+| Variable | Description |
+| --- | --- |
+| `SNS_RFQ_TOPIC_ARN` | ARN of the preconfigured SNS topic; `arn:aws:sns:ap-southeast-1:347912233598:wellda-rfq-internal-alerts` for Well Da |
 
-The website sends the internal RFQ alert through Microsoft Graph from
-`eng@wellda.com` to `henrychoi@wellda.com`. Customer confirmation emails
-continue through SES. Internal notifications are attempted **after** the RFQ
-transaction commits; failure does not discard the customer's RFQ. The alert
-contains the reference, contact and an authenticated admin link, not drawings.
+The handler publishes to the SNS topic **after** the RFQ database transaction
+commits. As of 2026-11-13, the topic's confirmed email subscriber is
+`henrychoi@wellda.com`; SNS subscribers, rather than an application-side
+recipient list, control delivery. Customer confirmation emails still use SES.
+The staff notification contains an RFQ reference, company, project, date, file
+count and an authenticated admin link; it does **not** include customer contact
+details, notes or drawings. Failure to publish does not discard the saved RFQ.
 
-A Microsoft 365 / Exchange administrator must configure the website app as a
-service principal and grant **Exchange Online RBAC for Applications** with the
-`Application Mail.Send` role **scoped only to the `eng@wellda.com` mailbox**.
-Do **not** also grant tenant-wide Microsoft Entra `Mail.Send` application
-permission: those authorizations are additive and would bypass the mailbox
-restriction. Use a dedicated credential, set the three variables only in
-approved server-side Amplify environment settings, and validate the role with
-in-scope and out-of-scope authorization tests. A Graph HTTP 202 means only
-accepted for processing; confirm actual delivery in Henry's inbox before
-calling this deployment verified. Until M365 configuration exists, internal
-email alerts are logged as unavailable, while SES customer confirmations
-are unaffected.
+For deployment, attach an **Amplify SSR Compute role** (not merely a build
+service role) with a least-privilege policy allowing only `sns:Publish` on the
+exact topic ARN above. The AWS SDK uses this role's temporary credentials;
+there is no SNS access key or Microsoft Graph secret in the website configuration.
+Set `SNS_RFQ_TOPIC_ARN` in the Amplify server-side build environment before
+building. See [AWS's Amplify SSR Compute role setup](https://docs.aws.amazon.com/amplify/latest/userguide/amplify-SSR-compute-role.html)
+and [SSR environment-variable handling](https://docs.aws.amazon.com/amplify/latest/userguide/ssr-environment-variables.html).
+
+Topic-scoped IAM permission for the runtime role:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [{
+    "Effect": "Allow",
+    "Action": "sns:Publish",
+    "Resource": "arn:aws:sns:ap-southeast-1:347912233598:wellda-rfq-internal-alerts"
+  }]
+}
+```
+
+An SNS `MessageId` means SNS accepted the publication, **not** that Henry's
+mailbox received it. Before enabling production notifications, verify the
+runtime role permission and an isolated RFQ submission through the actual
+deployed handler, then confirm receipt in Outlook. Without the role or topic
+variable, SNS alerts are unavailable but RFQs remain saved.
 
 The RFQ form works without these in development mode — the form renders, but submissions will fail. The rest of the site (pages, search, navigation) does not depend on these variables.
 

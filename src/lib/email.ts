@@ -1,6 +1,7 @@
 import "server-only";
 
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
+import { PublishCommand, SNSClient } from "@aws-sdk/client-sns";
 import { query } from "@/lib/db";
 import { confirmationEmailEn, confirmationEmailZh, type ConfirmationEmailParams } from "@/lib/email/templates";
 
@@ -103,26 +104,28 @@ export interface InternalRfqNotificationParams {
   fileCount: number;
 }
 
-const RFQ_STAFF_NOTIFICATION_RECIPIENT = "henrychoi@wellda.com";
-const RFQ_STAFF_NOTIFICATION_SENDER = "eng@wellda.com";
-
 export async function sendInternalRfqNotification(
   params: InternalRfqNotificationParams,
 ): Promise<EmailResult> {
-  if (!["M365_TENANT_ID", "M365_CLIENT_ID", "M365_CLIENT_SECRET"].every(key => process.env[key])) {
-    return { sent: false, error: "Microsoft 365 staff notification not configured" };
+  const topicArn = process.env.SNS_RFQ_TOPIC_ARN;
+  if (!topicArn) {
+    return { sent: false, error: "SNS staff notification not configured" };
   }
 
-  // Plain text: no customer-provided HTML or attachments are included in email.
-  // The administrator retrieves drawings from the authenticated RFQ detail screen.
+  const topicParts = topicArn.split(":");
+  if (topicParts.length !== 6 || topicParts[0] !== "arn" || topicParts[2] !== "sns" || !topicParts[3] || !/^\d{12}$/.test(topicParts[4]) || !topicParts[5]) {
+    return { sent: false, error: "SNS staff notification topic is invalid" };
+  }
+
+  // Only a summary is delivered to the SNS topic's confirmed subscribers.
+  // Customer names, email addresses, notes and drawings stay in the authenticated admin view.
+  const oneLine = (value: string) => value.replace(/[\r\n\t]+/g, " ").trim();
   const message = [
     "A new website RFQ has been saved to the Well Da database.",
     "",
     "Reference: " + params.reference,
-    "Company: " + params.companyName,
-    "Project: " + params.projectName,
-    "Contact: " + params.contactName,
-    "Customer email: " + params.contactEmail,
+    "Company: " + oneLine(params.companyName),
+    "Project: " + oneLine(params.projectName),
     "Submitted: " + params.submittedAt,
     "Drawing files: " + params.fileCount,
     "",
@@ -132,61 +135,22 @@ export async function sendInternalRfqNotification(
     "Do not forward confidential drawings outside approved channels.",
   ].join("\n");
 
-  // App-only Graph send from the company's own Exchange Online mailbox.
-  // The Exchange application RBAC role must be scoped to the eng mailbox only.
-  // A 202 response means Graph accepted the request, not that Henry received it.
+  // The Amplify SSR Compute role must have sns:Publish scoped to this topic.
+  // An SNS MessageId confirms acceptance for delivery, not receipt in Henry's inbox.
   try {
-    const signal = AbortSignal.timeout(4500);
-    const tokenResponse = await fetch(
-      `https://login.microsoftonline.com/${encodeURIComponent(process.env.M365_TENANT_ID!)}/oauth2/v2.0/token`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({
-          client_id: process.env.M365_CLIENT_ID!,
-          client_secret: process.env.M365_CLIENT_SECRET!,
-          grant_type: "client_credentials",
-          scope: "https://graph.microsoft.com/.default",
-        }),
-        signal,
-        cache: "no-store",
-      },
-    );
-    if (!tokenResponse.ok) {
-      throw new Error(`Microsoft 365 token HTTP ${tokenResponse.status}`);
-    }
-    const token = (await tokenResponse.json()) as { access_token?: string };
-    if (!token.access_token) {
-      throw new Error("Microsoft 365 token missing access_token");
-    }
-
-    const mailResponse = await fetch(
-      `https://graph.microsoft.com/v1.0/users/${encodeURIComponent(RFQ_STAFF_NOTIFICATION_SENDER)}/sendMail`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token.access_token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          message: {
-            subject: "New website RFQ - " + params.reference,
-            body: { contentType: "Text", content: message },
-            toRecipients: [{ emailAddress: { address: RFQ_STAFF_NOTIFICATION_RECIPIENT } }],
-          },
-          saveToSentItems: true,
-        }),
-        signal,
-        cache: "no-store",
-      },
-    );
-    if (mailResponse.status !== 202) {
-      throw new Error(`Microsoft Graph sendMail HTTP ${mailResponse.status}`);
+    const client = new SNSClient({ region: topicParts[3] });
+    const result = await client.send(new PublishCommand({
+      TopicArn: topicArn,
+      Subject: "New website RFQ - " + params.reference,
+      Message: message,
+    }), { abortSignal: AbortSignal.timeout(4500) });
+    if (!result.MessageId) {
+      throw new Error("SNS Publish response missing MessageId");
     }
     return { sent: true };
   } catch (err) {
-    // Never log tokens, client secrets, or customer-supplied RFQ contents.
-    console.error("RFQ internal notification Graph failure:", err instanceof Error ? err.message : "Unknown error");
-    return { sent: false, error: "Microsoft 365 staff notification failed" };
+    // Never log AWS credentials, topic subscribers or customer-supplied RFQ contents.
+    console.error("RFQ internal notification SNS failure:", err instanceof Error ? err.name : "Unknown error");
+    return { sent: false, error: "SNS staff notification failed" };
   }
 }
